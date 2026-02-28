@@ -1,0 +1,30 @@
+# Data and environment
+data/
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# IDE and OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Results and large outputs (optional: track small samples)
+# results/checkpoints/*.pt
+# *.npz
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Logs
+*.log
+logs/

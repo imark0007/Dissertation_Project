@@ -1,0 +1,113 @@
+seed: 42
+
+data:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  dataset_name: "CICIoT2023"
+
+  label_column: "label"
+  benign_labels: ["BenignTraffic"]
+
+  # All 46 numeric flow features (no IP/timestamp in this dataset version)
+  flow_feature_columns:
+    - flow_duration
+    - Header_Length
+    - Protocol Type
+    - Duration
+    - Rate
+    - Srate
+    - Drate
+    - fin_flag_number
+    - syn_flag_number
+    - rst_flag_number
+    - psh_flag_number
+    - ack_flag_number
+    - ece_flag_number
+    - cwr_flag_number
+    - ack_count
+    - syn_count
+    - fin_count
+    - urg_count
+    - rst_count
+    - HTTP
+    - HTTPS
+    - DNS
+    - Telnet
+    - SMTP
+    - SSH
+    - IRC
+    - TCP
+    - UDP
+    - DHCP
+    - ARP
+    - ICMP
+    - IPv
+    - LLC
+    - Tot sum
+    - Min
+    - Max
+    - AVG
+    - Std
+    - Tot size
+    - IAT
+    - Number
+    - Magnitue
+    - Radius
+    - Covariance
+    - Variance
+    - Weight
+
+# Graph construction: kNN similarity graphs within flow windows
+graph:
+  window_size: 50           # flows per window (smaller = more windows from minority class)
+  knn_k: 5                  # k-nearest neighbours per node
+  sequence_length: 5        # windows per sequence for GRU
+  minority_stride: 25       # overlapping stride for minority class to augment samples
+
+# Federated Learning
+fl:
+  num_clients: 3
+  num_rounds: 10
+  split_by: "label_ratio"   # non-IID: skew label distribution per client
+  local_epochs: 2
+  alpha: 0.5                # Dirichlet alpha for non-IID (lower = more skewed)
+
+# Models
+models:
+  rf:
+    n_estimators: 200
+    max_depth: 20
+  mlp:
+    hidden_dims: [128, 64, 32]
+    dropout: 0.2
+    lr: 0.001
+    epochs: 30
+    batch_size: 256
+  dynamic_gnn:
+    node_dim: 46             # matches number of flow features
+    hidden_dim: 64
+    num_gat_layers: 2
+    gat_heads: 4
+    gru_hidden: 64
+    num_classes: 2
+    dropout: 0.2
+    lr: 0.001
+    epochs: 30
+    batch_size: 16           # sequences per batch
+
+# Training
+training:
+  early_stopping_patience: 5
+  class_weight_auto: true    # auto-compute from label imbalance
+
+# Evaluation
+evaluation:
+  metrics: ["precision", "recall", "f1", "roc_auc"]
+  save_roc_curves: true
+  save_confusion_matrix: true
+
+# Paths
+paths:
+  checkpoints: "results/checkpoints"
+  figures: "results/figures"
+  metrics: "results/metrics"

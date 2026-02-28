@@ -1,0 +1,387 @@
+[
+  {
+    "@timestamp": "2026-02-28T01:42:33.240353+00:00",
+    "event": {
+      "kind": "event",
+      "category": [
+        "network"
+      ],
+      "type": [
+        "info"
+      ],
+      "severity": 25,
+      "risk_score": 16.3
+    },
+    "rule": {
+      "name": "IoT Dynamic GNN Detector",
+      "description": "Dynamic GNN-based IoT traffic anomaly detection"
+    },
+    "threat": {
+      "indicator": {
+        "confidence": "low"
+      }
+    },
+    "ml": {
+      "prediction": "benign",
+      "score": 0.1632,
+      "inference_ms": 0.0,
+      "model": "DynamicGNN-GAT-GRU"
+    },
+    "explanation": {
+      "top_nodes": [
+        {
+          "node_idx": 31,
+          "importance": 0.002081675920635462
+        },
+        {
+          "node_idx": 20,
+          "importance": 0.0018975662533193827
+        },
+        {
+          "node_idx": 38,
+          "importance": 0.0016204314306378365
+        },
+        {
+          "node_idx": 43,
+          "importance": 0.0012685986002907157
+        },
+        {
+          "node_idx": 40,
+          "importance": 0.001215660129673779
+        }
+      ],
+      "top_features": [
+        {
+          "name": "Variance",
+          "importance": 0.00558511633425951
+        },
+        {
+          "name": "Std",
+          "importance": 0.004958044737577438
+        },
+        {
+          "name": "rst_count",
+          "importance": 0.004797253292053938
+        },
+        {
+          "name": "Duration",
+          "importance": 0.0031291688792407513
+        },
+        {
+          "name": "AVG",
+          "importance": 0.0030299650970846415
+        }
+      ]
+    },
+    "_true_label": "benign",
+    "_sample_idx": 0
+  },
+  {
+    "@timestamp": "2026-02-28T01:42:33.306906+00:00",
+    "event": {
+      "kind": "alert",
+      "category": [
+        "threat"
+      ],
+      "type": [
+        "indicator"
+      ],
+      "severity": 75,
+      "risk_score": 99.7
+    },
+    "rule": {
+      "name": "IoT Dynamic GNN Detector",
+      "description": "Dynamic GNN-based IoT traffic anomaly detection"
+    },
+    "threat": {
+      "indicator": {
+        "confidence": "high"
+      }
+    },
+    "ml": {
+      "prediction": "malicious",
+      "score": 0.9973,
+      "inference_ms": 0.0,
+      "model": "DynamicGNN-GAT-GRU"
+    },
+    "explanation": {
+      "top_nodes": [
+        {
+          "node_idx": 43,
+          "importance": 0.0018516427371650934
+        },
+        {
+          "node_idx": 49,
+          "importance": 0.001851639011874795
+        },
+        {
+          "node_idx": 16,
+          "importance": 0.0018516293494030833
+        },
+        {
+          "node_idx": 48,
+          "importance": 0.0013582040555775166
+        },
+        {
+          "node_idx": 7,
+          "importance": 0.0013476824387907982
+        }
+      ],
+      "top_features": [
+        {
+          "name": "psh_flag_number",
+          "importance": 0.0032857873011380434
+        },
+        {
+          "name": "ICMP",
+          "importance": 0.002916923491284251
+        },
+        {
+          "name": "Variance",
+          "importance": 0.0028565835673362017
+        },
+        {
+          "name": "rst_flag_number",
+          "importance": 0.002667335793375969
+        },
+        {
+          "name": "Protocol Type",
+          "importance": 0.0025469264946877956
+        }
+      ]
+    },
+    "_true_label": "attack",
+    "_sample_idx": 5
+  },
+  {
+    "@timestamp": "2026-02-28T01:42:33.356220+00:00",
+    "event": {
+      "kind": "alert",
+      "category": [
+        "threat"
+      ],
+      "type": [
+        "indicator"
+      ],
+      "severity": 75,
+      "risk_score": 99.6
+    },
+    "rule": {
+      "name": "IoT Dynamic GNN Detector",
+      "description": "Dynamic GNN-based IoT traffic anomaly detection"
+    },
+    "threat": {
+      "indicator": {
+        "confidence": "high"
+      }
+    },
+    "ml": {
+      "prediction": "malicious",
+      "score": 0.9962,
+      "inference_ms": 0.0,
+      "model": "DynamicGNN-GAT-GRU"
+    },
+    "explanation": {
+      "top_nodes": [
+        {
+          "node_idx": 16,
+          "importance": 0.0013314434327185154
+        },
+        {
+          "node_idx": 31,
+          "importance": 0.001331442384980619
+        },
+        {
+          "node_idx": 24,
+          "importance": 0.0013314422685652971
+        },
+        {
+          "node_idx": 27,
+          "importance": 0.0013314362149685621
+        },
+        {
+          "node_idx": 1,
+          "importance": 0.0013275586534291506
+        }
+      ],
+      "top_features": [
+        {
+          "name": "rst_flag_number",
+          "importance": 0.002607080154120922
+        },
+        {
+          "name": "ICMP",
+          "importance": 0.0023699693847447634
+        },
+        {
+          "name": "psh_flag_number",
+          "importance": 0.0020896117202937603
+        },
+        {
+          "name": "Protocol Type",
+          "importance": 0.00198621884919703
+        },
+        {
+          "name": "ack_count",
+          "importance": 0.0017778432229533792
+        }
+      ]
+    },
+    "_true_label": "attack",
+    "_sample_idx": 10
+  },
+  {
+    "@timestamp": "2026-02-28T01:42:33.425213+00:00",
+    "event": {
+      "kind": "alert",
+      "category": [
+        "threat"
+      ],
+      "type": [
+        "indicator"
+      ],
+      "severity": 75,
+      "risk_score": 71.0
+    },
+    "rule": {
+      "name": "IoT Dynamic GNN Detector",
+      "description": "Dynamic GNN-based IoT traffic anomaly detection"
+    },
+    "threat": {
+      "indicator": {
+        "confidence": "medium"
+      }
+    },
+    "ml": {
+      "prediction": "malicious",
+      "score": 0.7105,
+      "inference_ms": 0.0,
+      "model": "DynamicGNN-GAT-GRU"
+    },
+    "explanation": {
+      "top_nodes": [
+        {
+          "node_idx": 48,
+          "importance": 0.0027023381553590298
+        },
+        {
+          "node_idx": 39,
+          "importance": 0.002077697543427348
+        },
+        {
+          "node_idx": 3,
+          "importance": 0.0016776571283116937
+        },
+        {
+          "node_idx": 19,
+          "importance": 0.0016613260377198458
+        },
+        {
+          "node_idx": 47,
+          "importance": 0.0016493711154907942
+        }
+      ],
+      "top_features": [
+        {
+          "name": "Variance",
+          "importance": 0.007472250144928694
+        },
+        {
+          "name": "rst_count",
+          "importance": 0.006161637604236603
+        },
+        {
+          "name": "Std",
+          "importance": 0.005601468961685896
+        },
+        {
+          "name": "Duration",
+          "importance": 0.005249087233096361
+        },
+        {
+          "name": "AVG",
+          "importance": 0.003747164038941264
+        }
+      ]
+    },
+    "_true_label": "benign",
+    "_sample_idx": 15
+  },
+  {
+    "@timestamp": "2026-02-28T01:42:33.488138+00:00",
+    "event": {
+      "kind": "alert",
+      "category": [
+        "threat"
+      ],
+      "type": [
+        "indicator"
+      ],
+      "severity": 75,
+      "risk_score": 94.5
+    },
+    "rule": {
+      "name": "IoT Dynamic GNN Detector",
+      "description": "Dynamic GNN-based IoT traffic anomaly detection"
+    },
+    "threat": {
+      "indicator": {
+        "confidence": "high"
+      }
+    },
+    "ml": {
+      "prediction": "malicious",
+      "score": 0.9451,
+      "inference_ms": 0.0,
+      "model": "DynamicGNN-GAT-GRU"
+    },
+    "explanation": {
+      "top_nodes": [
+        {
+          "node_idx": 36,
+          "importance": 0.0018055246910080314
+        },
+        {
+          "node_idx": 13,
+          "importance": 0.0015344017883762717
+        },
+        {
+          "node_idx": 0,
+          "importance": 0.0014650945086032152
+        },
+        {
+          "node_idx": 42,
+          "importance": 0.001393783837556839
+        },
+        {
+          "node_idx": 28,
+          "importance": 0.0013472295831888914
+        }
+      ],
+      "top_features": [
+        {
+          "name": "Variance",
+          "importance": 0.006469822488725185
+        },
+        {
+          "name": "Std",
+          "importance": 0.004397526849061251
+        },
+        {
+          "name": "rst_count",
+          "importance": 0.004302583169192076
+        },
+        {
+          "name": "ack_flag_number",
+          "importance": 0.0033021920826286077
+        },
+        {
+          "name": "AVG",
+          "importance": 0.003254491603001952
+        }
+      ]
+    },
+    "_true_label": "benign",
+    "_sample_idx": 20
+  }
+]

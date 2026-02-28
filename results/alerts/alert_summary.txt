@@ -1,0 +1,80 @@
+=== Alert 1 (True label: benign) ===
+Prediction: benign  Score: 0.1632
+Severity: low
+Top features:
+  Variance: 0.0056
+  Std: 0.0050
+  rst_count: 0.0048
+  Duration: 0.0031
+  AVG: 0.0030
+Top nodes:
+  node_31: 0.0021
+  node_20: 0.0019
+  node_38: 0.0016
+  node_43: 0.0013
+  node_40: 0.0012
+
+=== Alert 2 (True label: attack) ===
+Prediction: malicious  Score: 0.9973
+Severity: high
+Top features:
+  psh_flag_number: 0.0033
+  ICMP: 0.0029
+  Variance: 0.0029
+  rst_flag_number: 0.0027
+  Protocol Type: 0.0025
+Top nodes:
+  node_43: 0.0019
+  node_49: 0.0019
+  node_16: 0.0019
+  node_48: 0.0014
+  node_7: 0.0013
+
+=== Alert 3 (True label: attack) ===
+Prediction: malicious  Score: 0.9962
+Severity: high
+Top features:
+  rst_flag_number: 0.0026
+  ICMP: 0.0024
+  psh_flag_number: 0.0021
+  Protocol Type: 0.0020
+  ack_count: 0.0018
+Top nodes:
+  node_16: 0.0013
+  node_31: 0.0013
+  node_24: 0.0013
+  node_27: 0.0013
+  node_1: 0.0013
+
+=== Alert 4 (True label: benign) ===
+Prediction: malicious  Score: 0.7105
+Severity: medium
+Top features:
+  Variance: 0.0075
+  rst_count: 0.0062
+  Std: 0.0056
+  Duration: 0.0052
+  AVG: 0.0037
+Top nodes:
+  node_48: 0.0027
+  node_39: 0.0021
+  node_3: 0.0017
+  node_19: 0.0017
+  node_47: 0.0016
+
+=== Alert 5 (True label: benign) ===
+Prediction: malicious  Score: 0.9451
+Severity: high
+Top features:
+  Variance: 0.0065
+  Std: 0.0044
+  rst_count: 0.0043
+  ack_flag_number: 0.0033
+  AVG: 0.0033
+Top nodes:
+  node_36: 0.0018
+  node_13: 0.0015
+  node_0: 0.0015
+  node_42: 0.0014
+  node_28: 0.0013
+
