@@ -54,11 +54,14 @@ def main():
     # Dynamic GNN
     gnn = DynamicGNN.from_config(cfg).to(device)
     gnn.eval()
-    seq_len = cfg.get("graph", {}).get("sequence_length", 5)
+    graph_cfg = cfg.get("graph", {})
+    seq_len = graph_cfg.get("sequence_length", 5)
+    window_size = graph_cfg.get("window_size", 50)
+    knn_k = graph_cfg.get("knn_k", 5)
     graphs = []
     for _ in range(seq_len):
-        feats = np.random.randn(200, 46).astype(np.float32)
-        graphs.append(flows_to_knn_graph(feats, 0, k=8))
+        feats = np.random.randn(window_size, 46).astype(np.float32)
+        graphs.append(flows_to_knn_graph(feats, 0, k=knn_k))
     # Warmup
     for _ in range(3):
         with torch.no_grad():

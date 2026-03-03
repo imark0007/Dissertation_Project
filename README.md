@@ -10,7 +10,7 @@ Pre-split into `data/raw/train.csv`, `test.csv`, `validation.csv` (~1.6 GB train
 ## Architecture
 
 ```
-Raw flows → StandardScaler preprocessing → kNN similarity graphs (windows of 200 flows)
+Raw flows → StandardScaler preprocessing → kNN similarity graphs (windows of 50 flows)
 → Sequences of 5 graph windows → 2-layer GATConv (4 heads) → Global pool → GRU → Classifier
 ```
 
@@ -88,3 +88,4 @@ python tests/test_api.py
 | GNN (federated) | - | -   | -   | -       | -              |
 
 *(Fill after running `scripts/run_all.py`; results saved to `results/metrics/`)*
+

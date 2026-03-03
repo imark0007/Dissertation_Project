@@ -2,8 +2,9 @@
 Federated Learning simulation: runs FedAvg with 3 non-IID clients in a single process.
 Uses Flower's simulation API — no need for separate server/client terminals.
 
-Usage: python scripts/run_fl_simulation.py --config config/experiment.yaml
+Usage: python scripts/run_fl_simulation.py [--config config/experiment.yaml]
 """
+import argparse
 import json
 import logging
 import sys
@@ -137,7 +138,10 @@ def fedavg_simulation(
 
 def main():
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
-    cfg = load_config("config/experiment.yaml")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config", default="config/experiment.yaml", help="Path to config YAML")
+    args = parser.parse_args()
+    cfg = load_config(args.config)
     fl_cfg = cfg.get("fl", {})
     fedavg_simulation(
         cfg,

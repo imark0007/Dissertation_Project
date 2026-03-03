@@ -39,7 +39,7 @@ Reads `data/raw/{train,test,validation}.csv`, normalises, creates binary labels,
 python -m src.data.graph_builder --config config/experiment.yaml
 ```
 
-Builds kNN similarity graphs (windows of 200 flows), saves to `data/graphs/`.
+Builds kNN similarity graphs (windows of 50 flows), saves to `data/graphs/`.
 
 ### 3. Train Baselines
 
@@ -104,3 +104,4 @@ python tests/test_api.py
 | `results/checkpoints/` | `dynamic_gnn_best.pt` |
 | `results/metrics/` | `rf_metrics.json`, `mlp_metrics.json`, `central_gnn_metrics.json`, `results_table.csv` |
 | `results/figures/` | ROC curves, confusion matrices, comparison bar charts |
+
