@@ -26,13 +26,13 @@ This section critically summarises the current academic literature in my subject
 
 The rapid proliferation of Internet of Things (IoT) devices has introduced significant security challenges across consumer, industrial, and critical infrastructure domains. IoT devices frequently ship with default credentials, limited cryptographic capability, and infrequent firmware updates, making them attractive targets for adversaries (Kolias et al., 2017). Once compromised, these devices serve as nodes in large-scale botnets such as Mirai, capable of launching volumetric distributed denial-of-service (DDoS) attacks exceeding 1 Tbps (Antonakakis et al., 2017). The heterogeneity and scale of IoT ecosystems further complicate defence, as traditional perimeter-based security models struggle to monitor thousands of constrained devices with diverse communication patterns.
 
-Software-Defined IoT (SDIoT) architectures address this complexity by decoupling the control plane from the data plane, allowing centralised network management through SDN controllers such as OpenFlow-based platforms (Bera, Misra and Vasilakos, 2017). In SDIoT environments, the SDN controller has visibility over all forwarding decisions and can export flow-level telemetry—including packet counts, byte counts, flag distributions, and protocol breakdowns—for every communication pair traversing the network. This centralised flow collection capability makes SDIoT environments particularly well-suited to machine-learning-based intrusion detection, as the controller provides a natural aggregation point for network-wide feature extraction without requiring agents on resource-constrained end devices (Bera, Misra and Vasilakos, 2017). The flow-level feature set used in this project, drawn from the CICIoT2023 dataset (Pinto et al., 2023), mirrors the telemetry that an SDN controller would produce, grounding the research in a realistic SDIoT deployment scenario.
+Software-Defined IoT (SDIoT) architectures address this complexity by decoupling the control plane from the data plane, allowing centralised network management through SDN controllers such as OpenFlow-based platforms (Bera, Misra and Vasilakos, 2017). In SDIoT environments, the SDN controller has visibility over all forwarding decisions and can export flow-level telemetry—including packet counts, byte counts, flag distributions, and protocol breakdowns—for every communication pair traversing the network. This centralised flow collection capability makes SDIoT environments particularly well-suited to machine-learning-based intrusion detection, as the controller provides a natural aggregation point for network-wide feature extraction without requiring agents on resource-constrained end devices (Bera, Misra and Vasilakos, 2017). The flow-level feature set used in this project, drawn from the CICIoT2023 dataset (Pinto Neto et al., 2023), mirrors the telemetry that an SDN controller would produce, grounding the research in a realistic SDIoT deployment scenario.
 
 However, Bera, Misra and Vasilakos (2017) focused primarily on architectural benefits of SDN for IoT management rather than demonstrating ML-based detection within that architecture, leaving a gap between the SDIoT vision and practical intrusion detection implementations. This project bridges that gap by building a detection system that operates on flow-level features consistent with SDN controller exports.
 
 ### 1.2 Machine Learning for Network Intrusion Detection
 
-Machine learning has become the dominant paradigm for network intrusion detection, with models trained on flow-level features to classify traffic as benign or malicious. Random Forest classifiers have demonstrated strong performance on tabular network datasets due to their resistance to overfitting and implicit feature selection through ensemble averaging (Ahmad et al., 2021). On the CICIoT2023 dataset specifically, Pinto et al. (2023) reported that Random Forest achieved classification accuracy above 99% for binary detection, establishing a strong baseline for comparison.
+Machine learning has become the dominant paradigm for network intrusion detection, with models trained on flow-level features to classify traffic as benign or malicious. Random Forest classifiers have demonstrated strong performance on tabular network datasets due to their resistance to overfitting and implicit feature selection through ensemble averaging (Ahmad et al., 2021). On the CICIoT2023 dataset specifically, Pinto Neto et al. (2023) reported that Random Forest achieved classification accuracy above 99% for binary detection, establishing a strong baseline for comparison.
 
 Deep learning approaches, particularly Multi-Layer Perceptrons (MLPs), offer the advantage of learning non-linear decision boundaries without manual feature engineering (Shone et al., 2018). Shone et al. (2018) demonstrated that deep autoencoders combined with shallow classifiers achieved competitive performance on the NSL-KDD dataset. However, their evaluation was limited to NSL-KDD, which is significantly smaller and less diverse than CICIoT2023, and they did not consider flow-level temporal dynamics or relational structure between network entities. Both Random Forest and MLP approaches treat each flow independently, discarding any relational or temporal context between flows—a limitation that graph-based methods can address.
 
@@ -107,7 +107,7 @@ This project follows a quantitative, experimental methodology in which multiple 
 
 ### 2.2 Dataset and Preprocessing
 
-The CICIoT2023 dataset (Pinto et al., 2023) contains flow-level records with 46 numeric features and labels covering benign traffic plus 34 attack categories spanning DDoS, DoS, reconnaissance, brute force, and spoofing. The dataset is pre-split into training, test, and validation CSV files totalling approximately 1.6 GB for training.
+The CICIoT2023 dataset (Pinto Neto et al., 2023) contains flow-level records with 46 numeric features and labels covering benign traffic plus 34 attack categories spanning DDoS, DoS, reconnaissance, brute force, and spoofing. The dataset is pre-split into training, test, and validation CSV files totalling approximately 1.6 GB for training.
 
 **Preprocessing steps:**
 
@@ -265,40 +265,40 @@ The core engineering work is substantially complete. The remaining work focuses 
 
 ## References
 
-Ahmad, Z., Shahid Khan, A., Wai Shiang, C., Abdullah, J. and Ahmad, F. (2021) 'Network intrusion detection system: A systematic study of machine learning and deep learning approaches', *Transactions on Emerging Telecommunications Technologies*, 32(1), pp. 1–29.
+Ahmad, Z., Shahid Khan, A., Wai Shiang, C., Abdullah, J. and Ahmad, F. (2021) 'Network intrusion detection system: a systematic study of machine learning and deep learning approaches', *Transactions on Emerging Telecommunications Technologies*, 32(1), e4150. doi: 10.1002/ett.4150.
 
-Alahmadi, B.A., Axon, L., Martinovic, I. and Sherr, M. (2022) '99% False Positives: A Qualitative Study of SOC Analysts' Perspectives on Security Alarms', in *Proceedings of the 31st USENIX Security Symposium*. Boston, MA: USENIX Association, pp. 2783–2800.
+Alahmadi, B.A., Axon, L., Martinovic, I. and Sherr, M. (2022) '99% false positives: a qualitative study of SOC analysts' perspectives on security alarms', in *Proceedings of the 31st USENIX Security Symposium*. Boston, MA, 10-12 August. Berkeley, CA: USENIX Association, pp. 2783-2800. Available at: https://www.usenix.org/conference/usenixsecurity22/presentation/alahmadi (Accessed: 15 June 2025).
 
-Alabbadi, A. and Bajaber, F. (2025) 'An intrusion detection system over the IoT data streams using eXplainable artificial intelligence (XAI)', *Sensors*, 25(3), p. 847.
+Alabbadi, A. and Bajaber, F. (2025) 'An intrusion detection system over the IoT data streams using eXplainable artificial intelligence (XAI)', *Sensors*, 25(3), p. 847. doi: 10.3390/s25030847.
 
-Albanbay, N., Tursynbek, Y., Graffi, K., Uskenbayeva, R., Kalpeyeva, Z., Abilkaiyr, Z. and Ayapov, Y. (2025) 'Federated learning-based intrusion detection in IoT networks: performance evaluation and data scaling study', *Journal of Sensor and Actuator Networks*, 14(4), p. 78.
+Albanbay, N., Tursynbek, Y., Graffi, K., Uskenbayeva, R., Kalpeyeva, Z., Abilkaiyr, Z. and Ayapov, Y. (2025) 'Federated learning-based intrusion detection in IoT networks: performance evaluation and data scaling study', *Journal of Sensor and Actuator Networks*, 14(4), p. 78. doi: 10.3390/jsan14040078.
 
-Antonakakis, M., April, T., Bailey, M., Bernhard, M., Bursztein, E., Cochran, J., Durumeric, Z., Halderman, J.A., Invernizzi, L., Kallitsis, M., Kumar, D., Lever, C., Ma, Z., Mason, J., Menscher, D., Seaman, C., Sullivan, N., Thomas, K. and Zhou, Y. (2017) 'Understanding the Mirai Botnet', in *Proceedings of the 26th USENIX Security Symposium*. Vancouver, BC: USENIX Association, pp. 1093–1110.
+Antonakakis, M., April, T., Bailey, M., Bernhard, M., Bursztein, E., Cochran, J., Durumeric, Z., Halderman, J.A., Invernizzi, L., Kallitsis, M., Kumar, D., Lever, C., Ma, Z., Mason, J., Menscher, D., Seaman, C., Sullivan, N., Thomas, K. and Zhou, Y. (2017) 'Understanding the Mirai botnet', in *Proceedings of the 26th USENIX Security Symposium*. Vancouver, BC, 16-18 August. Berkeley, CA: USENIX Association, pp. 1093-1110. Available at: https://www.usenix.org/conference/usenixsecurity17/technical-sessions/presentation/antonakakis (Accessed: 15 June 2025).
 
-Basak, M., Kim, D.-W., Han, M.-M. and Shin, G.-Y. (2025) 'X-GANet: an explainable graph-based framework for robust network intrusion detection', *Applied Sciences*, 15(9), p. 5002.
+Basak, M., Kim, D.-W., Han, M.-M. and Shin, G.-Y. (2025) 'X-GANet: an explainable graph-based framework for robust network intrusion detection', *Applied Sciences*, 15(9), p. 5002. doi: 10.3390/app15095002.
 
-Bera, S., Misra, S. and Vasilakos, A.V. (2017) 'Software-Defined Networking for Internet of Things: A Survey', *IEEE Internet of Things Journal*, 4(6), pp. 1994–2008.
+Bera, S., Misra, S. and Vasilakos, A.V. (2017) 'Software-defined networking for Internet of Things: a survey', *IEEE Internet of Things Journal*, 4(6), pp. 1994-2008. doi: 10.1109/JIOT.2017.2746186.
 
-Beutel, D.J., Tober, T., Steiner, D., Aber, S., Becker, T., Naseri, A., Tanner, Y. and Lane, N.D. (2020) 'Flower: A Friendly Federated Learning Framework', *arXiv preprint arXiv:2007.14390*, pp. 1–6.
+Beutel, D.J., Tober, T., Steiner, D., Aber, S., Becker, T., Naseri, A., Tanner, Y. and Lane, N.D. (2020) 'Flower: a friendly federated learning framework', *arXiv preprint*. doi: 10.48550/arXiv.2007.14390.
 
-Caville, E., Lo, W.W., Layeghy, S. and Portmann, M. (2022) 'Anomal-E: A Self-Supervised Network Intrusion Detection System based on Graph Neural Networks', *Knowledge-Based Systems*, 258, pp. 110–125.
+Caville, E., Lo, W.W., Layeghy, S. and Portmann, M. (2022) 'Anomal-E: a self-supervised network intrusion detection system based on graph neural networks', *Knowledge-Based Systems*, 258, p. 110030. doi: 10.1016/j.knosys.2022.110030.
 
-Kairouz, P., McMahan, H.B., Avent, B., Bellet, A., Bennis, M., Bhagoji, A.N., Bonawitz, K., Charles, Z., Cormode, G., Cummings, R., et al. (2021) 'Advances and Open Problems in Federated Learning', *Foundations and Trends in Machine Learning*, 14(1–2), pp. 1–210.
+Kairouz, P., McMahan, H.B., Avent, B., Bellet, A., Bennis, M., Bhagoji, A.N., Bonawitz, K., Charles, Z., Cormode, G., Cummings, R. et al. (2021) 'Advances and open problems in federated learning', *Foundations and Trends in Machine Learning*, 14(1-2), pp. 1-210. doi: 10.1561/2200000083.
 
-Kokhlikyan, N., Miglani, V., Martin, M., Wang, E., Alsallakh, B., Reynolds, J., Melnikov, A., Kliushkina, N., Araya, C., Yan, S. and Reblitz-Richardson, O. (2020) 'Captum: a unified and generic model interpretability library for PyTorch', *arXiv preprint arXiv:2009.07896*.
+Kokhlikyan, N., Miglani, V., Martin, M., Wang, E., Alsallakh, B., Reynolds, J., Melnikov, A., Kliushkina, N., Araya, C., Yan, S. and Reblitz-Richardson, O. (2020) 'Captum: a unified and generic model interpretability library for PyTorch', *arXiv preprint*. doi: 10.48550/arXiv.2009.07896.
 
-Kolias, C., Kambourakis, G., Stavrou, A. and Voas, J. (2017) 'DDoS in the IoT: Mirai and other botnets', *Computer*, 50(7), pp. 80–84.
+Kolias, C., Kambourakis, G., Stavrou, A. and Voas, J. (2017) 'DDoS in the IoT: Mirai and other botnets', *Computer*, 50(7), pp. 80-84. doi: 10.1109/MC.2017.201.
 
-Lazzarini, R., Tianfield, H. and Charissis, V. (2023) 'Federated learning for IoT intrusion detection', *AI*, 4(3), pp. 509–530.
+Lazzarini, R., Tianfield, H. and Charissis, V. (2023) 'Federated learning for IoT intrusion detection', *AI*, 4(3), pp. 509-530. doi: 10.3390/ai4030027.
 
-McMahan, B., Moore, E., Ramage, D., Hampson, S. and Arcas, B.A. (2017) 'Communication-efficient learning of deep networks from decentralized data', in *Proceedings of the 20th International Conference on Artificial Intelligence and Statistics (AISTATS)*. Fort Lauderdale, FL: PMLR, pp. 1273–1282.
+McMahan, B., Moore, E., Ramage, D., Hampson, S. and Arcas, B.A. (2017) 'Communication-efficient learning of deep networks from decentralized data', in *Proceedings of the 20th International Conference on Artificial Intelligence and Statistics (AISTATS)*. Fort Lauderdale, FL, 20-22 April. PMLR, pp. 1273-1282. Available at: http://proceedings.mlr.press/v54/mcmahan17a.html (Accessed: 15 June 2025).
 
-Ngo, T., Yin, J., Ge, Y.-F. and Wang, H. (2025) 'Optimizing IoT intrusion detection - a graph neural network approach with attribute-based graph construction', *Information*, 16(6), p. 499.
+Ngo, T., Yin, J., Ge, Y.-F. and Wang, H. (2025) 'Optimizing IoT intrusion detection: a graph neural network approach with attribute-based graph construction', *Information*, 16(6), p. 499. doi: 10.3390/info16060499.
 
-Pinto, C., Dadkhah, S., Ferreira, R., Zohourian, A., Lu, R. and Ghorbani, A.A. (2023) 'CICIoT2023: a real-time dataset and benchmark for large-scale attacks in IoT environment', *Sensors*, 23(13), p. 5941.
+Pinto Neto, E.C., Dadkhah, S., Ferreira, R., Zohourian, A., Lu, R. and Ghorbani, A.A. (2023) 'CICIoT2023: a real-time dataset and benchmark for large-scale attacks in IoT environment', *Sensors*, 23(13), p. 5941. doi: 10.3390/s23135941.
 
-Shone, N., Ngoc, T.N., Phai, V.D. and Shi, Q. (2018) 'A Deep Learning Approach to Network Intrusion Detection', *IEEE Transactions on Emerging Topics in Computational Intelligence*, 2(1), pp. 41–50.
+Shone, N., Ngoc, T.N., Phai, V.D. and Shi, Q. (2018) 'A deep learning approach to network intrusion detection', *IEEE Transactions on Emerging Topics in Computational Intelligence*, 2(1), pp. 41-50. doi: 10.1109/TETCI.2017.2772792.
 
-Sundararajan, M., Taly, A. and Yan, Q. (2017) 'Axiomatic attribution for deep networks', in *Proceedings of the 34th International Conference on Machine Learning (ICML)*. Sydney, Australia: PMLR, pp. 3319–3328.
+Sundararajan, M., Taly, A. and Yan, Q. (2017) 'Axiomatic attribution for deep networks', in *Proceedings of the 34th International Conference on Machine Learning (ICML)*. Sydney, Australia, 6-11 August. PMLR, pp. 3319-3328. Available at: http://proceedings.mlr.press/v70/sundararajan17a.html (Accessed: 15 June 2025).
 
-Velickovic, P., Cucurull, G., Casanova, A., Romero, A., Lio, P. and Bengio, Y. (2018) 'Graph attention networks', in *International Conference on Learning Representations (ICLR)*. Available at: [https://openreview.net/forum?id=rJXMpikCZ](https://openreview.net/forum?id=rJXMpikCZ)
+Velickovic, P., Cucurull, G., Casanova, A., Romero, A., Lio, P. and Bengio, Y. (2018) 'Graph attention networks', in *Proceedings of the 6th International Conference on Learning Representations (ICLR)*. Vancouver, BC, 30 April - 3 May. Available at: https://openreview.net/forum?id=rJXMpikCZ (Accessed: 15 June 2025).

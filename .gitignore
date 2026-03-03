@@ -13,6 +13,8 @@ build/
 # IDE and OS
 .idea/
 .vscode/
+~$*
+
 *.swp
 .DS_Store
 Thumbs.db
