@@ -74,14 +74,16 @@ Table 1 summarises the capabilities of the key related works against the four pi
 
 **Table 1: Comparison of Related Work Against Project Pillars**
 
-| Study | Dynamic GNN | Federated Learning | Explainability | SIEM Integration |
-|-------|-------------|-------------------|----------------|------------------|
-| Basak et al. (2025) | Static GNN | ✗ | ✓ (partial) | ✗ |
-| Ngo et al. (2025) | Static GNN | ✗ | ✗ | ✗ |
-| Lazzarini et al. (2023) | ✗ | ✓ (IID only) | ✗ | ✗ |
-| Albanbay et al. (2025) | ✗ | ✓ (non-IID) | ✗ | ✗ |
-| Alabbadi and Bajaber (2025) | ✗ | ✗ | ✓ (SHAP) | ✗ |
-| This project | ✓ (GAT+GRU) | ✓ (non-IID) | ✓ (IG+Attention) | ✓ (ECS JSON) |
+
+| Study                       | Dynamic GNN | Federated Learning | Explainability   | SIEM Integration |
+| --------------------------- | ----------- | ------------------ | ---------------- | ---------------- |
+| Basak et al. (2025)         | Static GNN  | ✗                  | ✓ (partial)      | ✗                |
+| Ngo et al. (2025)           | Static GNN  | ✗                  | ✗                | ✗                |
+| Lazzarini et al. (2023)     | ✗           | ✓ (IID only)       | ✗                | ✗                |
+| Albanbay et al. (2025)      | ✗           | ✓ (non-IID)        | ✗                | ✗                |
+| Alabbadi and Bajaber (2025) | ✗           | ✗                  | ✓ (SHAP)         | ✗                |
+| This project                | ✓ (GAT+GRU) | ✓ (non-IID)        | ✓ (IG+Attention) | ✓ (ECS JSON)     |
+
 
 No existing study in the reviewed literature combines all four elements—dynamic graph neural network with temporal modelling, federated learning under non-IID conditions, dual explainability (feature attribution plus structural attention), and SIEM-compatible alert generation—in a single prototype evaluated on CICIoT2023. This project fills that specific gap by integrating all four capabilities into a CPU-deployable edge system suitable for SOC operations.
 
@@ -138,11 +140,8 @@ Because the public CICIoT2023 dataset does not contain device identifiers or IP 
 Four models are trained and compared, representing increasing structural sophistication:
 
 - **Random Forest (Baseline 1):** 200 decision trees with maximum depth 20, trained on flat 46-dimensional feature vectors. Selected as a strong non-neural baseline that is fast to train and resistant to overfitting. Each flow is classified independently.
-
 - **MLP (Baseline 2):** Three hidden layers (128, 64, 32 neurons) with ReLU activation and 20% dropout, trained on the same flat features. Selected to isolate the contribution of neural learning from graph structure—any GNN improvement over MLP demonstrates the value of relational modelling.
-
 - **Centralised Dynamic GNN (Main Model):** The core architecture comprises: (1) Two GAT convolutional layers (4 attention heads, hidden dimension 64) that learn neighbourhood-aware node representations through multi-head attention; (2) Global mean pooling that aggregates all node representations into a single graph-level embedding per window; (3) A GRU recurrent layer (hidden dimension 64) that processes the sequence of 5 graph embeddings to capture temporal dynamics; (4) A fully connected classifier that produces binary attack/benign probability.
-
 - **Federated Dynamic GNN:** Identical architecture to the centralised GNN, but trained using FedAvg across 3 simulated clients with Dirichlet Non-IID data splitting (alpha=0.5) for 10 communication rounds with 2 local training epochs per round. Alpha=0.5 creates moderate heterogeneity—each client observes a different distribution of attack types, simulating realistic IoT deployment scenarios where different network segments face different threat profiles (Albanbay et al., 2025). Flower (Beutel et al., 2020) is used as the federated learning framework.
 
 ### 2.5 Data Gathering and Analysis
@@ -155,13 +154,21 @@ Class-weighted loss (automatically computed inversely proportional to class freq
 
 Performance is evaluated using the following metrics, chosen for their relevance to SOC operations:
 
-**Precision** (Eq. 1): Precision = TP / (TP + FP)
+**Precision** (Eq. 1):
 
-**Recall** (Eq. 2): Recall = TP / (TP + FN)
+$$\text{Precision} = \frac{TP}{TP + FP}$$
 
-**F1-score** (Eq. 3): F1 = 2 × (Precision × Recall) / (Precision + Recall)
+**Recall** (Eq. 2):
 
-**False Alarm Rate (FAR)** (Eq. 4): FAR = FP / (FP + TN)
+$$\text{Recall} = \frac{TP}{TP + FN}$$
+
+**F1-score** (Eq. 3):
+
+$$F_1 = \frac{2 \times (\text{Precision} \times \text{Recall})}{\text{Precision} + \text{Recall}}$$
+
+**False Alarm Rate (FAR)** (Eq. 4):
+
+$$\text{FAR} = \frac{FP}{FP + TN}$$
 
 **Additionally:**
 
@@ -185,43 +192,7 @@ Figure 1 illustrates the complete research pipeline from raw data to SIEM alert 
 
 **Figure 1: Research Pipeline**
 
-```
-┌─────────────┐    ┌──────────────┐    ┌────────────────────┐    ┌──────────────┐
-│ CICIoT2023  │───▶│ Preprocessing│───▶│ kNN Graph Builder  │───▶│ Sequences of │
-│ Raw CSVs    │    │ StandardScale│    │ 50 flows/window    │    │ 5 windows    │
-└─────────────┘    │ Binary Label │    │ k=5 Euclidean      │    └──────┬───────┘
-                   └──────────────┘    │ Stratified Windows │           │
-                                       └────────────────────┘           │
-                          ┌────────────────────────────────────────────┘
-                          ▼
-          ┌───────────────────────────────────┐
-          │         Model Training            │
-          │  ┌─────┐ ┌─────┐ ┌─────────────┐ │
-          │  │ RF  │ │ MLP │ │Central GNN  │ │
-          │  └─────┘ └─────┘ │(GAT+GRU)   │ │
-          │                   └──────┬──────┘ │
-          │                          │        │
-          │                   ┌──────▼──────┐ │
-          │                   │Federated GNN│ │
-          │                   │FedAvg,3 cli.│ │
-          │                   └─────────────┘ │
-          └───────────────┬───────────────────┘
-                          ▼
-          ┌───────────────────────────────────┐
-          │       Evaluation & Output         │
-          │  ┌──────────┐  ┌───────────────┐  │
-          │  │ Metrics: │  │ Explainability:│  │
-          │  │ P,R,F1,  │  │ Captum IG +   │  │
-          │  │ ROC-AUC, │  │ GAT Attention  │  │
-          │  │ FAR, Time│  └───────┬───────┘  │
-          │  └──────────┘          │           │
-          │                 ┌──────▼───────┐   │
-          │                 │ SIEM Alerts   │   │
-          │                 │ ECS JSON via  │   │
-          │                 │ FastAPI       │   │
-          │                 └──────────────┘   │
-          └───────────────────────────────────┘
-```
+![Figure 1: Research Pipeline - From Raw IoT Flow Data to Explainable SIEM Alerts](assets/figure1_pipeline.png)
 
 ### 2.8 Academic Worth and Verifiable Goal
 
@@ -271,24 +242,23 @@ The core engineering work is substantially complete. The remaining work focuses 
 
 **Table 2: Completion Timeline**
 
-| Week | Dates (Approx.) | Tasks | Deliverables |
-|------|-----------------|-------|--------------|
-| 5 | Current week | Finalise all experiments; ensure reproducibility with fixed seeds; generate final metrics for all four models | Final metric tables, confusion matrices |
-| 5–6 | +1 week | Generate all figures: confusion matrices, ROC curves, FL convergence plot (F1 vs. round), inference time comparison bar chart | All dissertation figures |
-| 6 | +1.5 weeks | Conduct sensitivity analysis: vary k (3,5,7), window_size (25,50,100) if time permits; document results | Sensitivity analysis table (optional) |
-| 6–7 | +2 weeks | Write Results chapter with all tables and figures; write Discussion chapter interpreting results against hypotheses H1–H3 | Draft Results and Discussion chapters |
-| 7 | +2.5 weeks | Write Conclusion and Critical Self-Evaluation; revisit literature review for any additional references prompted by results | Draft Conclusion chapter |
-| 7–8 | +3 weeks | Incorporate interim report feedback from supervisor; integrate all chapters; polish references and formatting; proofread | Complete dissertation draft |
-| 8 | Submission week | Final proofread; check word count; verify all figures render correctly; submit | Final dissertation submission |
+
+| Week | Dates (Approx.) | Tasks                                                                                                                         | Deliverables                            |
+| ---- | --------------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| 5    | Current week    | Finalise all experiments; ensure reproducibility with fixed seeds; generate final metrics for all four models                 | Final metric tables, confusion matrices |
+| 5–6  | +1 week         | Generate all figures: confusion matrices, ROC curves, FL convergence plot (F1 vs. round), inference time comparison bar chart | All dissertation figures                |
+| 6    | +1.5 weeks      | Conduct sensitivity analysis: vary k (3,5,7), window_size (25,50,100) if time permits; document results                       | Sensitivity analysis table (optional)   |
+| 6–7  | +2 weeks        | Write Results chapter with all tables and figures; write Discussion chapter interpreting results against hypotheses H1–H3     | Draft Results and Discussion chapters   |
+| 7    | +2.5 weeks      | Write Conclusion and Critical Self-Evaluation; revisit literature review for any additional references prompted by results    | Draft Conclusion chapter                |
+| 7–8  | +3 weeks        | Incorporate interim report feedback from supervisor; integrate all chapters; polish references and formatting; proofread      | Complete dissertation draft             |
+| 8    | Submission week | Final proofread; check word count; verify all figures render correctly; submit                                                | Final dissertation submission           |
+
 
 ### 3.3 Contingency Plans
 
 - **Scenario 1: Results do not support H1 (GNN does not outperform baselines).** This is a valid finding. The discussion will analyse why flat models may suffice for this dataset (e.g., kNN graphs may not add information beyond what features already encode). The contribution shifts to empirical evidence about when graph structure does and does not help.
-
 - **Scenario 2: Federated GNN shows significant degradation (>5% F1 drop).** The analysis will investigate whether non-IID heterogeneity or insufficient communication rounds caused the gap, with recommendations for techniques such as FedProx or increased rounds to mitigate the effect.
-
 - **Scenario 3: Explainability computation is too slow for real-time use.** Integrated Gradients will be applied to a representative subset of alerts (e.g., top 10% by confidence score) rather than all alerts, with the latency trade-off documented. The discussion will recommend approximation methods (e.g., gradient × input) for full-speed deployment.
-
 - **Scenario 4: Time overrun on writing.** The sensitivity analysis (Week 6) is designated as optional and will be dropped first. The core deliverable (four-model comparison with explanations and alerts) remains achievable within the remaining timeline.
 
 ---
@@ -331,4 +301,4 @@ Shone, N., Ngoc, T.N., Phai, V.D. and Shi, Q. (2018) 'A Deep Learning Approach t
 
 Sundararajan, M., Taly, A. and Yan, Q. (2017) 'Axiomatic attribution for deep networks', in *Proceedings of the 34th International Conference on Machine Learning (ICML)*. Sydney, Australia: PMLR, pp. 3319–3328.
 
-Velickovic, P., Cucurull, G., Casanova, A., Romero, A., Lio, P. and Bengio, Y. (2018) 'Graph attention networks', in *International Conference on Learning Representations (ICLR)*. Available at: <https://openreview.net/forum?id=rJXMpikCZ>
+Velickovic, P., Cucurull, G., Casanova, A., Romero, A., Lio, P. and Bengio, Y. (2018) 'Graph attention networks', in *International Conference on Learning Representations (ICLR)*. Available at: [https://openreview.net/forum?id=rJXMpikCZ](https://openreview.net/forum?id=rJXMpikCZ)
