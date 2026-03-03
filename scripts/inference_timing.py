@@ -1,7 +1,8 @@
 """
 Measure CPU inference time for all models: RF, MLP, Dynamic GNN.
-Usage: python scripts/inference_timing.py --config config/experiment.yaml
+Usage: python scripts/inference_timing.py [--config config/experiment.yaml]
 """
+import argparse
 import sys
 import time
 from pathlib import Path
@@ -19,7 +20,10 @@ from src.models.dynamic_gnn import DynamicGNN
 
 
 def main():
-    cfg = load_config("config/experiment.yaml")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config", default="config/experiment.yaml", help="Path to experiment config")
+    args = parser.parse_args()
+    cfg = load_config(args.config)
     n_runs = 100
     device = torch.device("cpu")
 
