@@ -37,5 +37,4 @@ Thumbs.db
 logs/
 
 # Do not push to GitHub
-archive/                          # Personal/interim docs, attendance, process logs
 docs/MSc Project Handbook*.docx   # University copyrighted material
