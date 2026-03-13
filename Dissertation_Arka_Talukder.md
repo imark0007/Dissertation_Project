@@ -1,19 +1,46 @@
 # Explainable Dynamic Graph Neural Network SIEM for Software-Defined IoT using Edge AI and Federated Learning
 
-**Student:** Arka Talukder  
-**Programme:** MSc Cyber Security (Full-time)  
-**Supervisor:** Dr. Raja Ujjan  
-**University of the West of Scotland**
+**Arka Talukder | B01821011**  
+**MSc Cyber Security (Full-time)**  
+**University of the West of Scotland**  
+**School of Computing, Engineering and Physical Sciences**  
+**Supervisor: Dr. Raja Ujjan**
+
+---
+
+## Front Matter (complete before submission)
+
+- **Front sheet:** Download from Moodle: Final Submission of Project Report / MSc Project - Front sheet for final report
+- **Declaration of originality:** Download from Moodle: MSc Project - declaration of originality form (signed)
+- **Library Release form:** Download from Moodle: MSc Project - Library Release Form (signed)
 
 ---
 
 ## 1. Abstract
 
-IoT devices are used in many places today, from homes to factories, but they are often not very secure. Security Operations Centre (SOC) teams need tools that can detect attacks quickly, give accurate results, and explain why an alert was raised so that analysts can act on it. This project aims to design and build a small prototype system that detects attacks in IoT network traffic using a dynamic graph neural network and federated learning. The system also provides simple explanations for each alert so that SOC analysts can understand and use them without needing deep technical knowledge.
-
-The main research question is: how can an explainable dynamic graph neural network, trained using federated learning, detect attacks in Software-Defined IoT flow data and generate SIEM alerts that support SOC operations on CPU-based edge devices? To answer this, the project uses the CICIoT2023 dataset (Pinto et al., 2023), constructs kNN feature-similarity graphs from flow windows — where each flow record is a node and edges connect flows with similar network characteristics — and compares a dynamic GNN (Graph Attention with GRU) against baseline models such as Random Forest and MLP. Federated learning is implemented with the Flower framework using FedAvg with two to three clients, so that training can happen without sharing raw data. Explainability is added using Integrated Gradients (Captum) and attention weights, and alerts are output in a SIEM-style JSON format (ECS-like) with top features and flows included. The system is deployed as a FastAPI endpoint and evaluated with precision, recall, F1-score, ROC-AUC, false positive rate, confusion matrix, and CPU inference time. The project also examines whether federated learning keeps performance close to centralised training and whether the explanations are useful for SOC alert triage. The work is kept realistic for a 45-day MSc project, with a focus on practical SOC use and lightweight, CPU-based deployment.
+IoT devices are increasingly deployed but often lack strong security. Security Operations Centre (SOC) teams need detection tools that are accurate, explainable, and suitable for edge deployment. This project designs and builds a prototype system that detects attacks in IoT network traffic using a dynamic graph neural network (GNN) with federated learning and explainability. The main research question is: how can an explainable dynamic GNN, trained using federated learning, detect attacks in Software-Defined IoT flow data and generate SIEM alerts that support SOC operations on CPU-based edge devices? The project uses the CICIoT2023 dataset, constructs kNN feature-similarity graphs from flow windows, and compares a dynamic GNN (Graph Attention with GRU) against Random Forest and MLP baselines. Federated learning is implemented with Flower and FedAvg across three clients with non-IID data. Explainability uses Integrated Gradients (Captum) and attention weights; alerts are output in ECS-like JSON format. The system achieves 100% F1 and ROC-AUC for both centralised and federated GNN, with CPU inference under 23 ms per sample. Federated learning maintains full performance without sharing raw data. The prototype demonstrates feasibility for SOC-oriented, edge-deployable IoT intrusion detection.
 
 **Keywords:** IoT security, dynamic graph neural network, federated learning, SIEM, explainable AI, edge AI, SOC, CICIoT2023
+
+*Word count: 198*
+
+---
+
+## Table of Contents
+
+1. Introduction
+2. Literature Review
+3. Research Design and Methodology
+4. Implementation and System Development
+5. Evaluation
+6. Results Presentation
+7. Discussion
+8. Conclusion and Recommendations
+9. Critical Self-Evaluation
+10. References
+11. Appendices
+
+*Note: Add page numbers when formatting for submission. Include separate Tables of Figures and Tables if used.*
 
 ---
 
@@ -237,7 +264,16 @@ This section presents the main results: model comparison, federated learning beh
 
 The dynamic GNN (GAT + GRU), Random Forest, and MLP were evaluated on the same test set. Table 1 (or equivalent) summarises precision, recall, F1-score, ROC-AUC, and false positive rate for each model. The confusion matrix for the chosen model (e.g. the dynamic GNN) is presented to show true positives, false positives, true negatives, and false negatives.
 
-In the experiments conducted, the dynamic GNN achieved 100.0% F1 and 100.0% ROC-AUC on the test set, compared to 99.86% F1 and 99.96% ROC-AUC for Random Forest and 99.42% F1 and 99.84% ROC-AUC for the MLP. All three models performed well on this dataset, but the dynamic GNN achieved the highest scores, suggesting that the kNN graph structure and temporal sequence modelling via GRU provide additional discriminative power for distinguishing benign from attack traffic patterns. The baselines (Random Forest and MLP) were also strong, which is consistent with the fact that CICIoT2023 flow features are well-engineered and carry significant signal even without graph structure. The false alarm rate for the dynamic GNN was 0.0%, compared to 4.84% for Random Forest (187 false positives) and 0.10% for MLP (4 false positives). The low false alarm rate of the GNN is particularly important for SOC use, as fewer false alarms reduce analyst fatigue and increase trust in the alerting system.
+Table 1 summarises the performance of all four models. The dynamic GNN (centralised and federated) achieved 100.0% F1 and 100.0% ROC-AUC on the test set, compared to 99.86% F1 and 99.96% ROC-AUC for Random Forest and 99.42% F1 and 99.84% ROC-AUC for the MLP. All three model types performed well, but the dynamic GNN achieved the highest scores, suggesting that the kNN graph structure and temporal sequence modelling via GRU provide additional discriminative power. The baselines were also strong, consistent with CICIoT2023 flow features being well-engineered. The false alarm rate for the dynamic GNN was 0.0%, compared to 4.84% for Random Forest (187 false positives) and 0.10% for MLP (4 false positives). The low false alarm rate of the GNN is particularly important for SOC use.
+
+**Table 1: Model comparison on CICIoT2023 test set**
+
+| Model | Precision | Recall | F1 | ROC-AUC | Inference (ms) |
+|-------|-----------|--------|-----|---------|----------------|
+| Random Forest | 0.9989 | 0.9984 | 0.9986 | 0.9996 | 46.09 |
+| MLP | 1.0000 | 0.9885 | 0.9942 | 0.9984 | 0.66 |
+| Central GNN | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 22.70 |
+| Federated GNN | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 20.99 |
 
 ### 7.2 Federated Learning (Sub-Question 2)
 
@@ -247,7 +283,7 @@ Communication cost was approximated from the size of the model parameters. The D
 
 ### 7.3 Time-Window and CPU Inference (Sub-Question 2 and Deployment)
 
-CPU inference time was measured for all models. Random Forest required 26.4 ms per sample, MLP required 0.15 ms per sample, and the Dynamic GNN required 61.5 ms per sequence of 5 graph windows (each with 50 nodes). For the Dynamic GNN, this equates to approximately 12.3 ms per window. These timings confirm that all models, including the GNN, can run on CPU-only edge devices with latency suitable for near-real-time alerting. The MLP is the fastest at sub-millisecond inference, while the GNN provides richer structural analysis at a modest computational cost.
+CPU inference time was measured for all models. Random Forest required 46.09 ms per sample, MLP required 0.66 ms per sample, and the Dynamic GNN required 22.70 ms (centralised) or 20.99 ms (federated) per sequence of 5 graph windows. These timings confirm that all models, including the GNN, can run on CPU-only edge devices with latency suitable for near-real-time alerting. The MLP is the fastest at sub-millisecond inference, while the GNN provides richer structural analysis at modest computational cost (under 23 ms per sample).
 
 ### 7.4 Example Alerts with Explanations (Sub-Question 3)
 
@@ -370,5 +406,24 @@ Wang, R., Zhao, J., Zhang, H., He, L., Li, H. and Huang, M. (2025) 'Network traf
 Yang, S., Pan, W., Li, M., Yin, M., Ren, H., Chang, Y., Liu, Y., Zhang, S. and Lou, F. (2025) 'Industrial Internet of Things intrusion detection system based on graph neural network', *Symmetry*, 17(7), pp. 997-997. Available at: <https://doi.org/10.3390/sym17070997>
 
 Zhong, M., Lin, M., Zhang, C. and Xu, Z. (2024) 'A survey on graph neural networks for intrusion detection systems: methods, trends and challenges', *Computers and Security*, 141, pp. 103821-103821. Available at: <https://doi.org/10.1016/j.cose.2024.103821>
+
+---
+
+## Appendices
+
+### Appendix A: Project Process Documents
+
+Include copies of your completed project process documents:
+- **Project Process Documentation:** Arka_Talukder_Process_Documentation_B01821011.docx (archive/process_attendance/)
+- **Attendance Log:** Arka Talukder_Attendance_Jan-Feb_B01821011.docx (archive/process_attendance/)
+
+### Appendix B: Project Specification
+
+Include a copy of your agreed project specification:
+- **Arka-B01821011_MSc Cyber Security Project specification_form_2025-26.docx** (project root)
+
+---
+
+*Document prepared in accordance with MSc Project Handbook 2025-26. Format for submission: 1.5 line spacing, 11pt+ font, numbered figures and tables. Submit to Turnitin and to module co-ordinator via email. Arrange viva voce within 10-14 days of submission.*
 
 ---

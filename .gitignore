@@ -3,7 +3,12 @@ data/
 venv/
 .venv/
 env/
+
+# Build artifacts
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
 *.py[cod]
 *.egg-info/
 .eggs/
@@ -30,3 +35,7 @@ Thumbs.db
 # Logs
 *.log
 logs/
+
+# Do not push to GitHub
+archive/                          # Personal/interim docs, attendance, process logs
+docs/MSc Project Handbook*.docx   # University copyrighted material
