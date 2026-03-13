@@ -5,7 +5,7 @@ Based on MSc Project Handbook 2025-26 and distinction-level marking criteria.
 ## Document Requirements
 
 - **Abstract:** ≤200 words ✓ (current: 198)
-- **Word count:** Approximately 18,000 words (main body, excluding appendices). Current: ~9,000. Consider expanding Literature Review, Implementation, and Discussion for distinction.
+- **Word count:** Approximately 18,000 words (main body, excluding appendices). Current: ~14,000. Literature Review, Implementation, Evaluation, Results, and Discussion have been expanded with all figures and tables from results.
 - **Line spacing:** 1.5 lines
 - **Font:** 11pt or greater (Times New Roman for body, Arial for headings)
 - **Numbered figures and tables** (e.g. Figure 2.1, Table 3.1)
@@ -19,11 +19,11 @@ Based on MSc Project Handbook 2025-26 and distinction-level marking criteria.
 - Signed Declaration of originality
 - Signed Library Release form
 
-## Appendices
+## Appendices (embedded in Arka_Talukder_Dissertation_Final.docx)
 
-- Project Process Documentation (Arka_Talukder_Process_Documentation_B01821011.docx)
-- Attendance Log (Arka Talukder_Attendance_Jan-Feb_B01821011.docx)
-- Copy of agreed Project Specification (Arka-B01821011_MSc Cyber Security Project specification_form_2025-26.docx)
+- Project Process Documentation (Arka_Talukder_Process_Documentation_B01821011.docx) — embedded
+- Attendance Log (Arka Talukder_Attendance_Jan-Feb_B01821011.docx) — embedded
+- Copy of agreed Project Specification (Arka-B01821011_MSc Cyber Security Project specification_form_2025-26.docx) — embedded
 
 ## Submission
 
