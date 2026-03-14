@@ -91,6 +91,7 @@ models:
     gru_hidden: 64
     num_classes: 2
     dropout: 0.2
+    use_gru: true            # false = ablation "GAT only" (mean pool over time)
     lr: 0.001
     epochs: 30
     batch_size: 16           # sequences per batch

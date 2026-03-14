@@ -5,7 +5,8 @@ Based on MSc Project Handbook 2025-26 and distinction-level marking criteria.
 ## Document Requirements
 
 - **Abstract:** ≤200 words ✓ (current: 198)
-- **Word count:** Approximately 18,000 words (main body, excluding appendices). Current: ~14,000. Literature Review, Implementation, Evaluation, Results, and Discussion have been expanded with all figures and tables from results.
+- **Word count:** Approximately 18,000 words (main body, excluding appendices). Current: ~14,000+. Literature Review, Implementation, Evaluation, Results (including §7.6 Ablation, §7.7 Sensitivity), and Discussion expanded; add content where thin to approach target.
+- **Premium thesis (roadmap):** Run `python scripts/run_ablation.py --config config/experiment.yaml` and fill Table 4 in §7.6 from `results/metrics/ablation_table.csv`.
 - **Line spacing:** 1.5 lines
 - **Font:** 11pt or greater (Times New Roman for body, Arial for headings)
 - **Numbered figures and tables** (e.g. Figure 2.1, Table 3.1)

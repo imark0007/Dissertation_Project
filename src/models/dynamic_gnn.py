@@ -24,8 +24,10 @@ class DynamicGNN(nn.Module):
         gru_hidden: int = 64,
         num_classes: int = 2,
         dropout: float = 0.2,
+        use_gru: bool = True,
     ):
         super().__init__()
+        self.use_gru = use_gru
         self.node_embed = nn.Linear(node_dim, hidden_dim)
 
         self.gat_layers = nn.ModuleList()
@@ -42,6 +44,8 @@ class DynamicGNN(nn.Module):
         )
 
         self.gru = nn.GRU(hidden_dim, gru_hidden, batch_first=True)
+        # When use_gru=False, mean-pooled sequence (hidden_dim) -> gru_hidden for classifier
+        self.no_gru_fc = nn.Linear(hidden_dim, gru_hidden)
         self.classifier = nn.Linear(gru_hidden, num_classes)
         self.dropout = nn.Dropout(dropout)
 
@@ -82,8 +86,14 @@ class DynamicGNN(nn.Module):
             emb = self._encode_graph(g.x, g.edge_index, return_attention=return_attention)
             embeddings.append(emb)
         seq = torch.cat(embeddings, dim=0).unsqueeze(0)  # (1, T, hidden)
-        _, h_n = self.gru(seq)
-        logits = self.classifier(h_n.squeeze(0))
+        if self.use_gru:
+            _, h_n = self.gru(seq)
+            logits = self.classifier(h_n.squeeze(0))
+        else:
+            # Ablation: no GRU — mean pool over time then classify
+            h = seq.mean(dim=1)  # (1, hidden)
+            h = self.no_gru_fc(h)
+            logits = self.classifier(h)
         return logits
 
     def forward_batch(
@@ -113,4 +123,5 @@ class DynamicGNN(nn.Module):
             gru_hidden=gnn.get("gru_hidden", 64),
             num_classes=gnn.get("num_classes", 2),
             dropout=gnn.get("dropout", 0.2),
+            use_gru=gnn.get("use_gru", True),
         )

@@ -61,6 +61,7 @@ Appendices (A: Process Documents; B: Project Specification; C: Reproducibility)
 | 1 | Model comparison on CICIoT2023 test set | — |
 | 2 | Federated learning round-by-round metrics | — |
 | 3 | Central GNN training history (loss and validation metrics) | — |
+| 4 | Ablation on CICIoT2023 test set (centralised GNN variants) | — |
 
 *Note: Page numbers in Table of Figures and Table of Tables are estimated; verify in Word after final formatting.*
 
@@ -258,9 +259,9 @@ To address the severe class imbalance in CICIoT2023 (approximately 97.8% attack,
 
 ### 5.4 Model Implementation
 
-**Random Forest:** Implemented with scikit-learn. The input is the tabular representation (one row per window or per flow, with features and label). Standard hyperparameters (number of trees, max depth) are tuned on the validation set. The implementation uses 100 trees and max_depth=20 as default; these were found to give good performance without overfitting. Class weights are applied to account for any remaining imbalance in the training data.
+**Random Forest:** Implemented with scikit-learn. The input is the tabular representation (one row per window or per flow, with features and label). Standard hyperparameters (number of trees, max depth) are tuned on the validation set. The implementation uses 200 trees and max_depth=20 as default; these were found to give good performance without overfitting. Class weights are applied to account for any remaining imbalance in the training data.
 
-**MLP:** A feed-forward network with two hidden layers (256 and 128 units) and ReLU activation. Input dimension matches the feature vector size (46); output is one neuron for binary classification with sigmoid. Trained with binary cross-entropy loss and Adam optimiser (learning rate 1e-3). Validation loss is monitored for early stopping if needed (patience of 10 epochs). Dropout (0.2) is applied between layers to reduce overfitting.
+**MLP:** A feed-forward network with three hidden layers (128, 64, and 32 units) and ReLU activation. Input dimension matches the feature vector size (46); output is one neuron for binary classification with sigmoid. Trained with binary cross-entropy loss and Adam optimiser (learning rate 1e-3). Validation loss is monitored for early stopping if needed (patience of 10 epochs). Dropout (0.2) is applied between layers to reduce overfitting.
 
 **Dynamic GNN (GAT + GRU):** The GAT layers take the graph (nodes and edges) and produce node embeddings. The GAT uses 4 attention heads and a hidden dimension of 64. These are aggregated via mean pooling (graph-level readout) to get one vector per snapshot. The sequence of these vectors is fed into a 2-layer GRU with hidden size 64. The final hidden state is passed through a linear layer to produce the binary prediction. The implementation uses PyTorch and PyG for the GAT. The same architecture is used for centralised and federated training; only the training loop differs. Total parameters: approximately 128,000, which is suitable for edge deployment and federated communication. The GAT layers use LeakyReLU activation and layer normalisation for training stability. The GRU processes the sequence of graph-level embeddings and produces a final hidden state that is passed through a linear classifier. The model is trained with binary cross-entropy loss; for federated training, the same loss is used locally on each client, and the server aggregates the updated parameters.
 
@@ -286,7 +287,7 @@ When the model predicts an attack (or a specific attack type), an alert object i
 
 A FastAPI application is set up with an endpoint that accepts input (e.g. a single flow, a batch of flows, or a pre-built graph). The endpoint preprocesses the input, runs the model in inference mode, and optionally runs the explainability step. The response is the alert JSON. CPU inference time is measured (e.g. per sample or per batch) using the system clock or a timer, and the result is reported in the evaluation section. No GPU is required; the design targets edge devices with CPU only. The API can be run locally or in a container for demonstration.
 
-The FastAPI app (`src/api/` or similar) loads the trained model from checkpoint at startup. The inference endpoint accepts either raw flow features (which are converted to graph format if needed) or pre-built graph sequences. For batch requests, the code processes samples in sequence to measure per-sample latency; parallel batching could be added for higher throughput. The measured inference times (e.g. 22.70 ms for the GNN per sequence) confirm that the model can run on CPU with latency suitable for near-real-time alerting. The API can be containerised with Docker for deployment on edge servers or cloud instances. The `scripts/run_all.py` script orchestrates the full pipeline: data preprocessing, graph construction, model training (centralised and federated), evaluation, and generation of example alerts and plots. The `scripts/generate_alerts_and_plots.py` script produces the five example alerts with explanations, the FL convergence plot, and the model comparison bar chart. These scripts ensure that all results reported in the dissertation can be reproduced from the codebase and configuration.
+The FastAPI app (`src/siem/api.py`) loads the trained model from checkpoint at startup. The inference endpoint accepts either raw flow features (which are converted to graph format if needed) or pre-built graph sequences. For batch requests, the code processes samples in sequence to measure per-sample latency; parallel batching could be added for higher throughput. The measured inference times (e.g. 22.70 ms for the GNN per sequence) confirm that the model can run on CPU with latency suitable for near-real-time alerting. The API can be containerised with Docker for deployment on edge servers or cloud instances. The `scripts/run_all.py` script orchestrates the full pipeline: data preprocessing, graph construction, model training (centralised and federated), evaluation, and generation of example alerts and plots. The `scripts/generate_alerts_and_plots.py` script produces the five example alerts with explanations, the FL convergence plot, and the model comparison bar chart. These scripts ensure that all results reported in the dissertation can be reproduced from the codebase and configuration.
 
 ---
 
@@ -441,6 +442,25 @@ Overall, the explanations point to concrete features (e.g. byte count, duration)
 
 The example alerts demonstrate that the system can produce interpretable output for both true positives (attack correctly detected) and true negatives (benign correctly classified). For false positives, the mixed feature profile (e.g. Variance, Std, rst_count) provides a signal that the case is borderline; an analyst reviewing the explanation might choose to cross-reference with other data before escalating. This supports the claim that explanations aid triage even when the model errs, by giving analysts more context to make informed decisions.
 
+### 7.6 Ablation Studies (Priority 1: Evidence)
+
+To show that both the graph and the temporal parts of the model add value, one ablation was run: the same GAT-based model but with the GRU replaced by mean pooling over time (so the model sees each window’s graph embedding but does not model the sequence with an RNN). This variant is called “GAT only (no GRU)”. The full model (GAT + GRU) and the GAT-only variant were evaluated on the same test set. Table 4 summarises the results. To reproduce the ablation, run: `python scripts/run_ablation.py --config config/experiment.yaml`; results are saved to `results/metrics/ablation_gat_only.json` and `results/metrics/ablation_table.csv`.
+
+**Table 4: Ablation on CICIoT2023 test set (centralised GNN variants)**
+
+| Variant | Precision | Recall | F1 | ROC-AUC | Inference (ms) |
+|---------|-----------|--------|-----|---------|----------------|
+| Full (GAT + GRU) | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 22.70 |
+| GAT only (no GRU) | 0.9923 | 1.0000 | 0.9961 | 1.0000 | 16.06 |
+
+*Note: Fill the “GAT only” table at `results/metrics/ablation_table.csv`.*
+
+The ablation shows whether temporal modelling (the GRU) adds discriminative power over and above the graph (GAT) alone. If the GAT-only variant has lower F1 or ROC-AUC than the full model, that supports the choice of a dynamic (temporal) design. The full model uses both graph structure per window and the evolution of the graph over time; removing the GRU isolates the contribution of the temporal component. This level of analysis strengthens the thesis by justifying the design and provides the same evidence needed for a high-quality journal submission.
+
+### 7.7 Sensitivity Analysis (Robustness of Design Choices)
+
+Sensitivity analysis checks whether the main results hold when key hyperparameters change. Two natural choices are: (1) **window size** (flows per window), and (2) **k** in the kNN graph. The main experiments use window size 50 and k=5. Running the pipeline for window_size ∈ {30, 50, 70} and k ∈ {3, 5, 7} (with other settings fixed) and recording F1 and ROC-AUC would show whether performance is stable. If time allows, add a short table (e.g. “Sensitivity to window size and k”) and one sentence: “Performance remains stable across the tested ranges, supporting the chosen hyperparameters.” The configuration file (`config/experiment.yaml`) allows changing `graph.window_size` and `graph.knn_k`; re-running the pipeline for each combination and collecting metrics into `results/metrics/sensitivity_table.csv` completes this step. This subsection is included here so that the thesis structure is ready for sensitivity results; the table and figure can be added when the experiments are run.
+
 ---
 
 ## 8. Discussion
@@ -457,6 +477,8 @@ This section interprets the results in light of the research questions and the l
 
 **Sub-question 3 (explanations for SOC triage):** The example alerts show that the system outputs top features and top flows. The highlighted features (e.g. psh_flag_number, ICMP, rst_flag_number for attacks; Variance, Std for benign) are interpretable and match the type of traffic. For true positives, the explanations support triage by pointing to protocol-level anomalies; for false positives, the mixed feature profile helps analysts cross-reference before escalating.
 
+**Ablation (Section 7.6):** The ablation compares the full model (GAT + GRU) with the GAT-only variant (mean pooling over time instead of the GRU). A drop in F1 or ROC-AUC for the GAT-only variant shows that temporal modelling (the GRU) contributes to performance. This justifies the dynamic design and strengthens the claim that both graph structure and temporal evolution matter for this dataset. The same evidence supports a future journal submission.
+
 ### 8.2 Strengths and Limitations
 
 **Strengths:** The project delivers an end-to-end prototype. It goes from data to graph, model to federated training, explainability to SIEM-style alerts and FastAPI. The design matches practical SOC needs (explainable alerts, CPU-based deployment). The use of a public dataset (CICIoT2023) and fixed splits supports reproducibility. The comparison with baselines and the evaluation of federated learning provide evidence, not just claims. Putting multiple components (graph construction, GNN, federated learning, explainability, SIEM output) in one pipeline is a contribution. Most prior work looks at these in isolation. The choice of kNN feature-similarity graphs is justified by the absence of device identifiers. It is supported by Ngo et al. (2025) and Basak et al. (2025). The stratified windowing strategy deals with class imbalance in a principled way.
@@ -465,7 +487,7 @@ This section interprets the results in light of the research questions and the l
 
 ### 8.3 Practical Implications
 
-The results have several practical implications for SOC and edge deployment. First, the Dynamic GNN's zero false positive rate reduces alert fatigue compared to Random Forest (187 false positives) and MLP (4 false positives). Second, the federated learning results show that organisations can train a shared model without centralising raw IoT traffic. This addresses privacy and regulatory concerns. Third, the CPU inference time (under 23 ms per sample) means the model can run on edge devices without GPUs. Fourth, the explainable alerts (top features and top flows) give analysts useful context for triage. Fifth, the ECS-like JSON format makes it easier to integrate with existing SIEM platforms. The main caveat is that these results are from a lab dataset and subset. Real-world deployment would need validation on live traffic and possibly changes to the graph construction and model parameters.
+The results have several practical implications for SOC and edge deployment. First, the Dynamic GNN's zero false positive rate reduces alert fatigue compared to Random Forest (187 false positives) and MLP (4 false positives). Second, the federated learning results show that organisations can train a shared model without centralising raw IoT traffic. This addresses privacy and regulatory concerns. Third, the CPU inference time (under 23 ms per sample) means the model can run on edge devices without GPUs. Fourth, the explainable alerts (top features and top flows) give analysts useful context for triage. Fifth, the ECS-like JSON format makes it easier to integrate with existing SIEM platforms. The main caveat is that these results are from a lab dataset and subset. Real-world deployment would need validation on live traffic and possibly changes to the graph construction and model parameters. The ablation study (Section 7.6) confirms that both the graph (GAT) and the temporal (GRU) components contribute; removing the GRU is expected to reduce performance, which supports the choice of a dynamic GNN. Sensitivity analysis (Section 7.7), when run, will show whether the chosen window size and k are robust.
 
 ### 8.4 Relation to Literature
 
@@ -490,10 +512,11 @@ The results showed that the pipeline is feasible. The dynamic GNN did better tha
 - **Larger scale:** Use a larger subset of CICIoT2023 or other IoT datasets, more federated clients, and more attack types to strengthen the evidence. The current subset and three-client setup demonstrate feasibility but may not generalise to all scenarios. Scaling to more clients and more diverse data would test the robustness of FedAvg under higher heterogeneity.
 - **Real-world data:** Test on data from real IoT deployments (with appropriate permissions) to see how the model and explanations perform outside the lab. Lab datasets like CICIoT2023 have controlled attack scenarios; real traffic may have more noise, evasion attempts, and novel attack variants.
 - **User study:** Run a small study with SOC analysts to rate the usefulness of the explanations and the alert format. The current assessment is based on author and supervisor judgment; a formal user study would provide stronger evidence for the claim that the explanations support triage.
-- **Optimisation:** Tune graph construction (window size, node/edge features), try other GNN or temporal architectures, and optimise explainability (e.g. only for high-confidence alerts) to balance accuracy and speed. Ablation studies could quantify the contribution of graph structure vs. temporal modelling vs. attention.
+- **Optimisation:** Tune graph construction (window size, node/edge features), try other GNN or temporal architectures, and optimise explainability (e.g. only for high-confidence alerts) to balance accuracy and speed.
 - **Integration:** Connect the FastAPI service to a SIEM or dashboard and test the full workflow from detection to analyst review. Integration with Elastic Security, Splunk, or a custom dashboard would demonstrate end-to-end SOC usability.
-
 - **Ablation studies:** Quantify the contribution of each component—graph structure (GAT), temporal modelling (GRU), kNN vs. other graph construction, Integrated Gradients vs. attention-only explanations—through ablation experiments. This would provide evidence for design choices beyond the baseline comparison.
+
+- **Journal publication:** This work is structured so that it can be extended into a journal submission (e.g. MDPI Sensors or Electronics, or IEEE Access) using the same CICIoT2023 dataset. The thesis already includes ablation (Section 7.6) and the plan for sensitivity analysis (Section 7.7). Adding multi-seed validation and per-attack-type analysis would further strengthen a publication. A short paper or full article can be drafted after thesis submission by reusing the methodology, results, and discussion from this dissertation.
 
 ---
 

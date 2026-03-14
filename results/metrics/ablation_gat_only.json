@@ -1,0 +1,11 @@
+{
+  "precision": 0.9923076923076923,
+  "recall": 1.0,
+  "f1": 0.9961389961389961,
+  "false_alarm_rate": 0.22580645161290322,
+  "false_positives": 7,
+  "true_negatives": 24,
+  "roc_auc": 1.0,
+  "inference_ms": 16.05871801264584,
+  "variant": "GAT only (no GRU)"
+}
