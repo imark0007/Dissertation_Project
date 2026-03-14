@@ -25,6 +25,11 @@ OUT_PATH = ROOT / "Arka_Talukder_Dissertation_Final.docx"
 # Figure paths (relative to ROOT)
 FIGURE_PATHS = {
     "assets/figure1_pipeline.png": ROOT / "assets" / "figure1_pipeline.png",
+    "assets/literature_positioning.png": ROOT / "assets" / "literature_positioning.png",
+    "assets/literature_ids_taxonomy.png": ROOT / "assets" / "literature_ids_taxonomy.png",
+    "assets/literature_dynamic_gnn_concept.png": ROOT / "assets" / "literature_dynamic_gnn_concept.png",
+    "assets/literature_fedavg_flow.png": ROOT / "assets" / "literature_fedavg_flow.png",
+    "assets/literature_explainability.png": ROOT / "assets" / "literature_explainability.png",
     "results/figures/cm_gnn.png": ROOT / "results" / "figures" / "cm_gnn.png",
     "results/figures/roc_gnn.png": ROOT / "results" / "figures" / "roc_gnn.png",
     "results/figures/fl_convergence.png": ROOT / "results" / "figures" / "fl_convergence.png",

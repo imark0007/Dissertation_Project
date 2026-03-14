@@ -222,7 +222,12 @@ def main():
 
     if not args.skip_graphs:
         logger.info("=== Step 2: Building graphs ===")
-        build_and_save_graphs(nrows=args.nrows)
+        build_and_save_graphs(
+            processed_dir=cfg["data"]["processed_dir"],
+            output_dir="data/graphs",
+            config_path=args.config,
+            nrows=args.nrows,
+        )
 
     if not args.skip_baselines:
         logger.info("=== Step 3: Training baselines ===")

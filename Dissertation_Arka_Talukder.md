@@ -53,6 +53,11 @@ Appendices (A: Process Documents; B: Project Specification; C: Reproducibility)
 | 7 | Confusion matrix for MLP on test set | — |
 | 8 | ROC curve for Random Forest on test set | — |
 | 9 | ROC curve for MLP on test set | — |
+| 10 | Positioning of related work (GNN, FL, explainability, SIEM) | — |
+| 11 | Taxonomy of IDS approaches relevant to IoT and this project | — |
+| 12 | Conceptual flow of a dynamic GNN (GAT + GRU) for temporal graph classification | — |
+| 13 | Federated learning (FedAvg) flow — no raw data leaves clients | — |
+| 14 | Explainability methods used for SOC-oriented alerts | — |
 
 ### Table of Tables
 
@@ -62,6 +67,7 @@ Appendices (A: Process Documents; B: Project Specification; C: Reproducibility)
 | 2 | Federated learning round-by-round metrics | — |
 | 3 | Central GNN training history (loss and validation metrics) | — |
 | 4 | Ablation on CICIoT2023 test set (centralised GNN variants) | — |
+| 5 | Comparison of selected related work (Literature Review) | — |
 
 *Note: Page numbers in Table of Figures and Table of Tables are estimated; verify in Word after final formatting.*
 
@@ -125,7 +131,13 @@ The scale of the IoT threat is well known. Kolias et al. (2017) looked at the Mi
 
 Intrusion detection for IoT can be done in different ways. Signature-based methods look for known attack patterns. Anomaly-based methods learn what is normal and flag the rest. Machine learning has been used a lot for attack detection on flow or packet data. The CICIoT2023 dataset used in this project was made to support such research. It includes attacks like DDoS, reconnaissance, and brute force from real IoT devices in a controlled environment (Pinto et al., 2023). The dataset has 46 pre-computed flow features from packet captures. This reduces the need for raw packet inspection. It also matches the kind of data that SIEM systems usually use. Pinto et al. (2023) describe how the data was collected. Traffic was captured from real IoT devices (smart plugs, cameras, doorbells) under controlled attack scenarios. Flow features were extracted using standard tools. The features include protocol indicators (TCP, UDP, ICMP, HTTP, DNS), packet and byte statistics, TCP flag counts, and statistics like mean, variance, and standard deviation. Using a public dataset lets results be compared with other work. But the setting is still lab-based, not a live network. Yang et al. (2025) recently showed that graph neural networks can improve intrusion detection for industrial IoT. They showed that modelling network structure can improve accuracy compared to flat feature models. The CICIoT2023 dataset has a class imbalance (about 97.8% attack, 2.2% benign at the flow level). This makes training harder. This project deals with it through stratified windowing and balanced graph construction.
 
-Many studies treat each flow or packet on its own. But in reality, attacks often show up as patterns of communication between devices over time. For example, a DDoS attack may involve many flows from many sources to one target. A reconnaissance scan may show sequential probing of ports. Flat feature vectors lose this structure. Wang et al. (2025) did a scoping review. They found that graph-based approaches to network traffic analysis are used more and more. Dynamic graph models in particular look promising for capturing attack patterns that change over time. Zhong et al. (2024) surveyed graph neural networks for intrusion detection. They found a clear trend towards combining GNNs with temporal models. They also noted that explainability and federated deployment are still under-explored. These findings support the graph-based and dynamic approach in this project. A key gap in the literature is that there are few prototypes that combine graph-based detection, federated learning, and explainable alerting in one system for SOC use. Most papers focus on only one of these.
+Many studies treat each flow or packet on its own. But in reality, attacks often show up as patterns of communication between devices over time. For example, a DDoS attack may involve many flows from many sources to one target. A reconnaissance scan may show sequential probing of ports. Flat feature vectors lose this structure. Wang et al. (2025) did a scoping review. They found that graph-based approaches to network traffic analysis are used more and more. Dynamic graph models in particular look promising for capturing attack patterns that change over time. Zhong et al. (2024) surveyed graph neural networks for intrusion detection. They found a clear trend towards combining GNNs with temporal models. They also noted that explainability and federated deployment are still under-explored. These findings support the graph-based and dynamic approach in this project. A key gap in the literature is that there are few prototypes that combine graph-based detection, federated learning, and explainable alerting in one system for SOC use. Most papers focus on only one of these. Figure 11 summarises the main categories of intrusion detection approaches relevant to IoT and this project.
+
+**Figure 11: Taxonomy of IDS approaches relevant to IoT and this project**
+
+![Figure 11: IDS taxonomy](assets/literature_ids_taxonomy.png)
+
+*Sources: Kolias et al. (2017); Pinto et al. (2023); Wang et al. (2025); Zhong et al. (2024). Full references in Section 11.*
 
 ### 3.2 SIEM, SOC Workflows, and Alert Quality
 
@@ -141,19 +153,65 @@ There is growing interest in making security tools more explainable. For example
 
 Graph neural networks (GNNs) work on data that has a graph structure: nodes and edges. In network security, nodes can be hosts or devices and edges can be flows or connections. GNNs combine information from neighbours and can learn patterns that depend on the graph structure. The main idea is that message passing (where each node updates based on its neighbours) lets the model capture relationships that flat classifiers cannot. Graph Attention Networks (GATs) go further. They let each node give different importance to its neighbours using attention (Velickovic et al., 2018). This helps the model focus on the most relevant connections. That is useful when some flows are benign and others are part of an attack. Han et al. (2025) proposed DIMK-GCN for intrusion detection. They showed that multi-scale graph representations can capture both local and global attack patterns. Ngo et al. (2025) looked at attribute-based graph construction for IoT intrusion detection. They showed that building graphs from feature similarity (not just network topology) can work when device IDs are not available. This supports the kNN-based graph construction in this project. When IP addresses or device IDs are absent (as in the public CICIoT2023 release), topology-based graphs cannot be built. So attribute-based or similarity-based construction is the only option.
 
-Networks change over time. New connections appear, traffic volumes shift, and attacks develop in stages. Dynamic or temporal graph models try to capture this. One common approach is to combine a GNN with a recurrent module (e.g. GRU or LSTM). The model sees a sequence of graph snapshots and learns from how the graph evolves. Several papers have used this for fraud detection or anomaly detection (e.g. Liu et al., 2019). Lusa et al. (2025) proposed TE-G-SAGE for network intrusion detection. It combines temporal edge features with GraphSAGE. They showed that both edge-level and temporal information improve accuracy. Basak et al. (2025) developed X-GANet for network intrusion detection. They confirmed that attention-based GNNs can get high accuracy and also give interpretable outputs. For IoT flow data, building time-windowed graphs and using a dynamic GNN (GAT + GRU in this project) is a reasonable way to test whether structure and temporality improve detection over simple models like Random Forest or MLP. The literature supports the idea that graph structure can add value. But the actual gain depends on the data and task. That is why this project compares the dynamic GNN to baselines. GNNs also cost more to run than tabular models. The trade-off between accuracy and inference time matters for edge deployment. This project evaluates it. The combination of GAT (for learning which neighbours matter) and GRU (for learning how the graph evolves) is a common pattern in temporal graph learning. This project applies it to IoT flow data with kNN graph construction. This has not been explored much in prior work.
+Networks change over time. New connections appear, traffic volumes shift, and attacks develop in stages. Dynamic or temporal graph models try to capture this. One common approach is to combine a GNN with a recurrent module (e.g. GRU or LSTM). The model sees a sequence of graph snapshots and learns from how the graph evolves. Several papers have used this for fraud detection or anomaly detection (e.g. Liu et al., 2019). Lusa et al. (2025) proposed TE-G-SAGE for network intrusion detection. It combines temporal edge features with GraphSAGE. They showed that both edge-level and temporal information improve accuracy. Basak et al. (2025) developed X-GANet for network intrusion detection. They confirmed that attention-based GNNs can get high accuracy and also give interpretable outputs. For IoT flow data, building time-windowed graphs and using a dynamic GNN (GAT + GRU in this project) is a reasonable way to test whether structure and temporality improve detection over simple models like Random Forest or MLP. The literature supports the idea that graph structure can add value. But the actual gain depends on the data and task. That is why this project compares the dynamic GNN to baselines. GNNs also cost more to run than tabular models. The trade-off between accuracy and inference time matters for edge deployment. This project evaluates it. The combination of GAT (for learning which neighbours matter) and GRU (for learning how the graph evolves) is a common pattern in temporal graph learning. This project applies it to IoT flow data with kNN graph construction. This has not been explored much in prior work. Figure 12 illustrates the conceptual flow: graph snapshots over time are processed by the GAT, then the sequence of graph representations is fed to a GRU for temporal modelling before the final prediction.
+
+**Figure 12: Conceptual flow of a dynamic GNN (GAT + GRU) for temporal graph classification**
+
+![Figure 12: Dynamic GNN concept](assets/literature_dynamic_gnn_concept.png)
+
+*Sources: Velickovic et al. (2018); Liu et al. (2019); Lusa et al. (2025); Basak et al. (2025). Full references in Section 11.*
 
 ### 3.4 Federated Learning and Privacy
 
-Federated learning trains a model across many clients without putting raw data in one place. Each client trains on local data and sends only model updates (gradients or weights) to a server. The server combines them and sends back an updated model. FedAvg (McMahan et al., 2017) is a standard algorithm. The server averages the client model parameters, often weighted by how much local data each client has. This reduces privacy risk compared to sending raw IoT traffic to a central site. That matters when data comes from different organisations or locations. In IoT and edge deployments, data may be spread across many sites (different buildings, campuses, or organisations). Rules like GDPR may not allow centralising sensitive network data. Federated learning also reduces the bandwidth needed for training. Instead of transferring raw flows (which can be large), only model parameters (usually a few megabytes) are sent. So federated learning works well for bandwidth-limited edge networks.
+Federated learning trains a model across many clients without putting raw data in one place. Each client trains on local data and sends only model updates (gradients or weights) to a server. The server combines them and sends back an updated model. FedAvg (McMahan et al., 2017) is a standard algorithm. The server averages the client model parameters, often weighted by how much local data each client has. This reduces privacy risk compared to sending raw IoT traffic to a central site. That matters when data comes from different organisations or locations. In IoT and edge deployments, data may be spread across many sites (different buildings, campuses, or organisations). Rules like GDPR may not allow centralising sensitive network data. Federated learning also reduces the bandwidth needed for training. Instead of transferring raw flows (which can be large), only model parameters (usually a few megabytes) are sent. So federated learning works well for bandwidth-limited edge networks. Figure 13 shows the FedAvg flow: clients train locally and send model updates to the server; the server aggregates and broadcasts the global model back.
+
+**Figure 13: Federated learning (FedAvg) flow — no raw data leaves clients**
+
+![Figure 13: FedAvg flow](assets/literature_fedavg_flow.png)
+
+*Sources: McMahan et al. (2017); Lazzarini et al. (2023). Full references in Section 11.*
 
 Federated learning has been used in IoT and edge settings (e.g. Qu et al., 2019). Lazzarini et al. (2023) looked at federated learning for IoT intrusion detection. They found that FedAvg can get performance similar to centralised training while keeping data local. Albanbay et al. (2025) did a performance study on federated intrusion detection in IoT. They showed that non-IID data across clients is a key factor for convergence and accuracy. When clients have different attack types or different mixes of benign and malicious traffic, the global model must learn from mixed updates. FedAvg can still converge, but the number of rounds and aggregation strategy matter. Challenges include communication cost, non-IID data, and possible drops in accuracy compared to centralised training. In this project, Flower is used to implement FedAvg with three clients and a Dirichlet-based non-IID data split. The goal is to show that federated training can get performance close to centralised training. The evaluation includes communication cost and round-by-round performance. Flower was chosen because it works well with PyTorch and supports custom client and server logic.
 
 ### 3.5 Explainability in ML-Based Security
 
-Explainability can be added to a system in different ways. Post-hoc methods explain a trained model. They show which inputs or features mattered most for a prediction. Integrated Gradients is a gradient-based method. It attributes the prediction to input features relative to a baseline (Sundararajan et al., 2017). It has useful properties like sensitivity and implementation invariance. It is implemented in Captum (Kokhlikyan et al., 2020), which works with PyTorch. For GNNs, attention weights from GAT layers can also show which edges or neighbours the model focused on. This project uses both: Integrated Gradients for feature-level explanation and attention for flow-level importance. So the alert can include both which features (e.g. packet rate, flag counts) and which flows contributed most to the prediction.
+Explainability can be added to a system in different ways. Post-hoc methods explain a trained model. They show which inputs or features mattered most for a prediction. Integrated Gradients is a gradient-based method. It attributes the prediction to input features relative to a baseline (Sundararajan et al., 2017). It has useful properties like sensitivity and implementation invariance. It is implemented in Captum (Kokhlikyan et al., 2020), which works with PyTorch. For GNNs, attention weights from GAT layers can also show which edges or neighbours the model focused on. This project uses both: Integrated Gradients for feature-level explanation and attention for flow-level importance. So the alert can include both which features (e.g. packet rate, flag counts) and which flows contributed most to the prediction. Figure 14 summarises the explainability pipeline used in this project for SOC-oriented alerts.
+
+**Figure 14: Explainability methods used for SOC-oriented alerts**
+
+![Figure 14: Explainability pipeline](assets/literature_explainability.png)
+
+*Sources: Sundararajan et al. (2017); Velickovic et al. (2018); Kokhlikyan et al. (2020). Full references in Section 11.*
 
 Alabbadi and Bajaber (2025) showed that explainable AI (XAI) can be used for intrusion detection over IoT data streams. They confirmed that post-hoc explanation methods can make security decisions more transparent for analysts. Lundberg and Lee (2017) introduced SHAP for model interpretation. SHAP can be applied to any model. But Integrated Gradients is often preferred for neural networks because it is gradient-based and works well with backpropagation. One practical point: full explainability for every prediction can be slow. Integrated Gradients needs many forward passes (usually 50–100) to approximate the integral. For a GNN processing sequences of graphs, this can add a lot of latency. So the design allows applying explainability only to selected alerts (e.g. high-confidence positives) if needed. The literature does not always address this trade-off. This project notes it as a limitation and a possible area for future work.
+
+Table 5 and Figure 10 summarise how selected related work maps onto the four pillars of this project (GNN/graph-based detection, federated learning, explainability, and SIEM-style alert output). All sources are given in the References (Section 11). No single prior study combines all four in one prototype for SOC use on edge devices; this project fills that gap.
+
+**Table 5: Comparison of selected related work (sources: References §11)**
+
+| Study | GNN/Graph | Federated learning | Explainability | SIEM/Alert | Dataset/context |
+|-------|-----------|--------------------|----------------|------------|------------------|
+| Pinto et al. (2023) | — | — | — | — | CICIoT2023 dataset |
+| Velickovic et al. (2018) | Yes (GAT) | — | — | — | General GNN |
+| McMahan et al. (2017) | — | Yes (FedAvg) | — | — | General FL |
+| Sundararajan et al. (2017) | — | — | Yes (IG) | — | Attribution method |
+| Han et al. (2025) | Yes (DIMK-GCN) | — | — | — | IDS |
+| Ngo et al. (2025) | Yes (attribute-based) | — | — | — | IoT IDS |
+| Basak et al. (2025) | Yes (X-GANet) | — | Yes | — | NID |
+| Lusa et al. (2025) | Yes (TE-G-SAGE) | — | Yes | — | NID |
+| Lazzarini et al. (2023) | — | Yes | — | — | IoT IDS |
+| Albanbay et al. (2025) | — | Yes | — | — | IoT IDS |
+| Alabbadi and Bajaber (2025) | — | — | Yes (XAI) | — | IoT streams |
+| Yang et al. (2025) | Yes | — | — | — | Industrial IoT |
+| **This project** | **Yes (GAT+GRU)** | **Yes (Flower)** | **Yes (IG+attention)** | **Yes (ECS-like)** | **CICIoT2023** |
+
+*Note: IG = Integrated Gradients. NID = network intrusion detection. Full references in Section 11.*
+
+**Figure 10: Positioning of related work — GNN, federated learning, explainability, and SIEM-style alerts**
+
+![Figure 10: Positioning of related work](assets/literature_positioning.png)
+
+*Sources: Pinto et al. (2023); Velickovic et al. (2018); McMahan et al. (2017); Sundararajan et al. (2017); Han et al. (2025); Ngo et al. (2025); Basak et al. (2025); Lusa et al. (2025); Lazzarini et al. (2023); Albanbay et al. (2025); Alabbadi and Bajaber (2025); Yang et al. (2025). This figure synthesises the literature review (§3) and supports the gap stated in §3.6.*
 
 ### 3.6 Gap and Contribution
 
@@ -323,7 +381,7 @@ These metrics show how well the model separates attacks from benign traffic and 
 
 ### 6.3 Dataset and Experiment Statistics
 
-The CICIoT2023 subset used in this project was selected to include a representative mix of benign and attack traffic. The subset size is determined by the train, validation, and test CSV files in data/raw/; the stratified windowing strategy produces balanced training data (approximately 50% benign, 50% attack windows) despite the underlying flow-level imbalance (approximately 97.8% attack, 2.2% benign at the flow level). The train/validation/test split ensures no overlap; the test set is used only for final reporting. The graph construction produces sequences of 5 windows, each with 50 flows, so each sample represents 250 flows in temporal order. The Random Forest and MLP baselines use the same flows in tabular format (one row per flow or per window aggregate, depending on the baseline design) to ensure fair comparison. The federated split assigns each client a different proportion of classes via Dirichlet(alpha=0.5), simulating non-IID conditions where different sites observe different threat profiles.
+The CICIoT2023 subset used in this project was selected to include a representative mix of benign and attack traffic. Each split (train, validation, test) contains 500,000 flows; at flow level the class distribution is approximately 2.3% benign and 97.7% attack (see results/metrics/dataset_stats.json, generated by scripts/dataset_statistics.py). The stratified windowing strategy produces balanced graph-level data (approximately 50% benign, 50% attack windows) despite this flow-level imbalance. After windowing, the GNN dataset comprises 920 training sequences, 928 validation sequences, and 934 test sequences (each sequence = 5 consecutive graph windows of 50 flows, i.e. 250 flows per sample). The train/validation/test split ensures no overlap; the test set is used only for final reporting. The Random Forest and MLP baselines use the same processed flows in tabular format (one row per flow) on the same splits, so comparison is on the same underlying data; the GNN is evaluated at sequence level (one prediction per sequence of 5 windows). The federated split assigns each client a different proportion of classes via Dirichlet(alpha=0.5), simulating non-IID conditions where different sites observe different threat profiles.
 
 ### 6.4 Comparison Design
 
@@ -401,18 +459,18 @@ Communication cost was approximated from the size of the model parameters. The D
 
 ### 7.3 Central GNN Training Convergence
 
-The centralised Dynamic GNN was trained for 6 epochs with early stopping. Table 3 shows the training loss and validation metrics per epoch. The model achieved 100% validation F1 and ROC-AUC from epoch 1 onwards, indicating rapid convergence on the chosen subset. Training loss decreased from 0.412 to 0.0006, confirming that the model learned the task effectively.
+The centralised Dynamic GNN was trained for 6 epochs with early stopping. Table 3 shows the training loss and validation metrics per epoch (from results/metrics/gnn_training_history.json). The model achieved 100% validation F1 and ROC-AUC from epoch 1 onwards, indicating rapid convergence on the chosen subset. Training loss decreased from 0.484 to about 0.0001, confirming that the model learned the task effectively.
 
 **Table 3: Central GNN training history (loss and validation metrics)**
 
 | Epoch | Train Loss | Val F1 | Val ROC-AUC |
 |-------|------------|--------|-------------|
-| 1 | 0.412 | 1.000 | 1.000 |
-| 2 | 0.012 | 1.000 | 1.000 |
-| 3 | 0.002 | 1.000 | 1.000 |
-| 4 | 0.001 | 1.000 | 1.000 |
-| 5 | 0.001 | 1.000 | 1.000 |
-| 6 | 0.001 | 1.000 | 1.000 |
+| 1 | 0.484 | 1.000 | 1.000 |
+| 2 | 0.023 | 1.000 | 1.000 |
+| 3 | 0.0002 | 1.000 | 1.000 |
+| 4 | 0.0001 | 1.000 | 1.000 |
+| 5 | 0.0001 | 1.000 | 1.000 |
+| 6 | 0.0001 | 1.000 | 1.000 |
 
 ### 7.4 Time-Window and CPU Inference (Sub-Question 2 and Deployment)
 
@@ -503,9 +561,9 @@ Federated learning with FedAvg (McMahan et al., 2017) was shown to work with Flo
 
 This dissertation set out to design and build a small prototype system for detecting attacks in IoT network traffic. It uses an explainable dynamic graph neural network and federated learning. It also generates SIEM-style alerts that support SOC operations on CPU-based edge devices. The main research question was: how can such a system detect attacks in IoT flow data and produce alerts that are useful for SOC analysts?
 
-The project used the CICIoT2023 dataset (Pinto et al., 2023). It built kNN feature-similarity graphs from flow windows. Each flow is a node and edges link flows with similar characteristics. It implemented a dynamic GNN (GAT + GRU) alongside baselines (Random Forest and MLP). Federated learning used the Flower framework and FedAvg with 2–3 clients. Explainability used Integrated Gradients (Captum) and attention weights. Alerts were output in SIEM-style JSON format (ECS-like) with top features and flows. The system was deployed as a FastAPI endpoint. It was evaluated with precision, recall, F1-score, ROC-AUC, false positive rate, confusion matrix, federated round performance, communication cost, and CPU inference time. Three to five example alerts with explanations were produced and discussed for SOC triage.
+The project used the CICIoT2023 dataset (Pinto et al., 2023). It built kNN feature-similarity graphs from flow windows. Each flow is a node and edges link flows with similar characteristics. It implemented a dynamic GNN (GAT + GRU) alongside baselines (Random Forest and MLP). Federated learning used the Flower framework and FedAvg with three clients. Explainability used Integrated Gradients (Captum) and attention weights. Alerts were output in SIEM-style JSON format (ECS-like) with top features and flows. The system was deployed as a FastAPI endpoint. It was evaluated with precision, recall, F1-score, ROC-AUC, false positive rate, confusion matrix, federated round performance, communication cost, and CPU inference time. Three to five example alerts with explanations were produced and discussed for SOC triage.
 
-The results showed that the pipeline is feasible. The dynamic GNN did better than baselines (100% F1 vs. 99.86% for RF and 99.42% for MLP). Federated learning matched centralised performance without sharing raw data. Explanations can be attached to alerts in an interpretable format. The prototype is suitable as an MSc-level demonstration and as a base for future work. Nine figures and three tables provide evidence for the claims in the discussion. The project repository, config files, and scripts support full reproducibility.
+The results showed that the pipeline is feasible. The dynamic GNN did better than baselines (100% F1 vs. 99.86% for RF and 99.42% for MLP). Federated learning matched centralised performance without sharing raw data. Explanations can be attached to alerts in an interpretable format. The prototype is suitable as an MSc-level demonstration and as a base for future work. Nine figures and four tables (including the ablation comparison in Table 4) provide evidence for the claims in the discussion. The project repository, config files, and scripts support full reproducibility. This dissertation is written so that the same methodology, results, and discussion can be reused for a future journal submission without re-running the core experiments.
 
 ### 9.2 Recommendations for Future Work
 
@@ -514,7 +572,7 @@ The results showed that the pipeline is feasible. The dynamic GNN did better tha
 - **User study:** Run a small study with SOC analysts to rate the usefulness of the explanations and the alert format. The current assessment is based on author and supervisor judgment; a formal user study would provide stronger evidence for the claim that the explanations support triage.
 - **Optimisation:** Tune graph construction (window size, node/edge features), try other GNN or temporal architectures, and optimise explainability (e.g. only for high-confidence alerts) to balance accuracy and speed.
 - **Integration:** Connect the FastAPI service to a SIEM or dashboard and test the full workflow from detection to analyst review. Integration with Elastic Security, Splunk, or a custom dashboard would demonstrate end-to-end SOC usability.
-- **Ablation studies:** Quantify the contribution of each component—graph structure (GAT), temporal modelling (GRU), kNN vs. other graph construction, Integrated Gradients vs. attention-only explanations—through ablation experiments. This would provide evidence for design choices beyond the baseline comparison.
+- **Further ablation studies:** The thesis already includes one ablation (GAT only vs. full model, Section 7.6). Future work could add ablations for kNN vs. other graph construction, or Integrated Gradients vs. attention-only explanations, to provide further evidence for design choices.
 
 - **Journal publication:** This work is structured so that it can be extended into a journal submission (e.g. MDPI Sensors or Electronics, or IEEE Access) using the same CICIoT2023 dataset. The thesis already includes ablation (Section 7.6) and the plan for sensitivity analysis (Section 7.7). Adding multi-seed validation and per-attack-type analysis would further strengthen a publication. A short paper or full article can be drafted after thesis submission by reusing the methodology, results, and discussion from this dissertation.
 

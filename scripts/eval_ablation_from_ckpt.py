@@ -21,8 +21,6 @@ from src.data.dataset import get_dataloaders
 from src.models.dynamic_gnn import DynamicGNN
 from src.models.trainer import evaluate, measure_inference_time
 
-from run_ablation import build_ablation_table
-
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 logger = logging.getLogger(__name__)
 
@@ -65,7 +63,37 @@ def main():
         json.dump(test_metrics, f, indent=2)
     logger.info("Ablation metrics saved to %s", out_path)
 
-    build_ablation_table(cfg)
+    # Build ablation_table.csv (full + GAT-only)
+    import csv
+    met_dir = Path(cfg["paths"]["metrics"])
+    rows = []
+    full_path = met_dir / "central_gnn_metrics.json"
+    if full_path.exists():
+        with open(full_path) as f:
+            m = json.load(f)
+        rows.append({
+            "Variant": "Full (GAT + GRU)",
+            "Precision": f"{m.get('precision', 0):.4f}",
+            "Recall": f"{m.get('recall', 0):.4f}",
+            "F1": f"{m.get('f1', 0):.4f}",
+            "ROC-AUC": f"{m.get('roc_auc', 0):.4f}",
+            "Inference (ms)": f"{m.get('inference_ms', 0):.2f}",
+        })
+    rows.append({
+        "Variant": "GAT only (no GRU)",
+        "Precision": f"{test_metrics.get('precision', 0):.4f}",
+        "Recall": f"{test_metrics.get('recall', 0):.4f}",
+        "F1": f"{test_metrics.get('f1', 0):.4f}",
+        "ROC-AUC": f"{test_metrics.get('roc_auc', 0):.4f}",
+        "Inference (ms)": f"{test_metrics.get('inference_ms', 0):.2f}",
+    })
+    if rows:
+        out_csv = met_dir / "ablation_table.csv"
+        with open(out_csv, "w", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=rows[0].keys())
+            w.writeheader()
+            w.writerows(rows)
+        logger.info("Ablation table -> %s", out_csv)
     logger.info("Done. Run: python scripts/update_dissertation_table4.py")
 
 
