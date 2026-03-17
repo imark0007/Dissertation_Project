@@ -8,7 +8,7 @@
 **Supervisor:** Dr. Raja Ujjan  
 **University of the West of Scotland**
 
-**Word count:** approximately 4,950 words (maximum 5,000 words)
+**Word count:** approximately 4,800 words (maximum 5,000 words)
 
 ---
 

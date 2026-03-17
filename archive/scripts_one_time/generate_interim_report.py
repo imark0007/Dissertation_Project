@@ -150,12 +150,11 @@ def add_table(doc, headers, rows, caption=None, header_color="4472C4"):
 
 
 def add_figure(doc, img_path, caption, width=Inches(5.0)):
-    full_path = PROJECT_ROOT / img_path.replace('/', '\\')
+    full_path = PROJECT_ROOT / img_path
     if full_path.exists():
-        p = doc.add_paragraph()
-        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        run = p.add_run()
-        run.add_picture(str(full_path), width=width)
+        doc.add_picture(str(full_path), width=width)
+        last_p = doc.paragraphs[-1]
+        last_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
     cap_p = doc.add_paragraph()
     cap_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -263,6 +262,8 @@ def build_document():
                 fig_num = match.group(1)
                 fig_title = match.group(2)
                 i += 1
+                while i < len(lines) and lines[i].strip() == '':
+                    i += 1
                 if i < len(lines):
                     img_match = re.match(r'!\[.*?\]\((.+?)\)', lines[i])
                     if img_match:
@@ -298,31 +299,37 @@ def build_document():
                 add_table(doc, header_cells, data_rows)
             continue
 
-        if line.startswith('$$'):
-            eq_content = line.replace('$$', '').strip()
-            i += 1
-            while i < len(lines) and not lines[i].startswith('$$'):
-                eq_content += ' ' + lines[i].strip()
+        if line.strip().startswith('$$'):
+            stripped = line.strip()
+            if stripped.startswith('$$') and stripped.endswith('$$') and len(stripped) > 4:
+                eq_content = stripped[2:-2].strip()
                 i += 1
-            if i < len(lines):
+            else:
+                eq_content = stripped.lstrip('$').strip()
                 i += 1
+                while i < len(lines) and '$$' not in lines[i]:
+                    eq_content += ' ' + lines[i].strip()
+                    i += 1
+                if i < len(lines):
+                    closing = lines[i].strip().rstrip('$').strip()
+                    if closing:
+                        eq_content += ' ' + closing
+                    i += 1
             eq_content = eq_content.strip()
+            tag_match = re.search(r'\\tag\{(\d+)\}', eq_content)
+            tag_str = f'({tag_match.group(1)})' if tag_match else ''
             matched = False
             for pattern, (display, tag) in EQUATION_MAP.items():
-                if pattern.replace('\\', '') in eq_content.replace('\\', '') or \
-                   eq_content.replace('\\', '').strip()[:20] in pattern.replace('\\', ''):
+                if tag_str and tag == tag_str:
                     add_equation_paragraph(doc, display, tag)
                     matched = True
                     break
             if not matched:
-                clean = re.sub(r'\\(text|frac|times|tag|int|partial|alpha)', '', eq_content)
+                clean = re.sub(r'\\(text|frac|times|tag|int|partial|alpha)\{[^}]*\}', '', eq_content)
+                clean = re.sub(r'\\(text|frac|times|tag|int|partial|alpha)', '', clean)
                 clean = clean.replace('{', '').replace('}', '').replace('_', '')
                 clean = clean.replace('^', '').replace('\\,', ' ').strip()
-                tag_match = re.search(r'\((\d+)\)', eq_content)
-                tag = tag_match.group(0) if tag_match else ''
-                if tag:
-                    clean = clean.replace(tag, '').strip()
-                add_equation_paragraph(doc, clean, tag)
+                add_equation_paragraph(doc, clean, tag_str)
             continue
 
         if line.startswith('- **') or line.startswith('- '):
