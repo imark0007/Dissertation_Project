@@ -14,7 +14,7 @@
 
 ## Introduction
 
-This interim report is submitted at the halfway point of my MSc project. The purpose of this report is to give my supervisor and moderator a clear overview of the whole project so that they can assess my progress and provide useful feedback. This report is not a first draft of the final report. It is also not the first few chapters of the final report. Instead, it is a structured summary of the full project in three required parts: (1) a summary literature review that provides the academic framework for my research, (2) a complete description of the research methodology I am using, and (3) a plan for how I will complete the remaining work.
+This interim report is submitted at the halfway point of my MSc project. It gives my supervisor and moderator a clear overview of the whole project so they can assess my progress and give feedback. This is not a first draft of the final report. It has three parts: (1) a summary literature review, (2) a description of my research methodology, and (3) a plan for completion.
 
 My project aims to design and build a prototype system that can detect attacks in IoT network traffic. The system uses a dynamic graph neural network (GNN) with a Graph Attention Network (GAT) and a Gated Recurrent Unit (GRU). It is trained with federated learning so that raw data does not need to leave client sites. It also produces explainable alerts in a format that Security Operations Centre (SOC) analysts can use with their SIEM tools. The main research question is:
 
@@ -44,7 +44,7 @@ At this point in the project, I have completed the data pipeline, built all four
 
 ## 1. Summary Literature Review
 
-This section critically summarises the current academic literature in my subject area. It provides the academic framework for the research I am undertaking. I evaluate the strengths and limitations of prior work and identify the gap that my project addresses. Figure 1 gives an overview of the main categories of intrusion detection approaches relevant to IoT and this project.
+This section summarises the key academic literature in my subject area and provides the framework for my research. I look at the strengths and limitations of prior work and identify the gap my project addresses. Figure 1 shows the main categories of intrusion detection relevant to IoT.
 
 **Figure 1: Taxonomy of IDS approaches relevant to IoT and this project**
 
@@ -149,11 +149,11 @@ Finally, Figure 7 presents the end-to-end project pipeline, included here to sho
 
 ## 2. Research Methodology
 
-This section describes in detail how I am conducting my research. I explain the basis of my research method (a quantitative, experimental development project), how I gather, analyse and interpret results, and the verifiable academic goal. I also explain how I will present the data to demonstrate the rigour of the process and my interpretation of the results.
+This section explains how I am doing my research. It covers my method, how I collect and analyse data, and the academic goal of the project.
 
 ### 2.1 Research Approach and Basis
 
-I use a quantitative, experimental approach. This is a development project where I design, build and compare several intrusion detection models. I run them under controlled conditions and measure objective metrics such as precision, recall, F1-score, ROC-AUC, false alarm rate and CPU inference time. I use a held-out test set that is never used during training or tuning. Each model is tested against clear hypotheses.
+My approach is quantitative and experimental. I design, build and compare several detection models under controlled conditions. I measure metrics like precision, recall, F1, ROC-AUC, false alarm rate and CPU inference time. The test set is held out and never used during training. Each model is tested against the hypotheses below.
 
 **Primary research question:** How can an explainable dynamic graph neural network, trained using federated learning, detect attacks in Software-Defined IoT flow data and generate SIEM alerts that support SOC operations on CPU-based edge devices?
 
@@ -206,11 +206,11 @@ I train and compare four models. They represent increasing structural sophistica
 
 ### 2.5 Data Gathering and Analysis
 
-I use the pre-defined train/validation/test splits from CICIoT2023. This lets me compare my results with other papers that use the same dataset. I use the validation set for hyperparameter tuning and early stopping (patience=5 epochs). The test set is reserved only for final evaluation. A fixed random seed (42) makes results reproducible. I use class-weighted loss for all neural models. This prevents the model from simply predicting the majority class.
+I use the pre-defined train/validation/test splits from CICIoT2023. This lets me compare my results with other papers that use the same dataset. I use the validation set for hyperparameter tuning and early stopping (patience=5 epochs). The test set is reserved only for final evaluation. A fixed random seed (42) makes results reproducible. I use class-weighted loss for all neural models. This prevents the model from simply predicting the majority class. One challenge I faced during data preparation was handling the extreme class imbalance at flow level. The raw data had about 97.8% attack flows and only 2.2% benign flows. If I trained on this directly, the model would just predict attack every time. I solved this by building the stratified windowing strategy described in Section 2.3, which balances the graph-level samples before training.
 
 ### 2.6 Evaluation Metrics
 
-I evaluate performance with the following metrics. I chose them because they are relevant to SOC work. The formal definitions are given below.
+I use these metrics because they matter for SOC work.
 
 **Precision** (Eq. 1): the fraction of predicted attacks that are actually attacks.
 
@@ -232,7 +232,7 @@ $$\text{FAR} = \frac{FP}{FP + TN} \tag{4}$$
 
 $$\text{AUC} = \int_0^1 \text{TPR}(t)\, d(\text{FPR}(t)) \tag{5}$$
 
-**Additionally:** confusion matrix (TP, TN, FP, FN counts), CPU inference time (milliseconds per sample), and communication cost (total bytes sent during federated training). False alarm rate is very important for SOCs. High recall with a high false alarm rate means too many false positives and analysts get overwhelmed.
+I also use a confusion matrix, CPU inference time (ms per sample), and communication cost (bytes sent during federated training). False alarm rate matters most for SOCs because high recall with high FAR means too many false alerts.
 
 ### 2.7 Explainability and SIEM Integration
 
@@ -248,7 +248,7 @@ where x is the input, x' is the baseline, and F is the model output.
 
 Alerts are formatted in ECS (Elastic Common Schema) JSON format. I serve them through a FastAPI endpoint (POST /score). Each alert includes: timestamp, severity level, confidence score, predicted label, top contributing features, and top neighbour flows. This format works with SIEM platforms like Elastic Security and Splunk.
 
-The full research pipeline from raw data to SIEM alerts is shown earlier in Figure 7 and is used here as the implementation reference for this section.
+The full research pipeline from raw data to SIEM alerts is shown earlier in Figure 7 and is used here as the implementation reference for this section. During implementation, I found that running Integrated Gradients on graph sequences was slower than expected because Captum needs many forward passes (50 integration steps by default). To keep inference time acceptable on CPU, I set the system to compute explanations only for flows flagged as attacks, rather than for every single flow. This reduced the explainability overhead without losing the most important alerts.
 
 ### 2.8 Academic Worth and Verifiable Goal
 
@@ -258,7 +258,7 @@ My project has a clear, verifiable academic goal: to test whether an explainable
 2. **Empirical evidence:** I compare flat models (Random Forest, MLP), centralised GNN, and federated GNN on the same data with identical preprocessing. This provides objective evidence of whether graph structure and federated learning actually improve detection.
 3. **Practical applicability:** The full pipeline runs on CPU with acceptable latency for edge use. This bridges the gap between academic research and real SOC tools.
 
-**How I will present the data to prove rigour:** I will present results in comparison tables, confusion matrices, ROC curves, and federated learning convergence plots. Each hypothesis (H1 to H3) maps to specific metrics that can be checked on the held-out test set. I will not use the test set for any tuning. It is reserved solely for final evaluation.
+**How I will present the data to prove rigour:** I will present results in comparison tables, confusion matrices, ROC curves, and federated learning convergence plots. Each hypothesis (H1 to H3) maps to specific metrics that can be checked on the held-out test set. I will not use the test set for any tuning. It is reserved solely for final evaluation. Beyond the performance numbers, I believe the project is useful because it shows that all four components (graph detection, federated training, explainability, and SIEM output) can work together in one small system on a normal computer. Most papers only look at one or two of these parts. Showing that they can be combined in a working prototype is valuable for both researchers and for SOC teams who want to try graph-based detection without needing expensive hardware.
 
 ### 2.9 Anticipated Critical Reflection
 
@@ -271,13 +271,13 @@ The MSc Project Handbook requires a Critical Reflection section in the final rep
 - **Explainability validation:** Without a formal user study with SOC analysts, the claim that explanations "support" triage is based on qualitative assessment rather than measured analyst performance improvement.
 - **Prototype maturity:** The system is a research prototype. It is not a production SIEM.
 
-These limitations will define clear boundaries for my conclusions and identify directions for future work. I will incorporate feedback from this interim report into the critical reflection section of my final report.
+These limitations will define clear boundaries for my conclusions and identify directions for future work. I will incorporate feedback from this interim report into the critical reflection section of my final report. If I were to restart this project, I would spend more time early on exploring the dataset before jumping into graph construction. I spent several days debugging the kNN graph builder before I realised that some features had very different scales, which made the distance calculations unreliable until I applied proper normalisation. Starting with a thorough data exploration step would have saved that time.
 
 ---
 
 ## 3. Plan for Completion
 
-This section describes the current status of my project and how I intend to progress it to completion. It also includes how I will proceed if the results are in some way deficient.
+This section shows where the project is now and how I plan to finish it. It also covers what I will do if results are not as expected.
 
 ### 3.1 Current Status
 
@@ -292,7 +292,7 @@ At the time of writing this report, I have completed the following:
 - **SIEM integration:** The FastAPI endpoint producing ECS-formatted JSON alerts is operational.
 - **Preliminary metrics:** All four models have been trained and evaluated on the test set. Initial metrics have been collected but not yet formally analysed.
 
-The main engineering work is done. What remains is the final evaluation, detailed analysis, figure generation, and writing the dissertation chapters.
+The main engineering work is done. What remains is final evaluation, analysis, and writing the dissertation.
 
 ### 3.2 Plan to Completion
 
@@ -316,7 +316,7 @@ Figure 8 provides a visual roadmap of the remaining project phases from interim 
 
 ### 3.2.1 Alignment with Final Dissertation Criteria
 
-The final dissertation is assessed using weighted criteria. Table 4 shows how my current progress and remaining work align with these criteria. This helps ensure that the final submission is balanced and complete.
+Table 4 shows how my progress aligns with the final dissertation marking criteria.
 
 **Table 4: Alignment of Project Progress with Final Dissertation Criteria**
 
@@ -339,6 +339,8 @@ When the final results are ready, I will analyse them as follows:
 2. **Federated vs. centralised (H2):** I will compare the federated model's metrics round by round and check whether it reaches performance within 2% of the centralised model. Communication cost will also be reported.
 3. **Explainability assessment (H3):** I will generate 3 to 5 example alerts with full explanations (top features and top flows). I will discuss whether the highlighted features would help a SOC analyst understand and act on each alert. This assessment is qualitative.
 4. **Figures and visualisations:** Confusion matrices for each model, ROC curves, a federated convergence plot, and a bar chart comparing inference time and F1-score will support the text.
+
+One thing I noticed in the preliminary runs is that the centralised GNN reached very high validation scores after just one or two epochs. This fast convergence might mean the chosen subset is relatively easy for the model, or it might mean the class-weighted loss and stratified windowing are working very well together. I plan to look into this more carefully during the final evaluation. If the task is too easy, I may try a harder subset or discuss it as a limitation.
 
 ### 3.4 Contingency Plans
 

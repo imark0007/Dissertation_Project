@@ -220,7 +220,7 @@ def build_document():
     doc.add_paragraph()
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    add_run(p, 'Word count: approximately 4,950 words (maximum 5,000)', italic=True, size=11)
+    add_run(p, 'Word count: approximately 4,800 words (maximum 5,000)', italic=True, size=11)
 
     doc.add_page_break()
 
