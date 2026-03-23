@@ -162,6 +162,61 @@ def add_figure(doc, img_path, caption, width=Inches(5.0)):
     add_run(cap_p, caption, italic=True, size=10)
 
 
+def assign_numid(para, num_id):
+    """Assign a specific numId to a list paragraph so it continues the same list."""
+    pPr = para._p.get_or_add_pPr()
+    numPr = pPr.find(qn('w:numPr'))
+    if numPr is None:
+        numPr = OxmlElement('w:numPr')
+        pPr.append(numPr)
+    numId_el = numPr.find(qn('w:numId'))
+    if numId_el is None:
+        numId_el = OxmlElement('w:numId')
+        numPr.append(numId_el)
+    numId_el.set(qn('w:val'), str(num_id))
+    ilvl_el = numPr.find(qn('w:ilvl'))
+    if ilvl_el is None:
+        ilvl_el = OxmlElement('w:ilvl')
+        numPr.append(ilvl_el)
+    ilvl_el.set(qn('w:val'), '0')
+
+
+def restart_numbering(doc, para):
+    """Force a numbered list paragraph to restart at 1. Returns the new numId."""
+    numbering_part = doc.part.numbering_part
+    ct_numbering = numbering_part._element
+
+    existing_nums = ct_numbering.findall(qn('w:num'))
+    existing_abstracts = ct_numbering.findall(qn('w:abstractNum'))
+    new_num_id = max((int(n.get(qn('w:numId'))) for n in existing_nums), default=0) + 1
+
+    ref_num = existing_nums[0] if existing_nums else None
+    ref_abstract_id = None
+    if ref_num is not None:
+        aref = ref_num.find(qn('w:abstractNumId'))
+        if aref is not None:
+            ref_abstract_id = aref.get(qn('w:val'))
+
+    if ref_abstract_id is not None:
+        override = OxmlElement('w:num')
+        override.set(qn('w:numId'), str(new_num_id))
+        aref_el = OxmlElement('w:abstractNumId')
+        aref_el.set(qn('w:val'), ref_abstract_id)
+        override.append(aref_el)
+        lvl_override = OxmlElement('w:lvlOverride')
+        lvl_override.set(qn('w:ilvl'), '0')
+        start_override = OxmlElement('w:startOverride')
+        start_override.set(qn('w:val'), '1')
+        lvl_override.append(start_override)
+        override.append(lvl_override)
+        ct_numbering.append(override)
+    else:
+        new_num_id = 1
+
+    assign_numid(para, new_num_id)
+    return new_num_id
+
+
 def build_document():
     md_text = MD_PATH.read_text(encoding='utf-8')
     doc = Document()
@@ -224,9 +279,38 @@ def build_document():
 
     doc.add_page_break()
 
+    # --- DECLARATION OF ORIGINALITY ---
+    doc.add_heading('Declaration of Originality', level=1)
+    decl_text = (
+        'I confirm that this interim report is my own work and does not include '
+        'any work that has been completed by anyone else. Where I have used the '
+        'work of others, I have clearly identified and referenced it. I understand '
+        'that the University may check my work for plagiarism using Turnitin or '
+        'similar tools.'
+    )
+    p = doc.add_paragraph()
+    add_run(p, decl_text, size=11)
+
+    p = doc.add_paragraph()
+    add_run(p, 'Name: ', bold=True, size=11)
+    add_run(p, 'Arka Talukder', size=11)
+    p = doc.add_paragraph()
+    add_run(p, 'Student Number: ', bold=True, size=11)
+    add_run(p, 'B01821011', size=11)
+    p = doc.add_paragraph()
+    add_run(p, 'Date: ', bold=True, size=11)
+    add_run(p, 'March 2026', size=11)
+    p = doc.add_paragraph()
+    add_run(p, 'Signed: ', bold=True, size=11)
+    add_run(p, '____________________________', size=11)
+
+    doc.add_page_break()
+
     lines = md_text.split('\n')
     skip_header = True
     i = 0
+    in_numbered_list = False
+    current_list_numid = None
 
     while i < len(lines):
         line = lines[i]
@@ -242,17 +326,20 @@ def build_document():
             continue
 
         if line.strip() == '---':
+            in_numbered_list = False
             i += 1
             continue
 
         if line.startswith('## '):
             text = line[3:].strip()
             doc.add_heading(text, level=1)
+            in_numbered_list = False
             i += 1
             continue
 
         if line.startswith('### '):
             doc.add_heading(line[4:].strip(), level=2)
+            in_numbered_list = False
             i += 1
             continue
 
@@ -330,12 +417,14 @@ def build_document():
                 clean = clean.replace('{', '').replace('}', '').replace('_', '')
                 clean = clean.replace('^', '').replace('\\,', ' ').strip()
                 add_equation_paragraph(doc, clean, tag_str)
+            # Equations don't break numbered list continuity
             continue
 
         if line.startswith('- **') or line.startswith('- '):
             p = doc.add_paragraph(style='List Bullet')
             text = line.lstrip('- ').strip()
             add_formatted_text(p, text)
+            in_numbered_list = False
             i += 1
             continue
 
@@ -343,11 +432,33 @@ def build_document():
             p = doc.add_paragraph(style='List Number')
             text = re.sub(r'^\d+\.\s*', '', line).strip()
             add_formatted_text(p, text)
+            if not in_numbered_list:
+                current_list_numid = restart_numbering(doc, p)
+                in_numbered_list = True
+            else:
+                assign_numid(p, current_list_numid)
             i += 1
             continue
 
         stripped = line.strip()
         if not stripped:
+            if in_numbered_list:
+                # Scan ahead to see if we're still inside a numbered list block.
+                # Equations, "where" clauses, and blank lines can appear between items.
+                j = i + 1
+                while j < len(lines) and not lines[j].strip():
+                    j += 1
+                if j < len(lines):
+                    nxt = lines[j].strip()
+                    still_in_list = (
+                        re.match(r'^\d+\. ', nxt) or
+                        nxt.startswith('$$') or
+                        nxt.startswith('where ')
+                    )
+                    if not still_in_list:
+                        in_numbered_list = False
+                else:
+                    in_numbered_list = False
             i += 1
             continue
 
@@ -355,12 +466,32 @@ def build_document():
             p = doc.add_paragraph()
             set_paragraph_spacing(p, before=0, after=60)
             add_run(p, stripped, italic=True, size=10)
+            # "where" clause doesn't break numbered list continuity
             i += 1
             continue
 
         p = doc.add_paragraph()
         add_formatted_text(p, stripped)
+        in_numbered_list = False
         i += 1
+
+    # --- PAGE NUMBERS ---
+    for section in doc.sections:
+        footer = section.footer
+        footer.is_linked_to_previous = False
+        fp = footer.paragraphs[0] if footer.paragraphs else footer.add_paragraph()
+        fp.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        run = fp.add_run()
+        fld_char_begin = OxmlElement('w:fldChar')
+        fld_char_begin.set(qn('w:fldCharType'), 'begin')
+        run._r.append(fld_char_begin)
+        instr = OxmlElement('w:instrText')
+        instr.set(qn('xml:space'), 'preserve')
+        instr.text = ' PAGE '
+        run._r.append(instr)
+        fld_char_end = OxmlElement('w:fldChar')
+        fld_char_end.set(qn('w:fldCharType'), 'end')
+        run._r.append(fld_char_end)
 
     return doc
 

@@ -14,7 +14,7 @@
 
 ## Introduction
 
-This interim report is submitted at the halfway point of my MSc project. It gives my supervisor and moderator a clear overview of the whole project so they can assess my progress and give feedback. This is not a first draft of the final report. It has three parts: (1) a summary literature review, (2) a description of my research methodology, and (3) a plan for completion.
+I am submitting this interim report halfway through my MSc project. The aim is to give my supervisor and moderator enough detail to check my progress and offer advice. This is not a first draft of the final report. It has three parts: (1) a summary literature review, (2) a description of my research methodology, and (3) a plan for completion.
 
 My project aims to design and build a prototype system that can detect attacks in IoT network traffic. The system uses a dynamic graph neural network (GNN) with a Graph Attention Network (GAT) and a Gated Recurrent Unit (GRU). It is trained with federated learning so that raw data does not need to leave client sites. It also produces explainable alerts in a format that Security Operations Centre (SOC) analysts can use with their SIEM tools. The main research question is:
 
@@ -44,7 +44,7 @@ At this point in the project, I have completed the data pipeline, built all four
 
 ## 1. Summary Literature Review
 
-This section summarises the key academic literature in my subject area and provides the framework for my research. I look at the strengths and limitations of prior work and identify the gap my project addresses. Figure 1 shows the main categories of intrusion detection relevant to IoT.
+Below, I summarise the key academic work in my subject area and explain how it shaped my research. I look at what earlier studies did well, where they fell short, and what gap my project tries to fill. Figure 1 shows the main categories of intrusion detection relevant to IoT.
 
 **Figure 1: Taxonomy of IDS approaches relevant to IoT and this project**
 
@@ -54,7 +54,7 @@ This section summarises the key academic literature in my subject area and provi
 
 ### 1.1 IoT Security Landscape and Software-Defined IoT
 
-IoT devices are growing fast. This has created many security problems in consumer, industrial and critical infrastructure (Kolias et al., 2017). Many IoT devices use default passwords and have weak security. They also get few firmware updates. This makes them easy targets for attackers. When hacked, these devices can join large botnets like Mirai, which launched DDoS attacks over 1 Tbps (Antonakakis et al., 2017). The variety and number of IoT devices make defence hard. Old security models cannot monitor thousands of different devices easily.
+The number of IoT devices has gone up a lot in recent years, and this growth has brought serious security problems in consumer, industrial and critical infrastructure (Kolias et al., 2017). Many IoT devices use default passwords and have weak security. They also get few firmware updates. This makes them easy targets for attackers. When hacked, these devices can join large botnets like Mirai, which launched DDoS attacks over 1 Tbps (Antonakakis et al., 2017). I chose to focus on IoT security because these kinds of attacks are becoming more frequent and harder to stop with old methods. The variety and number of IoT devices make defence hard, and old security models cannot monitor thousands of different devices easily.
 
 Software-Defined IoT (SDIoT) helps with this problem. It separates the control plane from the data plane. This allows centralised network management through SDN controllers (Bera, Misra and Vasilakos, 2017). In SDIoT, the controller can see all forwarding decisions. It can also export flow data such as packet counts, byte counts and protocol breakdowns. This makes SDIoT a good fit for machine learning intrusion detection because the controller collects data from the whole network without needing software on each device. My project uses flow-level features from the CICIoT2023 dataset (Pinto Neto et al., 2023). These features are similar to what an SDN controller would produce.
 
@@ -62,15 +62,15 @@ However, Bera, Misra and Vasilakos (2017) mainly looked at SDN architecture. The
 
 ### 1.2 Machine Learning for Network Intrusion Detection
 
-Machine learning is now widely used for network intrusion detection. Models are trained on flow features to classify traffic as benign or malicious. Random Forest works well on network datasets. It does not overfit easily and it selects features through ensemble averaging (Ahmad et al., 2021). On CICIoT2023, Pinto Neto et al. (2023) found Random Forest got over 99% accuracy for binary detection. So I use it as a strong baseline in my project.
+These days, machine learning is one of the most common ways to detect intrusions in network traffic. Models are trained on flow features to classify traffic as benign or malicious. Random Forest works well on network datasets. It does not overfit easily and it selects features through ensemble averaging (Ahmad et al., 2021). On CICIoT2023, Pinto Neto et al. (2023) found Random Forest got over 99% accuracy for binary detection. Because of this strong track record, I decided to use Random Forest as one of my baseline models.
 
 Deep learning approaches such as MLPs can learn complex patterns without manual feature engineering (Shone et al., 2018). Shone et al. (2018) used deep autoencoders with classifiers on NSL-KDD and got good results. However, NSL-KDD is smaller and less diverse than CICIoT2023. They also did not consider temporal relationships or links between flows. Both Random Forest and MLP treat each flow independently. They ignore connections between flows. This is a limitation because, in real networks, flows are linked. For example, a scan often comes before an attack. Command-and-control traffic connects to data theft. If we ignore these links, we miss multi-stage attacks (Caville et al., 2022). Wang et al. (2025) did a scoping review and found that graph-based approaches to network traffic analysis are used more and more. Zhong et al. (2024) surveyed GNNs for intrusion detection and noted that explainability and federated deployment are still under-explored. These findings support the graph-based approach in this project.
 
 ### 1.3 Graph Neural Networks and Dynamic Graphs
 
-Graph Neural Networks (GNNs) model how network entities relate to each other. Nodes can represent flows or hosts, and edges show communication links. The GNN learns from its neighbours through message passing (Caville et al., 2022). Graph Attention Networks (GATs) go further. They learn to give different weights to different neighbours, so the model focuses on the most important connections (Velickovic et al., 2018). This helps in two ways: it improves classification and it shows which flows influenced each decision.
+GNNs are a type of neural network that can work with data arranged as a graph, where nodes and edges show how things connect. Nodes can represent flows or hosts, and edges show communication links. The GNN learns from its neighbours through message passing (Caville et al., 2022). Graph Attention Networks (GATs) go further. They learn to give different weights to different neighbours, so the model focuses on the most important connections (Velickovic et al., 2018). This helps in two ways: it improves classification and it shows which flows influenced each decision.
 
-Basak et al. (2025) used GNNs for intrusion detection on UNSW-NB15. They built graphs from flow features with edges linking similar flows. They got F1 over 97%. However, a key limitation is that they used static graphs. The whole dataset was one snapshot. They did not capture how behaviour changes over time. Also, UNSW-NB15 is older and has fewer attack types than CICIoT2023. Han et al. (2025) proposed DIMK-GCN for intrusion detection and showed that multi-scale graph representations can capture both local and global attack patterns. Ngo et al. (2025) used GNNs on IoT datasets with kNN-based graph construction. Edges linked flows that were similar in feature space. This worked without needing device topology. They found k=5 is a good default. However, they also used static graphs with no temporal modelling.
+Basak et al. (2025) used GNNs for intrusion detection on UNSW-NB15. They built graphs from flow features with edges linking similar flows. They got F1 over 97%. However, a key limitation is that they used static graphs. The whole dataset was one snapshot. They did not capture how behaviour changes over time. Also, UNSW-NB15 is older and has fewer attack types than CICIoT2023. Han et al. (2025) proposed DIMK-GCN for intrusion detection and showed that multi-scale graph representations can capture both local and global attack patterns. Ngo et al. (2025) used GNNs on IoT datasets with kNN-based graph construction. Edges linked flows that were similar in feature space. This worked without needing device topology. They found k=5 is a good default. However, they also used static graphs with no temporal modelling. This gap is exactly what motivated me to add a temporal component to my GNN design.
 
 My project builds on these studies. I add a GRU layer that processes sequences of graph snapshots. So the system can learn from how the graph changes over time, not just from single snapshots. Figure 2 shows the conceptual flow of this dynamic GNN architecture.
 
@@ -82,7 +82,7 @@ My project builds on these studies. I add a GRU layer that processes sequences o
 
 ### 1.4 Federated Learning for Privacy-Preserving IoT Security
 
-Federated learning (FL) lets many clients train a model together without sharing raw data. This helps with privacy and regulations like GDPR (McMahan et al., 2017). In FedAvg, each client trains on its own data and only sends model updates to a server. The server averages these updates and sends the improved model back to all clients. This fits IoT security well because traffic data often comes from different organisations or places and cannot be pooled in one location. Figure 3 shows the FedAvg flow used in this project.
+In federated learning, several clients can train a shared model together, but none of them have to send their raw data to a central server. This helps with privacy and regulations like GDPR (McMahan et al., 2017). In FedAvg, each client trains on its own data and only sends model updates to a server. The server averages these updates and sends the improved model back to all clients. This fits IoT security well because traffic data often comes from different organisations or places and cannot be pooled in one location. Figure 3 shows the FedAvg flow used in this project.
 
 **Figure 3: Federated learning (FedAvg) flow — no raw data leaves clients**
 
@@ -92,13 +92,13 @@ Federated learning (FL) lets many clients train a model together without sharing
 
 Lazzarini et al. (2023) used federated learning for intrusion detection on UNSW-NB15. Their federated MLP got within 2% F1 of the centralised model. However, they only used two clients with IID (evenly distributed) data. This is an ideal case that does not reflect real IoT deployments. In practice, different networks (for example, factory sensors compared to smart homes) see very different traffic patterns. This non-IID data is known to hurt FedAvg performance (Kairouz et al., 2021).
 
-Albanbay et al. (2025) addressed non-IID data by using Dirichlet splits. Lower alpha values (meaning more different data across clients) caused up to 8% F1 drop. It also needed about twice as many rounds to converge. However, they used flat models, not graph models. It is still unclear whether graph-based models behave differently with non-IID data. My project tests this by combining GNNs with federated learning using alpha=0.5.
+Albanbay et al. (2025) addressed non-IID data by using Dirichlet splits. Lower alpha values (meaning more different data across clients) caused up to 8% F1 drop. It also needed about twice as many rounds to converge. However, they used flat models, not graph models. It is still unclear whether graph-based models behave differently with non-IID data. My project tests this by combining GNNs with federated learning using alpha=0.5. I chose alpha=0.5 because it creates a noticeable difference between clients without making the problem impossibly hard for initial experiments.
 
 ### 1.5 Explainable AI for Security Operations
 
-SOCs receive too many alerts. Analysts handle thousands each day. Many alerts are false positives or lack context (Alahmadi et al., 2022). Cuppens and Miege (2002) proposed alert correlation to reduce noise, but the main problem remains: many detection systems output labels without saying why. ML models that only give a yes or no answer make this problem worse.
+One well-known problem in SOCs is that analysts get far too many alerts each day, and many of them turn out to be false (Alahmadi et al., 2022). Cuppens and Miege (2002) proposed alert correlation to reduce noise, but the main problem remains: many detection systems output labels without saying why. ML models that only give a yes or no answer make this problem worse.
 
-Explainable AI (XAI) helps by showing which input features drove each decision. Integrated Gradients (Sundararajan, Taly and Yan, 2017) does this by following a path from a baseline to the real input. It has good mathematical properties. Captum (Kokhlikyan et al., 2020) implements Integrated Gradients for PyTorch. I use Captum in my project. Alabbadi and Bajaber (2025) used SHAP for IoT intrusion detection. Feature attribution helped analysts trust the alerts. However, SHAP is slow for deep models. One prediction can take over 10 seconds. That is too slow for real-time or edge use. Integrated Gradients is faster because it needs only one forward and backward pass.
+Explainable AI (XAI) helps by showing which input features drove each decision. Integrated Gradients (Sundararajan, Taly and Yan, 2017) does this by following a path from a baseline to the real input. It has good mathematical properties. Captum (Kokhlikyan et al., 2020) implements Integrated Gradients for PyTorch. I use Captum in my project. Alabbadi and Bajaber (2025) used SHAP for IoT intrusion detection. Feature attribution helped analysts trust the alerts. However, SHAP is slow for deep models. One prediction can take over 10 seconds. That is too slow for real-time or edge use. I picked Integrated Gradients over SHAP mainly because it is faster — it only needs a single forward and backward pass through the network, which matters when running on CPU.
 
 GAT attention weights provide another form of explanation. They show which neighbour flows influenced each classification. No prior work I found combines both approaches: feature attributions from Integrated Gradients and structural explanations from attention weights. I use both in my project to give analysts richer context for each alert. Figure 4 shows the explainability pipeline used in this project.
 
@@ -153,7 +153,7 @@ This section explains how I am doing my research. It covers my method, how I col
 
 ### 2.1 Research Approach and Basis
 
-My approach is quantitative and experimental. I design, build and compare several detection models under controlled conditions. I measure metrics like precision, recall, F1, ROC-AUC, false alarm rate and CPU inference time. The test set is held out and never used during training. Each model is tested against the hypotheses below.
+For this project, I took a quantitative, experimental approach. I design, build and compare several detection models under controlled conditions. I measure metrics like precision, recall, F1, ROC-AUC, false alarm rate and CPU inference time. The test set is held out and never used during training. Each model is tested against the hypotheses below.
 
 **Primary research question:** How can an explainable dynamic graph neural network, trained using federated learning, detect attacks in Software-Defined IoT flow data and generate SIEM alerts that support SOC operations on CPU-based edge devices?
 
@@ -174,7 +174,7 @@ I use the CICIoT2023 dataset (Pinto Neto et al., 2023). It has flow-level record
 3. Apply StandardScaler (fitted on training data only) to normalise all 46 features to zero mean and unit variance. Save the fitted scaler so the same transformation is applied to validation and test sets without data leakage.
 4. Export normalised data as Parquet files for efficient loading in later steps.
 
-I use binary classification to keep the scope manageable within the 15-week project. The main SOC question is: is this traffic malicious or not? Multi-class classification can be added in future work.
+I chose binary classification rather than multi-class because the most important question for a SOC analyst is simply whether traffic is malicious or not. Adding more attack categories is something I can look at later if time allows.
 
 ### 2.3 Graph Construction and Design Decisions
 
@@ -277,7 +277,7 @@ These limitations will define clear boundaries for my conclusions and identify d
 
 ## 3. Plan for Completion
 
-This section shows where the project is now and how I plan to finish it. It also covers what I will do if results are not as expected.
+In this part, I explain what I have done so far and what still needs to be done before submission. It also covers what I will do if results are not as expected.
 
 ### 3.1 Current Status
 
@@ -383,7 +383,7 @@ Kokhlikyan, N., Miglani, V., Martin, M., Wang, E., Alsallakh, B., Reynolds, J., 
 
 Kolias, C., Kambourakis, G., Stavrou, A. and Voas, J. (2017) 'DDoS in the IoT: Mirai and other botnets', *Computer*, 50(7), pp. 80–84. doi: 10.1109/MC.2017.201.
 
-Lazzarini, R., Tianfield, H. and Charissis, V. (2023) 'Federated learning for IoT intrusion detection', *AI*, 4(3), pp. 509–530. doi: 10.3390/ai4030027.
+Lazzarini, R., Tianfield, H. and Charissis, V. (2023) 'Federated learning for IoT intrusion detection', *AI*, 4(3), pp. 509–530. doi: 10.3390/ai4030028.
 
 Liu, Y., Chen, J. and Zhou, J. (2019) 'Temporal graph neural networks for fraud detection', in *Proceedings of the 2019 IEEE International Conference on Data Mining (ICDM)*, pp. 1202–1207.
 
