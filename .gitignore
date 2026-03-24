@@ -1,5 +1,6 @@
 # Data and environment
 data/
+!src/data/
 venv/
 .venv/
 env/
