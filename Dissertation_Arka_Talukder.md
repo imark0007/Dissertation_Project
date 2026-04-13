@@ -925,10 +925,10 @@ Zhong, M., Lin, M., Zhang, C. and Xu, Z. (2024) 'A survey on graph neural networ
 In the **automated Word export**, the full .docx files named below are also inserted **after Appendix E** under **Full text — …** headings (see Chapter 13 opening note) so assessors receive both the manifest and the originals.
 
 - **Project Process Documentation** — Arka_Talukder_Process_Documentation_B01821011.docx  
-  *Location: archive/process_attendance/ or project process and Attendance log/*
+  *Canonical location:* **`archive/process_attendance/`** (see **`archive/README.md`**). *Supervisor zip mirror:* `B01821011_Final_Report_Package_for_Supervisor/05_Appendix_documents/`. The Word exporter embeds from the archive paths.
 
 - **Attendance Log** — Arka Talukder_Attendance_Jan-Feb_B01821011.docx  
-  *Location: archive/process_attendance/ or project process and Attendance log/*
+  *Canonical location:* **`archive/process_attendance/`** (see **`archive/README.md`**). *Supervisor zip mirror:* `B01821011_Final_Report_Package_for_Supervisor/05_Appendix_documents/`.
 
 ### Appendix B: Project Specification
 

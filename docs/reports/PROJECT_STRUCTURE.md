@@ -15,7 +15,7 @@ This file describes every top-level folder and key file so the full dissertation
 | `notebooks/` | Exploration and demos (optional for submission) |
 | `tests/` | API tests |
 | `docs/` | Index in `docs/README.md`: **reports/** (checklists, compliance, structure), **planning/** (roadmap, outlines), **viva/**, **reference/** (handbook optional, dissertation samples) |
-| `archive/` | Interim report, process/attendance docs, one-time scripts — **kept for records and appendices** |
+| `archive/` | Interim report, process/attendance docs, one-time scripts — **kept for records and appendices** — see **[`archive/README.md`](../../archive/README.md)** for the authoritative index |
 
 ## Dissertation and Submission
 
@@ -46,14 +46,16 @@ This file describes every top-level folder and key file so the full dissertation
 - **data/graphs/** — Graph sequences (created by graph_builder; required for GNN and ablation)
 - **results/checkpoints/** — Trained models (dynamic_gnn_best.pt, ablation_gat_only.pt, etc.)
 - **results/metrics/** — All JSON/CSV metrics and tables
-- **results/figures/** — All dissertation figures
+- **results/figures/** — All dissertation figures (including **`appendix1/`** auto-generated code screenshots for Handbook Appendix 1)
 - **results/alerts/** — Example alerts and summary
 
 ## Archive (do not delete — appendices and records)
 
-- **archive/process_attendance/** — Process documentation and attendance log (Appendix A); embedded in final DOCX
-- **archive/interim_report/** — Interim report and guidelines
-- **archive/scripts_one_time/** — One-time scripts (kept for reference)
+See **[`archive/README.md`](../../archive/README.md)** for filenames, embedding behaviour, and what is **not** in `archive/` (e.g. school templates under `docs/reference/school_templates/`).
+
+- **archive/process_attendance/** — **Canonical** process documentation + attendance (**Appendix A**); merged by `dissertation_to_docx.py` after Appendix E
+- **archive/interim_report/** — Interim report artefacts and guidelines
+- **archive/scripts_one_time/** — One-off drafting scripts (not the main `scripts/` pipeline)
 
 ---
 

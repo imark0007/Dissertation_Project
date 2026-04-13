@@ -47,7 +47,7 @@ Use this as a **walkthrough** of your whole MSc work: question → design → bu
 
 ### 7. Programme paperwork (non-technical but often required)
 
-- **`05_Appendix_documents/`** — process documentation, attendance, and **signed** `Arka-B01821011_MSc Cyber Security Project specification_form_2025-26.docx` (copy kept here for the supervisor zip; root copy is used by `dissertation_to_docx.py`).
+- **`05_Appendix_documents/`** — process documentation, attendance, and **signed** `Arka-B01821011_MSc Cyber Security Project specification_form_2025-26.docx` (copy kept here for the supervisor zip; **canonical** process + attendance paths for Word export are **`archive/process_attendance/`** on the repo — see **`ARCHIVE_README.md`** in this folder, same text as **`archive/README.md`** at repo root).
 - **`ADD_SIGNED_PROJECT_SPECIFICATION_HERE.txt`** — short note on how Word embedding works (**Full text —** section after Appendix E).
 
 ### 8. Checklists (optional printout)

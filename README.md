@@ -129,6 +129,7 @@ scripts/
 results/                        # metrics/, figures/, checkpoints/, alerts/ (local only unless committed)
 Dissertation_Arka_Talukder.md   # Thesis source (Markdown)
 docs/                           # Checklists, compliance notes, supervisor brief, planning
+archive/                        # Records + Appendix A docs — see [archive/README.md](archive/README.md)
 B01821011_Final_Report_Package_for_Supervisor/   # Curated zip-style bundle for review
 ```
 
@@ -145,6 +146,7 @@ Large binaries, `venv/`, and raw/processed data stay **out of git** per [`.gitig
 | [`docs/reports/SUPERVISOR_FINAL_FEEDBACK.md`](docs/reports/SUPERVISOR_FINAL_FEEDBACK.md) | Final meeting checklist + evidence pointers |
 | [`docs/reports/SUBMISSION_CHECKLIST.md`](docs/reports/SUBMISSION_CHECKLIST.md) | Programme submission items |
 | [`docs/reports/FINAL_REPORT_GENERATION.md`](docs/reports/FINAL_REPORT_GENERATION.md) | Dissertation / Word workflow |
+| [`archive/README.md`](archive/README.md) | **Archive index:** interim report, process/attendance (Appendix A), one-time scripts; ties to Chapter 13 + `dissertation_to_docx.py` |
 
 ---
 

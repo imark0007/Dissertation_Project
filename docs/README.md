@@ -9,4 +9,4 @@ Project prose, checklists, and planning live under **`docs/`** (dissertation sou
 | **`docs/viva/`** | Viva master brief and printable cheatsheet. |
 | **`docs/reference/`** | **`school_templates/`** (Moodle forms / guideline copies), handbook copy (if present; may be gitignored), and **`dissertation_samples/`** (example dissertations / PDFs). |
 
-Start from repository **`README.md`** and **`SETUP_AND_RUN.md`**; for folder purposes see **`docs/reports/PROJECT_STRUCTURE.md`**.
+Start from repository **`README.md`** and **`SETUP_AND_RUN.md`**; for folder purposes see **`docs/reports/PROJECT_STRUCTURE.md`**. For **`archive/`** (interim report, process/attendance appendices, one-time scripts) see **`archive/README.md`** at the repo root.

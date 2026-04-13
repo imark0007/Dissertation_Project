@@ -1,7 +1,8 @@
 """
 Convert Dissertation_Arka_Talukder.md to Word for final submission.
 Follows MSc Project Handbook: 1.5 line spacing, 11pt+ font, page numbers.
-Embeds appendices (process docs, project spec) if available.
+Embeds appendices (process docs, project spec) if available — see archive/README.md
+for canonical paths to process + attendance under archive/process_attendance/.
 Run: python scripts/dissertation_to_docx.py
 Output: Arka_Talukder_Dissertation_Final.docx
 """

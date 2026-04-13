@@ -172,3 +172,7 @@ python scripts/dataset_statistics.py --config config/experiment.yaml
 ```
 
 Writes `results/metrics/dataset_stats.json` (row counts, class balance, sequence counts). Use to verify or report exact numbers in the dissertation.
+
+## Archive and final-report appendices
+
+Process documentation and attendance for **Appendix A** live under **`archive/process_attendance/`** (canonical for `dissertation_to_docx.py`). Interim report backups and one-off scripts are under **`archive/interim_report/`** and **`archive/scripts_one_time/`**. See **[`archive/README.md`](archive/README.md)** for the full index and how it maps to **Chapter 13** of the dissertation.
