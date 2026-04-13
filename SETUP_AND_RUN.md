@@ -67,7 +67,7 @@ python scripts/generate_alerts_and_plots.py
 
 Produces: `results/figures/` (ROC, confusion matrices, FL convergence, model comparison), `results/alerts/example_alerts.json`, `results/alerts/alert_summary.txt`, `results/soc_workflow_example.md`.
 
-### 6. Ablation (thesis §7.6)
+### 6. Ablation (thesis Chapter 8)
 
 ```bash
 python scripts/run_ablation.py --config config/experiment.yaml
@@ -85,7 +85,7 @@ If `run_ablation.py` stopped before writing metrics but the checkpoint exists:
 python scripts/eval_ablation_from_ckpt.py --config config/experiment.yaml
 ```
 
-### 7. Sensitivity grid and multi-seed (thesis §8.8–8.9)
+### 7. Sensitivity grid and multi-seed (thesis Chapter 8)
 
 Requires `data/processed/` parquets from the main pipeline. **CPU-heavy** (retrains GNN for each grid cell and each seed):
 
