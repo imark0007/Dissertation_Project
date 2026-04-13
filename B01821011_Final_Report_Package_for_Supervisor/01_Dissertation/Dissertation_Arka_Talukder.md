@@ -20,7 +20,7 @@ Internet of Things (IoT) and software-defined flow telemetry increase the volume
 
 Much prior work treats graph models, federated learning, or explainable AI for intrusion detection in isolation; few student-scale prototypes combine all three with SIEM-shaped JSON on a public benchmark. On CICIoT2023, strong Random Forest and MLP baselines already perform well, so the dissertation asks where temporal graphs and FedAvg under non-IID splits add value when only public flow features exist (no device-level topology).
 
-A dynamic GNN (GAT + GRU over *k*NN flow graphs) is trained with Flower FedAvg (three clients); Captum attributions and attention cues feed ECS-like alerts from FastAPI. Chapter 8 reports 100% test F1 and ROC-AUC for centralised and federated GNN on the fixed subset, fewer false alarms than Random Forest on the same split, about 22.7 ms CPU inference per sequence, about 31 MB federated messaging over ten rounds, plus ablation, sensitivity, and multi-seed checks. Scope is a 45-day MSc build; limitations and future work are in Chapter 9.
+A dynamic GNN (GAT + GRU over *k*NN flow graphs) is trained with Flower FedAvg (three clients); Captum attributions and attention cues feed ECS-like alerts from FastAPI. Chapter 8 reports 100% test F1 and ROC-AUC for centralised and federated GNN on the fixed subset, fewer false alarms than Random Forest on the same split, 22.7 ms CPU inference per sequence, 31 MB federated messaging over ten rounds, plus ablation, sensitivity, and multi-seed checks. Limitations and future work are in Chapter 9.
 
 **Keywords:** IoT security, dynamic graph neural network, federated learning, SIEM, explainable AI, edge AI, SOC, CICIoT2023
 

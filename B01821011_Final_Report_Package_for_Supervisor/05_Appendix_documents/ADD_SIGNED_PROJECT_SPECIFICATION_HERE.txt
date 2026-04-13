@@ -1,9 +1,13 @@
-Place your agreed, signed project specification here, e.g.:
+Signed project specification (agreed with supervisor)
+
+✓ A copy of the signed specification is included in this folder as:
 
   Arka-B01821011_MSc Cyber Security Project specification_form_2025-26.docx
 
-The dissertation export script (scripts/dissertation_to_docx.py) expects this file at the PROJECT ROOT with that name when embedding Appendix C in Word.
+The same file should remain at the **repository root** so `scripts/dissertation_to_docx.py` can find it (see `_PROJECT_SPEC_CANDIDATES` in that script).
 
-If your filename differs, rename to match the script or update PROJECT_SPEC in dissertation_to_docx.py.
+Word export behaviour
+---------------------
+The Markdown thesis (Chapter 13) lists the specification under **Appendix B**. When you run `python scripts/dissertation_to_docx.py`, the full .docx is merged **after Appendix E** under the heading **Full text — Agreed project specification (embedded)** so appendix letters A–E in the body are not duplicated.
 
-This file was not stored in git — add your copy before final submission.
+If your filename differs, rename to match the script candidates or update `dissertation_to_docx.py`.

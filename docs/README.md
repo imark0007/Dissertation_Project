@@ -4,7 +4,7 @@ Project prose, checklists, and planning live under **`docs/`** (dissertation sou
 
 | Folder | Contents |
 |--------|----------|
-| **`docs/reports/`** | Submission checklists, handbook compliance, final-report procedure, project structure, deep review notes, project overview (Markdown). |
+| **`docs/reports/`** | Submission checklists, handbook compliance, **`SUPERVISOR_FINAL_FEEDBACK.md`** (final meeting walkthrough), final-report procedure, project structure, deep review notes, project overview (Markdown). |
 | **`docs/planning/`** | Thesis roadmap, dissertation outline, publication master plan, paper outline, quick-start ablation/publication steps. |
 | **`docs/viva/`** | Viva master brief and printable cheatsheet. |
 | **`docs/reference/`** | **`school_templates/`** (Moodle forms / guideline copies), handbook copy (if present; may be gitignored), and **`dissertation_samples/`** (example dissertations / PDFs). |

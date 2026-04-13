@@ -10,6 +10,8 @@
 
 Use this as a **walkthrough** of your whole MSc work: question → design → build → evidence → honesty.
 
+**Start here for a final meeting:** **`SUPERVISOR_FINAL_FEEDBACK.md`** (meeting checklist, what is done vs. your actions, question map).
+
 ### 1. The written thesis (main story)
 
 - **`01_Dissertation/Arka_Talukder_Dissertation_Final.docx`** (or the `.md` if they prefer source).
@@ -24,6 +26,7 @@ Use this as a **walkthrough** of your whole MSc work: question → design → bu
 ### 3. Proof the plots match the metrics
 
 - **`02_Results/figures/`** — confusion matrices, ROC curves, FL convergence, model comparison, sensitivity heatmap, ablation bar, etc.
+- **`02_Results/figures/appendix1/`** — **Handbook Appendix 1** code-figure PNGs (same as root `results/figures/appendix1/`).
 - Cross-check one figure to its metrics file if they ask.
 
 ### 4. The “SOC product” slice of the work
@@ -44,13 +47,13 @@ Use this as a **walkthrough** of your whole MSc work: question → design → bu
 
 ### 7. Programme paperwork (non-technical but often required)
 
-- **`05_Appendix_documents/`** — process documentation + attendance.
-- **`ADD_SIGNED_PROJECT_SPECIFICATION_HERE.txt`** — reminder to add your **signed project specification** if it is not already there.
+- **`05_Appendix_documents/`** — process documentation, attendance, and **signed** `Arka-B01821011_MSc Cyber Security Project specification_form_2025-26.docx` (copy kept here for the supervisor zip; root copy is used by `dissertation_to_docx.py`).
+- **`ADD_SIGNED_PROJECT_SPECIFICATION_HERE.txt`** — short note on how Word embedding works (**Full text —** section after Appendix E).
 
 ### 8. Checklists (optional printout)
 
-- **Copies in this folder:** `SUBMISSION_CHECKLIST.md`, `HANDBOOK_COMPLIANCE_REPORT.md` (snapshot for the supervisor zip).
-- **Canonical (kept in sync with the repo):** `docs/reports/SUBMISSION_CHECKLIST.md`, `docs/reports/HANDBOOK_COMPLIANCE_REPORT.md` at repository root.
+- **In this folder:** `SUBMISSION_CHECKLIST.md`, `HANDBOOK_COMPLIANCE_REPORT.md`, **`SUPERVISOR_FINAL_FEEDBACK.md`**.
+- **Canonical copies (edit in repo first):** `docs/reports/SUBMISSION_CHECKLIST.md`, `docs/reports/HANDBOOK_COMPLIANCE_REPORT.md`, `docs/reports/SUPERVISOR_FINAL_FEEDBACK.md`.
 
 ---
 

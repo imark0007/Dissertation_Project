@@ -11,20 +11,20 @@ The handbook expects: Introduction, Background, Description of work, Analysis/Ev
 
 | Handbook section        | Dissertation section                              | Status   |
 |-------------------------|----------------------------------------------------|----------|
-| Introduction            | §2 Introduction                                    | ✓ Match  |
-| Background              | §3 Literature Review                               | ✓ Match  |
-| Description of work     | §4 Research Design, §5 Implementation              | ✓ Match  |
-| Analysis/Evaluation     | §6 Evaluation, §7 Results, §8 Discussion            | ✓ Match  |
-| Conclusion              | §9 Conclusion and Recommendations                  | ✓ Match  |
-| Critical Reflection     | §10 Critical Self-Evaluation                        | ✓ Match  |
-| References              | §11 References (before appendices)                 | ✓ Match  |
-| Appendices              | A (Process docs), B (Spec), C (Reproducibility)    | ✓ Match  |
+| Introduction            | **Chapter 1**                                    | ✓ Match  |
+| Background              | **Chapter 2** Literature Review                    | ✓ Match  |
+| Description of work     | **Chapters 4–6** (design, methodology, implementation) | ✓ Match  |
+| Analysis/Evaluation     | **Chapters 7–8** (protocol, results)               | ✓ Match  |
+| Conclusion              | **Chapter 9**                                    | ✓ Match  |
+| Critical Reflection     | **Chapter 10**                                   | ✓ Match  |
+| References              | **Chapter 11** (before appendices)               | ✓ Match  |
+| Appendices              | **Chapter 13:** A–E + handbook mapping; **C** = reproducibility; **D** = code figures; **E** = optional links; Word also merges **Full text —** embedded .docx | ✓ Match  |
 
 **Verdict:** Structure aligns with the handbook.
 
 ---
 
-## 2. Marking Criteria Alignment (§2.5)
+## 2. Marking Criteria Alignment (see **§1.6** and Appendix B specification)
 
 The dissertation explicitly states alignment with the University marking scheme:
 
@@ -37,7 +37,7 @@ The dissertation explicitly states alignment with the University marking scheme:
 - Conclusion (10%): summary, future work — ✓
 - Critical Self-Evaluation (10%): honest reflection — ✓
 
-**Verdict:** Marking criteria are addressed and stated in §2.5.
+**Verdict:** Marking criteria are addressed and stated in **§1.6** (and tied to the agreed specification in **Appendix B**).
 
 ---
 
@@ -45,18 +45,18 @@ The dissertation explicitly states alignment with the University marking scheme:
 
 | Requirement              | Handbook / checklist       | Current status                          | Match? |
 |--------------------------|----------------------------|-----------------------------------------|--------|
-| Abstract                  | ≤200 words                 | 198 words                               | ✓      |
-| Word count (main body)    | ~18,000 words              | ~14,000+ (estimate)                     | ⚠ Short |
+| Abstract                  | ≤200 words                 | **200** words (Apr 2026 count)          | ✓      |
+| Word count (main body)    | ~18,000 words (if required)| **~15,900** (Ch 1–10; `scripts/count_dissertation_words.py`) | ⚠ Confirm spec / handbook |
 | Line spacing              | 1.5 lines                  | Set in docx script (1.5)                 | ✓      |
 | Font                      | 11pt or greater             | 11pt body (Times New Roman), 12pt headings (Arial) | ✓ |
 | Numbered figures/tables   | e.g. Figure 2.1, Table 3.1| Uses “Figure 1”, “Table 1” (sequential) | ⚠ Check handbook |
 | Table of contents         | With page numbers          | TOC present; page numbers “verify in Word” | ⚠ Verify in Word |
-| Tables of figures/tables   | If used                    | Present (Fig 1–9, Table 1–4)           | ✓      |
+| Tables of figures/tables   | If used                    | Present (Fig 1–16 + appendix figs 17–22; Tables 1–7) | ✓      |
 | References                | Harvard, before appendices  | §11 References, Harvard style            | ✓      |
 | Front matter              | Front sheet, Declaration, Library form | Placeholders in docx; download from Moodle | ⚠ Complete before submit |
-| Appendices                | Process docs, attendance, spec | Referenced; embed in final docx       | ✓ / ⚠ Embed in Word |
+| Appendices                | Process, spec, code figs, repro, optional | Ch 13 + `dissertation_to_docx.py` merges **Full text —** .docx after Appendix E | ✓ / ⚠ Update TOC in Word |
 
-**Verdict:** Most requirements met. Gaps: word count below ~18k; figure/table numbering may need to match “Figure 2.1” style if handbook requires it; TOC and front matter need finalisation in Word.
+**Verdict:** Most requirements met. **Optional gap:** word count **~16k** vs **~18k** if your programme mandates the higher figure; confirm **Figure 8.1**-style numbering only if handbook requires it; **TOC and front matter** need finalisation in Word before submission.
 
 ---
 
@@ -64,13 +64,13 @@ The dissertation explicitly states alignment with the University marking scheme:
 
 | Rule                         | Status |
 |-----------------------------|--------|
-| Clear aim and research question | ✓ §2.2 |
-| Critical analysis of literature (not only description) | ✓ §3 with critical comparison and gap §3.6 |
-| Justified methodology, reproducibility | ✓ §4, Appendix C (seed, config, commands) |
-| Implementation linked to research questions | ✓ §5 and §8.1 |
-| Objective evidence (metrics, tables, figures) | ✓ §6, §7 with tables and figures |
-| Critical interpretation of findings | ✓ §8 Discussion |
-| Honest reflection and limitations | ✓ §8.2, §10 |
+| Clear aim and research question | ✓ Ch 1 §1.3 |
+| Critical analysis of literature (not only description) | ✓ Ch 2 (e.g. gap §2.8; Table 5 in literature) |
+| Justified methodology, reproducibility | ✓ Ch 4, Appendix C (seed, config, commands) |
+| Implementation linked to research questions | ✓ Ch 6; results Ch 8 |
+| Objective evidence (metrics, tables, figures) | ✓ Ch 7–8 |
+| Critical interpretation of findings | ✓ Ch 9 |
+| Honest reflection and limitations | ✓ Ch 9–10 |
 | References in Harvard style | ✓ §11 |
 | No plagiarism; Turnitin <10% | — Verify on submission |
 
@@ -82,13 +82,13 @@ The dissertation explicitly states alignment with the University marking scheme:
 
 ### 5.1 Word count (~18,000)
 
-- **Current:** ~14,000 words (main body, excluding appendices).
-- **Action:** If the handbook or your programme requires ~18,000, add content where it is thin (e.g. Literature Review critical comparison, Methodology justification, or short expansion in Discussion). Prefer quality over padding (see PREMIUM_THESIS_ROADMAP.md).
+- **Current (Apr 2026):** **~15,900** words for **Chapters 1–10** (excluding references, bibliography, appendices) — see `python scripts/count_dissertation_words.py`.
+- **Action:** Expand toward **~18,000** **only if** your **signed specification** or programme explicitly requires it; add substance in literature critique, design justification, or limitations/future work — avoid padding (`docs/planning/PREMIUM_THESIS_ROADMAP.md`).
 
 ### 5.2 Figure and table numbering
 
 - **Checklist example:** “Figure 2.1, Table 3.1” (section.number).
-- **Current:** “Figure 1” … “Figure 9”, “Table 1” … “Table 4” (document-wide).
+- **Current:** “Figure 1” … “Figure 22”, “Table 1” … “Table 7” (document-wide sequence).
 - **Action:** Confirm in the actual MSc Project Handbook 2526 whether numbering must be section-based (e.g. Figure 7.1, Table 7.1). If yes, renumber figures/tables in the MD and regenerate the DOCX.
 
 ### 5.3 In Word before submission
@@ -96,7 +96,7 @@ The dissertation explicitly states alignment with the University marking scheme:
 1. Replace placeholder pages with the downloaded Moodle forms (front sheet, declaration, library release).
 2. Update Table of Contents and Table of Figures/Tables so page numbers are correct (Word: Update Field).
 3. Confirm 1.5 line spacing and 11pt font throughout.
-4. Embed appendices (process documentation, attendance log, project specification) in the final DOCX if not already embedded by the script.
+4. Confirm embedded **Full text —** sections (process, attendance, specification) appear after Appendix E in the exported Word file; re-merge if you moved sections manually.
 
 ---
 
@@ -110,7 +110,7 @@ The dissertation explicitly states alignment with the University marking scheme:
 | Format (spacing, font) | ✓ (in docx)  |
 | References (Harvard, before appendices) | ✓ |
 | Appendices structure | ✓             |
-| Word count        | ⚠ Below ~18k if required |
+| Word count        | ⚠ ~16k vs ~18k — confirm requirement |
 | Figure/table numbering | ⚠ Confirm “2.1” style |
 | Front matter & TOC | ⚠ Finalise in Word |
 
