@@ -2,6 +2,8 @@
 
 Use this **before** your last feedback session with **Dr. Raja Ujjan** (and moderator if present). The canonical technical work lives at the **repository root**; **`B01821011_Final_Report_Package_for_Supervisor/`** is a **snapshot** for one-folder sharing (refresh from root if you edited anything after copying).
 
+**Read first for the whole story in one document:** **`DISSERTATION_PROJECT_GUIDE.md`** at the repository root (plain-language timeline, chapter map, Q&A grid, limitations). A copy is in the supervisor package folder.
+
 ---
 
 ## 1. Bring (meeting order)

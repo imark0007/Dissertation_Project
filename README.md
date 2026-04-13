@@ -1,6 +1,9 @@
 # Explainable Dynamic GNN for IoT Intrusion Detection (Federated + SIEM-Ready)
 
 **MSc Cyber Security dissertation codebase** — University of the West of Scotland (UWS).  
+
+**Personal walkthrough (you + supervisor prep):** read **[`DISSERTATION_PROJECT_GUIDE.md`](DISSERTATION_PROJECT_GUIDE.md)** — full project story, chapter map, Q&A grid, and limitations in plain language.
+
 End-to-end prototype: **CICIoT2023** flow data → **kNN temporal graphs** → **GAT + GRU** → optional **Flower FedAvg** → **Captum** explanations → **ECS-style JSON alerts** via **FastAPI** (CPU-oriented).
 
 ---
@@ -147,6 +150,7 @@ Large binaries, `venv/`, and raw/processed data stay **out of git** per [`.gitig
 | [`docs/reports/SUBMISSION_CHECKLIST.md`](docs/reports/SUBMISSION_CHECKLIST.md) | Programme submission items |
 | [`docs/reports/FINAL_REPORT_GENERATION.md`](docs/reports/FINAL_REPORT_GENERATION.md) | Dissertation / Word workflow |
 | [`archive/README.md`](archive/README.md) | **Archive index:** interim report, process/attendance (Appendix A), one-time scripts; ties to Chapter 13 + `dissertation_to_docx.py` |
+| [`DISSERTATION_PROJECT_GUIDE.md`](DISSERTATION_PROJECT_GUIDE.md) | **Full narrative + Q&A prep** (read this for viva / supervisor meetings) |
 
 ---
 

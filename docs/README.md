@@ -1,6 +1,6 @@
 # Documentation index
 
-Project prose, checklists, and planning live under **`docs/`** (dissertation source remains **`Dissertation_Arka_Talukder.md`** at repository root).
+Project prose, checklists, and planning live under **`docs/`** (dissertation source remains **`Dissertation_Arka_Talukder.md`** at repository root). For a **single end-to-end explainer** (timeline, chapter map, supervisor Q&A), use the root file **`DISSERTATION_PROJECT_GUIDE.md`**.
 
 | Folder | Contents |
 |--------|----------|

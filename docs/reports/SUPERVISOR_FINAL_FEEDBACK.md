@@ -2,6 +2,8 @@
 
 Use this **before** your last feedback session with **Dr. Raja Ujjan** (and moderator if present). The canonical technical work lives at the **repository root**; **`B01821011_Final_Report_Package_for_Supervisor/`** is a **snapshot** for one-folder sharing (refresh from root if you edited anything after copying).
 
+**Read first for the whole story in one document:** **`DISSERTATION_PROJECT_GUIDE.md`** at the repository root (plain-language timeline, chapter map, Q&A grid, limitations). A copy is in the supervisor package folder.
+
 ---
 
 ## 1. Bring (meeting order)
@@ -18,6 +20,7 @@ Use this **before** your last feedback session with **Dr. Raja Ujjan** (and mode
 | 8 | **Process + attendance** | `archive/process_attendance/*.docx` and package `05_Appendix_documents/` | Programme appendix requirements |
 | 9 | **School forms** (for submission, not always for supervisor) | `docs/reference/school_templates/` | Front sheet, declaration, library form |
 | 10 | **This checklist + submission checklist** | `docs/reports/SUBMISSION_CHECKLIST.md`, `HANDBOOK_COMPLIANCE_REPORT.md` | Open “pending” items in Word |
+| 11 | **Project explainer (optional print)** | `DISSERTATION_PROJECT_GUIDE.md` | Full narrative + viva-style Q&A — read before deep technical questions |
 
 ---
 
