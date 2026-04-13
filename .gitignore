@@ -41,3 +41,4 @@ docs/**/MSc Project Handbook*.docx   # University copyrighted material
 
 # Local scratch from handbook text extraction (do not commit)
 _handbook_extract.txt
+_guidance_extracts/

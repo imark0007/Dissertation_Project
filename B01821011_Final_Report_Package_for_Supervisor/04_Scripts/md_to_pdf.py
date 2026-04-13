@@ -15,7 +15,7 @@ def _project_root() -> Path:
         if (base / marker).is_file():
             return base
     raise FileNotFoundError(
-        "Could not find docs/reports/Project_Overview_Reference.md; open the full repo (attempt 2), not an isolated copy of this folder."
+        "Could not find docs/reports/Project_Overview_Reference.md; run from the repository."
     )
 
 

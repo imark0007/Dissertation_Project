@@ -41,6 +41,13 @@ FIGURE_PATHS = {
     "results/figures/cm_mlp.png": ROOT / "results" / "figures" / "cm_mlp.png",
     "results/figures/roc_rf.png": ROOT / "results" / "figures" / "roc_rf.png",
     "results/figures/roc_mlp.png": ROOT / "results" / "figures" / "roc_mlp.png",
+    # Handbook Appendix 1 — auto-rendered code figures (see scripts/render_appendix1_code_figures.py)
+    "results/figures/appendix1/fig_a1_01_dynamic_gnn.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_01_dynamic_gnn.png",
+    "results/figures/appendix1/fig_a1_02_graph_builder_knn_graph.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_02_graph_builder_knn_graph.png",
+    "results/figures/appendix1/fig_a1_03_graph_builder_stratified.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_03_graph_builder_stratified.png",
+    "results/figures/appendix1/fig_a1_04_explainer_integrated_gradients.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_04_explainer_integrated_gradients.png",
+    "results/figures/appendix1/fig_a1_05_federated_flower_client.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_05_federated_flower_client.png",
+    "results/figures/appendix1/fig_a1_06_fastapi_score_alert.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_06_fastapi_score_alert.png",
 }
 
 # Appendix paths
@@ -258,20 +265,27 @@ def main():
     for section in doc.sections:
         add_page_number_footer(section)
 
-    # Append appendices if they exist
+    # Embedded .docx submissions (must NOT reuse "Appendix A/B/C" here — those letters
+    # are already used in the Markdown body for manifest + reproducibility + code figures.)
     if PROCESS_DOC.exists():
         doc.add_page_break()
-        doc.add_heading("Appendix A: Project Process Documentation", level=1)
+        doc.add_heading("Full text — Project process documentation (embedded)", level=1)
+        doc.add_paragraph(
+            "Corresponds to the file named in Appendix A of the body. "
+            "This section is merged automatically; keep page breaks if you re-order for School templates."
+        )
         append_document(doc, PROCESS_DOC)
 
     if ATTENDANCE_DOC.exists():
         doc.add_page_break()
-        doc.add_heading("Appendix B: Attendance Log", level=1)
+        doc.add_heading("Full text — Attendance log (embedded)", level=1)
+        doc.add_paragraph("Corresponds to the file named in Appendix A of the body.")
         append_document(doc, ATTENDANCE_DOC)
 
     if PROJECT_SPEC.exists():
         doc.add_page_break()
-        doc.add_heading("Appendix C: Project Specification", level=1)
+        doc.add_heading("Full text — Agreed project specification (embedded)", level=1)
+        doc.add_paragraph("Corresponds to the file named in Appendix B of the body.")
         append_document(doc, PROJECT_SPEC)
 
     doc.save(OUT_PATH)

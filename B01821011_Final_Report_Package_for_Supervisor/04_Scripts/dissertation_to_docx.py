@@ -41,12 +41,34 @@ FIGURE_PATHS = {
     "results/figures/cm_mlp.png": ROOT / "results" / "figures" / "cm_mlp.png",
     "results/figures/roc_rf.png": ROOT / "results" / "figures" / "roc_rf.png",
     "results/figures/roc_mlp.png": ROOT / "results" / "figures" / "roc_mlp.png",
+    # Handbook Appendix 1 — auto-rendered code figures (see scripts/render_appendix1_code_figures.py)
+    "results/figures/appendix1/fig_a1_01_dynamic_gnn.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_01_dynamic_gnn.png",
+    "results/figures/appendix1/fig_a1_02_graph_builder_knn_graph.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_02_graph_builder_knn_graph.png",
+    "results/figures/appendix1/fig_a1_03_graph_builder_stratified.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_03_graph_builder_stratified.png",
+    "results/figures/appendix1/fig_a1_04_explainer_integrated_gradients.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_04_explainer_integrated_gradients.png",
+    "results/figures/appendix1/fig_a1_05_federated_flower_client.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_05_federated_flower_client.png",
+    "results/figures/appendix1/fig_a1_06_fastapi_score_alert.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_06_fastapi_score_alert.png",
 }
 
-# Appendix paths (canonical build: run `python scripts/dissertation_to_docx.py` from repository root)
+# Appendix paths
 PROCESS_DOC = ROOT / "archive" / "process_attendance" / "Arka_Talukder_Process_Documentation_B01821011.docx"
 ATTENDANCE_DOC = ROOT / "archive" / "process_attendance" / "Arka Talukder_Attendance_Jan-Feb_B01821011.docx"
-PROJECT_SPEC = ROOT / "Arka-B01821011_MSc Cyber Security Project specification_form_2025-26.docx"
+_SPEC_NAME = "Arka-B01821011_MSc Cyber Security Project specification_form_2025-26.docx"
+_PROJECT_SPEC_CANDIDATES = [
+    ROOT / _SPEC_NAME,
+    ROOT / "B01821011_Final_Report_Package_for_Supervisor" / "05_Appendix_documents" / _SPEC_NAME,
+    ROOT / "docs" / "reference" / _SPEC_NAME,
+]
+
+
+def _resolve_project_spec():
+    for p in _PROJECT_SPEC_CANDIDATES:
+        if p.exists():
+            return p
+    return _PROJECT_SPEC_CANDIDATES[0]
+
+
+PROJECT_SPEC = _resolve_project_spec()
 
 
 def add_page_number_footer(section):
@@ -214,7 +236,7 @@ def main():
     paragraph_format = style.paragraph_format
     paragraph_format.line_spacing_rule = WD_LINE_SPACING.ONE_POINT_FIVE
 
-    # Heading styles
+    # Heading styles (sans-serif per handbook; #### in MD uses Heading 4)
     for h in ["Heading 1", "Heading 2", "Heading 3", "Heading 4"]:
         if h in doc.styles:
             doc.styles[h].font.size = Pt(12)
@@ -243,24 +265,36 @@ def main():
     for section in doc.sections:
         add_page_number_footer(section)
 
-    # Append appendices if they exist
+    # Embedded .docx submissions (must NOT reuse "Appendix A/B/C" here — those letters
+    # are already used in the Markdown body for manifest + reproducibility + code figures.)
     if PROCESS_DOC.exists():
         doc.add_page_break()
-        doc.add_heading("Appendix A: Project Process Documentation", level=1)
+        doc.add_heading("Full text — Project process documentation (embedded)", level=1)
+        doc.add_paragraph(
+            "Corresponds to the file named in Appendix A of the body. "
+            "This section is merged automatically; keep page breaks if you re-order for School templates."
+        )
         append_document(doc, PROCESS_DOC)
 
     if ATTENDANCE_DOC.exists():
         doc.add_page_break()
-        doc.add_heading("Appendix B: Attendance Log", level=1)
+        doc.add_heading("Full text — Attendance log (embedded)", level=1)
+        doc.add_paragraph("Corresponds to the file named in Appendix A of the body.")
         append_document(doc, ATTENDANCE_DOC)
 
     if PROJECT_SPEC.exists():
         doc.add_page_break()
-        doc.add_heading("Appendix C: Project Specification", level=1)
+        doc.add_heading("Full text — Agreed project specification (embedded)", level=1)
+        doc.add_paragraph("Corresponds to the file named in Appendix B of the body.")
         append_document(doc, PROJECT_SPEC)
 
     doc.save(OUT_PATH)
     print(f"Saved: {OUT_PATH}")
+    if not PROJECT_SPEC.exists():
+        print(
+            "WARNING: Agreed specification .docx not found. Embed manually from:",
+            [str(p.relative_to(ROOT)) for p in _PROJECT_SPEC_CANDIDATES],
+        )
     print("Next steps:")
     print("  1. Replace placeholder pages with downloaded forms from Moodle")
     print("  2. Add page numbers to Table of Figures/Tables manually if needed")

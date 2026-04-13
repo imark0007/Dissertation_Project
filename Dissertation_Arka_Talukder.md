@@ -10,19 +10,31 @@
 
 ## Front Matter
 
-Programme-specific front sheets, signed declaration, and library release forms are completed per School requirements and are not part of the technical body of this report.
+The **submitted Word/PDF** must include, **before** this technical body (insert from Moodle / School templates): **(1)** completed **Dissertation Front Sheet**; **(2)** signed **Declaration of originality**; **(3)** signed **Library release form**. Those pages are not reproduced here. The technical body below follows the programme dissertation guideline (abstract structure, acknowledgements, chapters, references, appendices).
 
 ---
 
 ## 1. Abstract
 
-IoT devices are used everywhere now, but many of them are not very secure. Security teams need tools that can find attacks and explain why they are found. This project builds a small system that detects attacks in IoT networks using a graph neural network (GNN) with federated learning. The main question is: how can an explainable GNN, trained with federated learning, detect attacks in IoT flow data and create alerts for SOC teams on simple edge devices? The project uses the CICIoT2023 dataset. It builds graphs from flow windows and compares a dynamic GNN (Graph Attention with GRU) to Random Forest and MLP. Federated learning uses Flower and FedAvg with three clients. Explainability uses Integrated Gradients and attention weights. Alerts are output in JSON format. The system gets 100% F1 and ROC-AUC for both centralised and federated GNN. CPU inference takes under 23 ms per sample. Federated learning keeps full performance without sharing raw data. Sensitivity, ablation, and multi-seed checks support the main design. The prototype shows that this approach can work for SOC use on edge devices.
+Internet of Things (IoT) and software-defined flow telemetry increase the volume of security-relevant data that Security Operations Centres must triage. Analysts need accurate detection on commodity CPUs, respect for data locality, and SIEM-friendly justified alerts—motivating explainable, federated, graph-based intrusion detection at the edge.
+
+Much prior work treats graph models, federated learning, or explainable AI for intrusion detection in isolation; few student-scale prototypes combine all three with SIEM-shaped JSON on a public benchmark. On CICIoT2023, strong Random Forest and MLP baselines already perform well, so the dissertation asks where temporal graphs and FedAvg under non-IID splits add value when only public flow features exist (no device-level topology).
+
+A dynamic GNN (GAT + GRU over *k*NN flow graphs) is trained with Flower FedAvg (three clients); Captum attributions and attention cues feed ECS-like alerts from FastAPI. Chapter 8 reports 100% test F1 and ROC-AUC for centralised and federated GNN on the fixed subset, fewer false alarms than Random Forest on the same split, about 22.7 ms CPU inference per sequence, about 31 MB federated messaging over ten rounds, plus ablation, sensitivity, and multi-seed checks. Scope is a 45-day MSc build; limitations and future work are in Chapter 9.
 
 **Keywords:** IoT security, dynamic graph neural network, federated learning, SIEM, explainable AI, edge AI, SOC, CICIoT2023
 
 ---
 
+## Acknowledgements
+
+I thank my **supervisor, Dr. Raja Ujjan**, for technical guidance, feedback on design and evaluation, and support throughout the project. I thank my **moderator, Muhsin Hassanu**, for reviewing interim work and helping sharpen the final report. I am grateful to **School and programme staff** for module materials and submission guidance, and to the **MSc Project co-ordinator** for administrative communication around milestones and ethics. Finally, I thank **friends and family** for patience during intensive writing and experiment runs.
+
+---
+
 ## Table of Contents
+
+**Acknowledgements**
 
 **Chapter 1** – Introduction  
 **Chapter 2** – Literature Review  
@@ -36,7 +48,7 @@ IoT devices are used everywhere now, but many of them are not very secure. Secur
 **Chapter 10** – Critical Self-Evaluation  
 **Chapter 11** – References  
 **Chapter 12** – Bibliography  
-**Chapter 13** – Appendices (A: Process Documents; B: Project Specification; C: Reproducibility)
+**Chapter 13** – Appendices (A: process; B: specification; C: reproducibility; D: handbook App. 1 code figures; E: handbook App. 4 optional; mapping table + Word export note inside)
 
 ### Table of Figures
 
@@ -58,6 +70,12 @@ IoT devices are used everywhere now, but many of them are not very secure. Secur
 | 14 | Explainability methods used for SOC-oriented alerts | — |
 | 15 | Sensitivity of central GNN performance to window size and kNN *k* | — |
 | 16 | Ablation comparison: full model vs. GAT-only (F1 and inference time) | — |
+| 17 | Appendix 1 — Figure A1-1: `DynamicGNN` class (GAT + GRU / ablation path) | — |
+| 18 | Appendix 1 — Figure A1-2: `flows_to_knn_graph` — building one *k*NN window graph | — |
+| 19 | Appendix 1 — Figure A1-3: Stratified windowing — `build_graphs_for_split` | — |
+| 20 | Appendix 1 — Figure A1-4: `explain_sequence` — Integrated Gradients and top-*k* ranking | — |
+| 21 | Appendix 1 — Figure A1-5: Flower federated client entry — `run_federated.py` | — |
+| 22 | Appendix 1 — Figure A1-6: FastAPI `/score` — inference, explanation, ECS-style alert | — |
 
 ### Table of Tables
 
@@ -115,7 +133,7 @@ The work is limited to a 45-day MSc project. So the prototype is kept small: a s
 
 ### 1.5 Dissertation Structure
 
-The rest of the dissertation follows a **UWS-style chapter layout** (similar to the School’s exemplar reports). **Chapter 2** reviews literature. **Chapter 3** covers project management and risks. **Chapter 4** sets out research design and methodology. **Chapter 5** presents system and graph **design** (including the pipeline figure). **Chapter 6** documents **implementation**. **Chapter 7** describes **testing and evaluation** protocol and metrics. **Chapter 8** presents **results** objectively. **Chapter 9** combines **discussion**, **conclusions**, and **recommendations** to meet the combined interpretation and closing weighting in the assessment grid. **Chapter 10** is critical self-evaluation. **Chapters 11–12** are references and bibliography. **Chapter 13** lists appendices.
+The rest of the dissertation follows a **UWS-style chapter layout** (similar to the School’s exemplar reports). **Chapter 2** reviews literature. **Chapter 3** covers project management and risks. **Chapter 4** sets out research design and methodology. **Chapter 5** presents system and graph **design** (including the pipeline figure). **Chapter 6** documents **implementation**. **Chapter 7** describes **testing and evaluation** protocol and metrics. **Chapter 8** presents **results** objectively. **Chapter 9** combines **discussion**, **conclusions**, and **recommendations** to meet the combined interpretation and closing weighting in the assessment grid. **Chapter 10** is critical self-evaluation. **Chapters 11–12** are references and bibliography. **Chapter 13** lists appendices (process, specification, reproducibility, **Handbook Appendix 1** code figures with captions and interpretations, and optional repository or demonstration).
 
 ### 1.6 Alignment with the marking criteria in the Project Specification
 
@@ -658,7 +676,7 @@ To show that both the graph and the temporal parts of the model add value, one a
 
 *Source: Author’s own plot; `results/metrics/ablation_table.csv`; `scripts/run_ablation.py`.*
 
-Interpretation of the temporal (GRU) vs. pooling trade-off is in **§9.2** and **§9.4**.
+Interpretation of the temporal (GRU) vs. pooling trade-off is in **§9.3** and **§9.5**.
 
 ### 8.8 Sensitivity Analysis (Robustness of Design Choices)
 
@@ -680,7 +698,7 @@ Sensitivity analysis checks whether the main results hold when key hyperparamete
 
 *Source: `results/metrics/sensitivity_table.csv`; `scripts/run_sensitivity_and_seeds.py`; test split CICIoT2023 (Pinto et al., 2023).*
 
-Grid interpretation is in **§9.2**.
+Grid interpretation is in **§9.3**.
 
 **Figure 15: Sensitivity of test F1 and ROC-AUC to window size and kNN *k***
 
@@ -716,9 +734,19 @@ Chapter 8 reported **metrics**, **plots**, and **robustness tables**; **Chapter 
 
 ### 9.1 Chapter overview
 
-This chapter answers the research questions, discusses **strengths and limits**, relates findings to the **literature**, summarises **achievements**, and lists **future work**—equivalent to the exemplar dissertation’s separation between “Results” and “Conclusion” but combined here to match the programme’s percentage allocation for conclusions **and** interpretive discussion.
+This chapter answers the research questions, discusses **strengths and limits**, relates findings to the **literature**, summarises **achievements**, and lists **future work**—equivalent to the exemplar dissertation’s separation between “Results” and “Conclusion” but combined here to match the programme’s percentage allocation for conclusions **and** interpretive discussion. **§9.2** gives a **four-paragraph programme-style conclusion** (field → contribution → limits → outlook); **§9.3–§9.9** retain the detailed discussion structure used throughout the draft.
 
-### 9.2 Answering the Research Questions
+### 9.2 Structured conclusion (programme format)
+
+This dissertation addressed **SOC-oriented**, **CPU-edge** intrusion detection for **Software-Defined IoT** flow telemetry, where analysts need **accurate** models, **privacy-preserving** training where raw flows cannot be pooled, and **explainable** outputs that fit **SIEM-style** workflows. The work situates that need in **CICIoT2023** and in prior literature that often treats **GNNs**, **federated learning**, and **XAI** separately rather than as one deployable path.
+
+The **main outcome** is an end-to-end prototype: *k*NN feature-similarity graphs over windowed flows, a **dynamic GNN** (GAT + GRU), **Flower FedAvg** with three clients, **Captum** attributions and attention cues folded into **ECS-like JSON** via **FastAPI**. On the **fixed subset and splits** documented in **Chapters 7–8**, the central and federated GNN matched **strong RF and MLP baselines** on headline accuracy while reporting **fewer false alarms** on the test split, **sub-23 ms** CPU inference per sequence, **modest** federated communication over ten rounds, and supporting **ablation**, **sensitivity**, and **multi-seed** evidence.
+
+**Limitations** are substantial and explicit: a **45-day** MSc scope, a **subset** of a **lab** dataset, **no device-level graph** where the public release lacks identifiers, **small** federated topology, **no** formal SOC **user study**, and headline **100%** metrics that must be read as **subset-specific** rather than universal—mitigated by split hygiene checks, baseline parity, and robustness tables, not dismissed.
+
+**Outlook:** scaling data and clients, live-traffic validation, analyst-facing evaluation, tighter SIEM integration, and publication-oriented breakdowns (per attack type, stronger heterogeneity) are the natural next steps; they are expanded in **§9.8**. Together, the chapters show that the **research questions** are **answered** for a **documented prototype**, with honest limits and a **clear** path beyond the thesis.
+
+### 9.3 Answering the Research Questions
 
 **Main question:** The project set out to show how an explainable dynamic graph neural network, trained with federated learning, can detect attacks in Software-Defined IoT flow data and generate SIEM alerts for SOC use on CPU-based edge devices. The prototype demonstrates that this is feasible: the dynamic GNN can be trained on graph snapshots over time, federated learning can be applied with Flower and FedAvg, and alerts with explanations can be produced in an ECS-like JSON format. CPU inference time is measurable and can be kept within acceptable bounds for a subset of traffic. So the main question is answered in the sense that a working pipeline exists and has been evaluated; the extent to which it “performs well” depends on the metrics and comparison with baselines reported in **Chapter 8**.
 
@@ -734,31 +762,31 @@ This chapter answers the research questions, discusses **strengths and limits**,
 
 **Multi-seed (Section 8.9):** Three seeds gave identical headline test metrics (F1 and AUC 1.0, zero false positives). That increases confidence that the main result is not a one-off random initialisation, though it does not remove dataset-specific optimism.
 
-### 9.3 Strengths and Limitations
+### 9.4 Strengths and Limitations
 
 **Strengths:** The project delivers an end-to-end prototype. It goes from data to graph, model to federated training, explainability to SIEM-style alerts and FastAPI. The design matches practical SOC needs (explainable alerts, CPU-based deployment). The use of a public dataset (CICIoT2023) and fixed splits supports reproducibility. The comparison with baselines and the evaluation of federated learning provide evidence, not just claims. Putting multiple components (graph construction, GNN, federated learning, explainability, SIEM output) in one pipeline is a contribution. Most prior work looks at these in isolation. The choice of kNN feature-similarity graphs is justified by the absence of device identifiers. It is supported by Ngo et al. (2025) and Basak et al. (2025). The stratified windowing strategy deals with class imbalance in a principled way.
 
 **Limitations:** The scope is limited to a subset of CICIoT2023 and the **45-day** MSc project timeline, so the results may not generalise to all IoT environments or attack types. The subset size was chosen to fit that constraint; a larger subset might reveal different trade-offs between models. The kNN graph construction assumes that feature similarity is a meaningful proxy for relational structure; when device identifiers are available, topology-based graphs might perform better. The federated simulation uses 3 clients and 10 rounds; real deployments with more clients, more heterogeneous data, or bandwidth constraints might require different configurations. The explainability analysis is based on five example alerts and author/supervisor judgment; a formal user study with SOC analysts would strengthen the claim that the explanations support triage. The number of federated clients is small (2–3), and the data split across clients may not reflect real-world non-IID settings. Explainability is applied to a subset of alerts if full run-time explanation is too slow. There is no formal user study with SOC analysts; the assessment of explanation usefulness is based on the author’s and supervisor’s judgment. The system is a prototype, not a production SIEM integration. The CICIoT2023 lab environment may not capture the noise, diversity, and evasion tactics present in real-world IoT deployments. Hyperparameter choices (e.g. k=5, window size, sequence length) were validated on the validation set but not exhaustively tuned; different configurations might yield different trade-offs. The 100% F1 and ROC-AUC on the test set, while encouraging, may reflect the relative ease of the chosen subset and should not be over-interpreted as evidence of universal performance.
 
-### 9.4 Practical Implications
+### 9.5 Practical Implications
 
 The results have several practical implications for SOC and edge deployment. First, the Dynamic GNN's zero false positive rate on this test set reduces alert fatigue compared to Random Forest (187 false positives) and MLP (4 false positives). Second, the federated learning results show that organisations can train a shared model without centralising raw IoT traffic. This addresses privacy and regulatory concerns. Third, the CPU inference time (under 23 ms per sample in the primary run) means the model can run on edge devices without GPUs. Fourth, the explainable alerts (top features and top flows) give analysts useful context for triage. Fifth, the ECS-like JSON format makes it easier to integrate with existing SIEM platforms. The main caveat is that these results are from a lab dataset and subset. Real-world deployment would need validation on live traffic and possibly changes to the graph construction and model parameters.
 
 The ablation (Section 8.7) confirms that the temporal GRU improves over mean-pooling alone on this split. Sensitivity analysis (Section 8.8) shows that performance remains strong across a grid of window sizes and *k* values, with the chosen (50, 5) settings well supported. Multi-seed runs (Section 8.9) suggest stable optimisation for the reported metrics. Together, these checks mirror what a reviewer would ask for in a publication: not only headline accuracy, but **why** the architecture is shaped as it is and **how fragile** the numbers are to reasonable hyperparameter shifts.
 
-### 9.5 Relation to Literature
+### 9.6 Relation to Literature
 
 The findings can be related back to the literature. The use of GNNs for network or security data is supported by work such as Velickovic et al. (2018). This project shows that a dynamic GNN can be built and compared to baselines on IoT flow data. The GNN's better false positive rate (0% vs. 4.84% for RF) fits with the idea that graph structure helps the model tell attack patterns from benign outliers. Han et al. (2025) and Ngo et al. (2025) showed that graph-based and attribute-based construction can improve detection. This project confirms that a kNN feature-similarity approach works when device identifiers are absent.
 
 Federated learning with FedAvg (McMahan et al., 2017) was shown to work with Flower. It achieved performance matching centralised training. This is consistent with Lazzarini et al. (2023) and Albanbay et al. (2025). They found that FedAvg can keep accuracy for IoT intrusion detection. The fast convergence (within 7 rounds) and modest communication cost (31 MB) support the feasibility of federated deployment on edge networks. Explainability via Integrated Gradients (Sundararajan et al., 2017) and attention (Velickovic et al., 2018) was added to the alert output. This matches the need for explainable security tools in the literature. The example alerts show that the highlighted features (e.g. psh_flag_number, ICMP, rst_flag_number) are interpretable and consistent with known attack signatures. Alabbadi and Bajaber (2025) suggested this. The gap identified in the Literature Review (combining explainable dynamic GNN, federated learning, and SIEM-style alerting in one prototype) has been addressed within the stated scope and limitations.
 
-### 9.6 Summary of the Project
+### 9.7 Summary of the Project
 
 This dissertation set out to design and build a small prototype system for detecting attacks in IoT network traffic. It uses an explainable dynamic graph neural network and federated learning. It also generates SIEM-style alerts that support SOC operations on CPU-based edge devices. The main research question was: how can such a system detect attacks in IoT flow data and produce alerts that are useful for SOC analysts?
 
 Empirically, the pipeline met its stated targets on the fixed subset: the dynamic GNN matched or exceeded baselines on headline metrics (**Chapter 8**), federated training matched centralised GNN performance, and SIEM-style alerts with explanations were produced. Robustness artefacts (ablation, sensitivity grid, multi-seed summaries) live under `results/metrics/` and are produced by `scripts/run_ablation.py` and `scripts/run_sensitivity_and_seeds.py` as documented in **Chapter 13**.
 
-### 9.7 Recommendations for Future Work
+### 9.8 Recommendations for Future Work
 
 - **Larger scale:** Use a larger subset of CICIoT2023 or other IoT datasets, more federated clients, and more attack types to strengthen the evidence. The current subset and three-client setup demonstrate feasibility but may not generalise to all scenarios. Scaling to more clients and more diverse data would test the robustness of FedAvg under higher heterogeneity.
 - **Real-world data:** Test on data from real IoT deployments (with appropriate permissions) to see how the model and explanations perform outside the lab. Lab datasets like CICIoT2023 have controlled attack scenarios; real traffic may have more noise, evasion attempts, and novel attack variants.
@@ -769,7 +797,7 @@ Empirically, the pipeline met its stated targets on the fixed subset: the dynami
 
 - **Journal publication:** This work is structured so that it can be extended into a journal submission (e.g. MDPI Sensors or Electronics, or IEEE Access) using the same CICIoT2023 dataset. The thesis now includes ablation (Section 8.7), a full sensitivity grid (Section 8.8), and multi-seed validation (Section 8.9). Per-attack-type breakdowns and a formal user study would further strengthen a publication. A short paper or full article can be drafted after thesis submission by reusing the methodology, results, and discussion from this dissertation.
 
-### 9.8 Chapter summary
+### 9.9 Chapter summary
 
 The prototype **answers** the stated questions within documented **limits**, **relates** the outcomes to prior work, and sets out a **credible path** for scaling, evaluation, and publication.
 
@@ -877,9 +905,24 @@ Zhong, M., Lin, M., Zhang, C. and Xu, Z. (2024) 'A survey on graph neural networ
 
 ## Chapter 13 – Appendices
 
-*For submission: embed or attach the following documents in the final Word/PDF. They are required by the MSc Project Handbook.*
+*For submission: embed or attach the following documents in the final Word/PDF. They are required by the MSc Project Handbook and the School’s dissertation guideline.*
+
+**Handbook numbering vs. this document.** Programme materials often use **Appendix 1–4**. This thesis uses **Appendix A–E** in the technical body, then **separate embedded headings** in the automated Word export so letters are not duplicated.
+
+| Handbook appendix | Role | Where it appears in this dissertation |
+|-------------------|------|----------------------------------------|
+| **Appendix 1** — code screenshots (figures + captions + interpretation) | **Appendix D** below; figures **A1-1**–**A1-6**; PNGs under `results/figures/appendix1/` (`scripts/render_appendix1_code_figures.py`) |
+| **Appendix 2** — signed project specification | **Appendix B** (file pointer); **Full text — Agreed project specification (embedded)** at end of Word export |
+| **Appendix 3** — process documentation (and attendance where required) | **Appendix A** (file pointers); **Full text — … (embedded)** sections at end of Word export |
+| **Appendix 4** (optional) — GitHub / dataset / demo video | **Appendix E** |
+
+**Appendix C** is **not** a handbook “Appendix 1–4” slot: it is **reproducibility** (environment and commands) so examiners can re-run experiments from **Appendix E.1**’s repository.
+
+**Word export note.** `scripts/dissertation_to_docx.py` appends the process documentation, attendance log, and specification **after** the Markdown body (after **Appendix E**) under the headings **Full text — …** so those headings do **not** clash with **Appendix A–E** already printed above. If your School template requires a single combined PDF order (e.g. process before code figures), reorder sections once in Word.
 
 ### Appendix A: Project Process Documents
+
+In the **automated Word export**, the full .docx files named below are also inserted **after Appendix E** under **Full text — …** headings (see Chapter 13 opening note) so assessors receive both the manifest and the originals.
 
 - **Project Process Documentation** — Arka_Talukder_Process_Documentation_B01821011.docx  
   *Location: archive/process_attendance/ or project process and Attendance log/*
@@ -889,10 +932,14 @@ Zhong, M., Lin, M., Zhang, C. and Xu, Z. (2024) 'A survey on graph neural networ
 
 ### Appendix B: Project Specification
 
+The signed specification .docx is also embedded **after Appendix E** in the Word export (**Full text — Agreed project specification**).
+
 - **Agreed Project Specification** — Arka-B01821011_MSc Cyber Security Project specification_form_2025-26.docx  
   *Location: project root*
 
 ### Appendix C: Reproducibility
+
+This appendix gives **commands and paths** to reproduce the quantitative results and figures in **Chapters 7–8** from the codebase. It is **separate** from the handbook’s optional **Appendix 4** (repository / video), which is provided in **Appendix E**. Clone or download the project from **Appendix E.1**, obtain **CICIoT2023** per **Appendix E.2**, then run the steps below.
 
 To reproduce the experiments and results reported in this dissertation:
 
@@ -929,5 +976,77 @@ python scripts/run_sensitivity_and_seeds.py --config config/experiment.yaml
 This writes `results/metrics/sensitivity_table.csv`, `results/metrics/multi_seed_summary.json`, and `results/figures/sensitivity.png` (in addition to per-seed metric files if configured).
 
 All main experiments use seed 42 (set in `config/experiment.yaml`) unless a script overrides it for the multi-seed study. Outputs are written to `results/metrics/`, `results/figures/`, and `results/alerts/`. See `SETUP_AND_RUN.md` in the project repository for full step-by-step instructions.
+
+### Appendix D: Handbook Appendix 1 — Screenshots of project code
+
+The handbook requires **Appendix 1** code views to be presented as **figures**, each with a **caption** and an explanation of **how to interpret** the code in the context of this dissertation. Below, **Figure A1-1**–**Figure A1-6** satisfy that requirement.
+
+The bitmaps are **generated automatically** from the submission codebase so line numbers stay aligned with the files on disk. Regenerate them after editing source with:
+
+`python scripts/render_appendix1_code_figures.py`
+
+Output directory: `results/figures/appendix1/`. For the Word build, figures **17–22** in the **Table of Figures** correspond to **A1-1**–**A1-6**. End-to-end batch orchestration (preprocess → graphs → baselines → GNN → plots) lives in `scripts/run_all.py` and is documented in **Appendix C**; it is not duplicated as a separate figure here to avoid overlap with **Figure A1-1** and the pipeline description in **Chapter 6**.
+
+![Figure A1-1 — Dynamic graph classifier: `DynamicGNN` (GAT layers, pooling, GRU vs. mean-pool ablation, logits). Source: `src/models/dynamic_gnn.py`, lines 12–97.](results/figures/appendix1/fig_a1_01_dynamic_gnn.png)
+
+**Caption (formal):** Figure A1-1 — Core implementation of the dynamic GNN (`DynamicGNN`): node embedding, two `GATConv` layers with multi-head attention and dropout, per-window graph embedding, sequence encoding with `GRU` (or mean-pool when `use_gru` is false for ablation), and two-class logits. Attention weights may be retained for explainability (`return_attention_weights`).
+
+**How to interpret:** This class is the **main learnable model** described in **Chapters 5–6**. Each time step is one PyTorch Geometric `Data` object (nodes = flows in a window, edges = *k*NN). `_encode_graph` applies GAT message passing and reduces node states to one vector per window; `forward` stacks windows in time order and either runs the **GRU** (full model) or **mean-pools** over time (ablation in **§8.7**). The `from_config` constructor ties hyperparameters to `config/experiment.yaml`, which supports the sensitivity study in **§8.8**.
+
+![Figure A1-2 — Constructing a single-window *k*NN graph from flow feature rows. Source: `src/data/graph_builder.py`, lines 25–58.](results/figures/appendix1/fig_a1_02_graph_builder_knn_graph.png)
+
+**Caption (formal):** Figure A1-2 — `flows_to_knn_graph`: for one window of `N` flows with `F` features, fits `sklearn.neighbors.NearestNeighbors` (Euclidean), adds bidirectional edges among each node and its `k` actual neighbours (capped when `N` is small), and returns a `torch_geometric.data.Data` object with `x`, `edge_index`, and graph-level label `y`.
+
+**How to interpret:** This function shows **how “graph structure” is defined** when device IPs are unavailable (**Chapter 1**): similarity in the **46-dimensional** flow feature space replaces physical topology. Bidirectional edges make the graph undirected for GAT. The label on the graph is supplied by the caller (binary benign vs. attack) and matches the stratified pool in **Figure A1-3**, not a per-flow vote—important for reading the evaluation chapters.
+
+![Figure A1-3 — Stratified windowing so both classes appear in training graphs. Source: `src/data/graph_builder.py`, lines 89–129.](results/figures/appendix1/fig_a1_03_graph_builder_stratified.png)
+
+**Caption (formal):** Figure A1-3 — `build_graphs_for_split`: splits flows into benign and attack pools, builds sliding (or strided) windows from each pool with `_build_windows_from_pool`, balances counts between classes, shuffles, and logs totals—addressing severe class imbalance in raw CICIoT2023.
+
+**How to interpret:** This block explains **why training does not collapse** to “always predict attack” despite a very high attack ratio in the raw CSV (**Chapter 4**): windows are drawn **within** each class, so each graph’s supervision matches the pool. The `minority_stride` argument increases overlap for the benign pool when it is smaller. The dissertation’s **window size** and **k** used in experiments come from `config/experiment.yaml` and feed the sensitivity grid in **§8.8**.
+
+![Figure A1-4 — Post-hoc explanations: forward pass with attention, Integrated Gradients, top nodes/features. Source: `src/explain/explainer.py`, lines 53–102.](results/figures/appendix1/fig_a1_04_explainer_integrated_gradients.png)
+
+**Caption (formal):** Figure A1-4 — `explain_sequence`: runs the model with attention enabled, wraps Captum **Integrated Gradients** on the **last window’s** node features (`_ig_wrapper`), aggregates absolute attributions to rank top nodes and top feature indices, and returns an `ExplanationBundle` for JSON alert formatting.
+
+**How to interpret:** This is the bridge between **Chapter 6** (implementation) and **Chapter 8** (example alerts): SOC-facing text is not arbitrary—it is derived from **IG magnitudes** and **GAT edge attention** from the same forward pass analysts would get at inference. IG is computed on the **most recent** graph in the sequence (design choice documented in code comments). If Captum is missing, the bundle degrades gracefully (`HAS_CAPTUM` guard in the same module).
+
+![Figure A1-5 — Federated learning CLI: Flower server vs. client, local data, `GNNFlowerClient`. Source: `src/federated/run_federated.py`, lines 28–71.](results/figures/appendix1/fig_a1_05_federated_flower_client.png)
+
+**Caption (formal):** Figure A1-5 — `main` in `run_federated.py`: loads YAML config; **server** mode calls `run_fl_server` with round count and quorum; **client** mode loads `client_{cid}_graphs.pt`, builds train/validation sequence loaders, constructs `GNNFlowerClient`, and connects to `127.0.0.1:8080` via `fl.client.start_numpy_client`.
+
+**How to interpret:** This file is the **student-facing entry point** for **Chapter 8** federated results: each client trains only on its partition (**non-IID** split from `src.federated.data_split`, referenced in **Appendix C**). The address and round counts come from `config/experiment.yaml` under `fl`. The pattern matches the FedAvg narrative in **Chapter 2**—local epochs, then aggregation on the server (server implementation in `src/federated/server.py`, not shown).
+
+![Figure A1-6 — HTTP API: load checkpoint, `/score` builds graphs, runs `explain_sequence`, returns ECS-style alert JSON. Source: `src/siem/api.py`, lines 32–89.](results/figures/appendix1/fig_a1_06_fastapi_score_alert.png)
+
+**Caption (formal):** Figure A1-6 — FastAPI application: startup loads `experiment.yaml` and `dynamic_gnn_best.pt`; `POST /score` accepts a list of flow windows, reads **`graph.knn_k`** from the loaded config for `flows_to_knn_graph`, runs `explain_sequence` with top-5 nodes and features, measures wall-clock milliseconds, and returns `format_ecs_alert` output alongside prediction and score.
+
+**How to interpret:** This is the **edge deployment surface** argued in **Chapters 1 and 5**: a single HTTP call turns raw feature windows into **SIEM-shaped JSON** suitable for triage. Inference-time *k*NN **k** therefore **matches** training graph construction from **`config/experiment.yaml`**, avoiding train/serve skew. Latency reported in **Chapter 8** is consistent with this synchronous CPU path.
+
+### Appendix E: Handbook Appendix 4 (optional) — repository, dataset, demonstration
+
+The programme allows an optional fourth appendix: a **GitHub** link to project code (and any data you host there), or a **video** of the system with a **OneDrive** or **YouTube** link. This appendix records what applies to **this** submission; URLs match the **actual** remote and the **official** dataset distributor at the time of writing.
+
+#### E.1 Project source code (GitHub)
+
+The prototype code for this dissertation is available in a **public** Git repository (this is the `origin` remote of the working tree used to produce the reported results):
+
+- **Repository:** https://github.com/imark0007/Dissertation_Project  
+
+It contains `src/`, `scripts/`, `config/`, `requirements.txt`, `README.md`, and `SETUP_AND_RUN.md`. Clone the default branch and follow **Appendix C** to re-run training and evaluation.
+
+#### E.2 Dataset (official source; not bundled in GitHub)
+
+The experiments use **CICIoT2023** (Pinto *et al.*, 2023). The full corpus is **not** committed to the GitHub repository (size and licence). Download it from the Canadian Institute for Cybersecurity (CIC), University of New Brunswick:
+
+- **Dataset page:** https://www.unb.ca/cic/datasets/iotdataset-2023.html  
+
+The dataset paper is cited in **Chapter 11** (DOI: https://doi.org/10.3390/s23135941). Preprocessing in this project expects the user to place downloaded files according to `SETUP_AND_RUN.md`.
+
+#### E.3 Optional demonstration video (OneDrive / YouTube)
+
+**No** narrated walkthrough video was submitted with this dissertation; assessment relies on the **GitHub** repository (**E.1**), **Appendix C**, and the figures and tables in the main text. **If you record a video later**, replace the following line with a single public **OneDrive** or **YouTube** URL and update the Word/PDF:
+
+- **Demonstration video:** *Not included.*
 
 ---

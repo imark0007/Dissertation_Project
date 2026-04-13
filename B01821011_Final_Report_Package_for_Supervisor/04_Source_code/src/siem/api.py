@@ -67,11 +67,12 @@ def health():
 @app.post("/score", response_model=ScoreResponse)
 def score(req: ScoreRequest):
     from src.data.graph_builder import flows_to_knn_graph
+    knn_k = int(_CFG.get("graph", {}).get("knn_k", 5)) if _CFG else 5
     t0 = time.perf_counter()
     graphs = []
     for w in req.windows:
         feats = np.array(w.features, dtype=np.float32)
-        g = flows_to_knn_graph(feats, 0, k=8)
+        g = flows_to_knn_graph(feats, 0, k=knn_k)
         graphs.append(g)
 
     bundle = explain_sequence(_MODEL, graphs, _DEVICE, top_k_nodes=5, top_k_features=5)

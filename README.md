@@ -48,6 +48,7 @@ Raw flows → StandardScaler preprocessing → kNN similarity graphs (windows of
 │   ├── generate_alerts_and_plots.py    # Example alerts, FL convergence plot, model comparison figure
 │   ├── generate_figure1.py             # Pipeline diagram (assets/figure1_pipeline.png)
 │   ├── dissertation_to_docx.py        # MD → Word (Arka_Talukder_Dissertation_Final.docx)
+│   ├── render_appendix1_code_figures.py  # PNG line-dumps for Handbook Appendix 1 → results/figures/appendix1/
 │   ├── inference_timing.py             # Measure inference time
 │   ├── run_fl_simulation.py           # FL simulation (optional)
 │   └── md_to_pdf.py                   # Markdown to PDF (optional)
@@ -58,7 +59,7 @@ Raw flows → StandardScaler preprocessing → kNN similarity graphs (windows of
 ├── results/
 │   ├── checkpoints/                   # dynamic_gnn_best.pt, ablation_gat_only.pt, etc.
 │   ├── metrics/                       # *_metrics.json, results_table.csv, ablation_table.csv
-│   ├── figures/                       # ROC, confusion matrices, FL convergence, model comparison
+│   ├── figures/                       # ROC, confusion matrices, FL convergence; subfolder appendix1/ = code figures for dissertation
 │   └── alerts/                        # example_alerts.json, alert_summary.txt
 │
 ├── assets/figure1_pipeline.png        # Figure 1 for dissertation
@@ -68,7 +69,9 @@ Raw flows → StandardScaler preprocessing → kNN similarity graphs (windows of
 │   ├── reports/                       # Checklists, handbook compliance, final-report procedure, structure
 │   ├── planning/                      # Roadmap, outlines, publication plan, quick-start steps
 │   ├── viva/                          # Viva brief + printable cheatsheet
-│   └── reference/                     # Handbook copy (optional), dissertation_samples/
+│   └── reference/                     # school_templates/ (Moodle forms), handbook copy (optional), dissertation_samples/
+├── B01821011_Final_Report_Package_for_Supervisor/  # Supervisor bundle: synced copy of dissertation, scripts, source, results snapshots
+├── B01821011_Arka_Talukder_Main_Report/           # Legacy figure/script paths (some package scripts still reference); prefer root scripts/ + results/figures/
 └── archive/                           # Interim report, process/attendance docs, one-time scripts (kept for records)
 ```
 
