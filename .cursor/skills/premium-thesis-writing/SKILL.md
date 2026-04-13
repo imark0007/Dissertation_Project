@@ -90,10 +90,10 @@ Use this when reviewing or editing the final report:
 
 ## Project References
 
-- **Submission and format:** See [SUBMISSION_CHECKLIST.md](../../SUBMISSION_CHECKLIST.md) for document requirements and distinction criteria.
-- **Strategy and priorities:** See [docs/PREMIUM_THESIS_ROADMAP.md](../../docs/PREMIUM_THESIS_ROADMAP.md) for the four priorities (evidence, story, submission standards, self-evaluation).
-- **Handbook alignment:** See [HANDBOOK_COMPLIANCE_REPORT.md](../../HANDBOOK_COMPLIANCE_REPORT.md) for structure mapping and gaps.
-- **Thesis to publication:** See [docs/PUBLICATION_AND_THESIS_MASTER_PLAN.md](../../docs/PUBLICATION_AND_THESIS_MASTER_PLAN.md) for the full thesis-to-publication strategy and venue requirements.
+- **Submission and format:** See [SUBMISSION_CHECKLIST.md](../../docs/reports/SUBMISSION_CHECKLIST.md) for document requirements and distinction criteria.
+- **Strategy and priorities:** See [PREMIUM_THESIS_ROADMAP.md](../../docs/planning/PREMIUM_THESIS_ROADMAP.md) for the four priorities (evidence, story, submission standards, self-evaluation).
+- **Handbook alignment:** See [HANDBOOK_COMPLIANCE_REPORT.md](../../docs/reports/HANDBOOK_COMPLIANCE_REPORT.md) for structure mapping and gaps.
+- **Thesis to publication:** See [PUBLICATION_AND_THESIS_MASTER_PLAN.md](../../docs/planning/PUBLICATION_AND_THESIS_MASTER_PLAN.md) for the full thesis-to-publication strategy and venue requirements.
 
 When editing, preserve the existing section numbering and structure; improve clarity, argument strength, and alignment with this checklist and the referenced project docs.
 

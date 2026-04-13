@@ -54,10 +54,6 @@ Raw flows → StandardScaler preprocessing → kNN similarity graphs (windows of
 │
 ├── Dissertation_Arka_Talukder.md       # Dissertation source (single source of truth)
 ├── Arka_Talukder_Dissertation_Final.docx  # Generated Word for submission
-├── SUBMISSION_CHECKLIST.md            # MSc submission requirements
-├── FINAL_REPORT_GENERATION.md         # Procedure: ablation → update Table 4 → generate DOCX
-├── HANDBOOK_COMPLIANCE_REPORT.md      # Alignment with MSc handbook
-├── DISSERTATION_REVIEW_REPORT.md      # Pre-submission review notes
 │
 ├── results/
 │   ├── checkpoints/                   # dynamic_gnn_best.pt, ablation_gat_only.pt, etc.
@@ -68,7 +64,11 @@ Raw flows → StandardScaler preprocessing → kNN similarity graphs (windows of
 ├── assets/figure1_pipeline.png        # Figure 1 for dissertation
 ├── notebooks/                         # 01_explore_ciciot, 02_federated_vs_central, 03_alert_examples
 ├── tests/test_api.py                  # API latency + schema tests
-├── docs/                              # Dissertation outline, roadmap, publication plan, quick start
+├── docs/                              # See docs/README.md — reports, planning, viva, reference samples
+│   ├── reports/                       # Checklists, handbook compliance, final-report procedure, structure
+│   ├── planning/                      # Roadmap, outlines, publication plan, quick-start steps
+│   ├── viva/                          # Viva brief + printable cheatsheet
+│   └── reference/                     # Handbook copy (optional), dissertation_samples/
 └── archive/                           # Interim report, process/attendance docs, one-time scripts (kept for records)
 ```
 
@@ -109,7 +109,7 @@ uvicorn src.siem.api:app --reload
 python tests/test_api.py
 ```
 
-See **SETUP_AND_RUN.md** for step-by-step, **FINAL_REPORT_GENERATION.md** for the full report procedure, and **PROJECT_STRUCTURE.md** for folder and file purposes.
+See **SETUP_AND_RUN.md** for step-by-step, **`docs/reports/FINAL_REPORT_GENERATION.md`** for the full report procedure, and **`docs/reports/PROJECT_STRUCTURE.md`** for folder and file purposes.
 
 ## Key Metrics
 

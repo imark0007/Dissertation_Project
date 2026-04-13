@@ -34,6 +34,9 @@ FIGURE_PATHS = {
     "results/figures/roc_gnn.png": ROOT / "results" / "figures" / "roc_gnn.png",
     "results/figures/fl_convergence.png": ROOT / "results" / "figures" / "fl_convergence.png",
     "results/figures/model_comparison_bar.png": ROOT / "results" / "figures" / "model_comparison_bar.png",
+    "results/figures/model_comparison.png": ROOT / "results" / "figures" / "model_comparison.png",
+    "results/figures/sensitivity.png": ROOT / "results" / "figures" / "sensitivity.png",
+    "results/figures/ablation_bar.png": ROOT / "results" / "figures" / "ablation_bar.png",
     "results/figures/cm_rf.png": ROOT / "results" / "figures" / "cm_rf.png",
     "results/figures/cm_mlp.png": ROOT / "results" / "figures" / "cm_mlp.png",
     "results/figures/roc_rf.png": ROOT / "results" / "figures" / "roc_rf.png",
@@ -43,7 +46,22 @@ FIGURE_PATHS = {
 # Appendix paths
 PROCESS_DOC = ROOT / "archive" / "process_attendance" / "Arka_Talukder_Process_Documentation_B01821011.docx"
 ATTENDANCE_DOC = ROOT / "archive" / "process_attendance" / "Arka Talukder_Attendance_Jan-Feb_B01821011.docx"
-PROJECT_SPEC = ROOT / "Arka-B01821011_MSc Cyber Security Project specification_form_2025-26.docx"
+_SPEC_NAME = "Arka-B01821011_MSc Cyber Security Project specification_form_2025-26.docx"
+_PROJECT_SPEC_CANDIDATES = [
+    ROOT / _SPEC_NAME,
+    ROOT / "B01821011_Final_Report_Package_for_Supervisor" / "05_Appendix_documents" / _SPEC_NAME,
+    ROOT / "docs" / "reference" / _SPEC_NAME,
+]
+
+
+def _resolve_project_spec():
+    for p in _PROJECT_SPEC_CANDIDATES:
+        if p.exists():
+            return p
+    return _PROJECT_SPEC_CANDIDATES[0]
+
+
+PROJECT_SPEC = _resolve_project_spec()
 
 
 def add_page_number_footer(section):
@@ -211,8 +229,8 @@ def main():
     paragraph_format = style.paragraph_format
     paragraph_format.line_spacing_rule = WD_LINE_SPACING.ONE_POINT_FIVE
 
-    # Heading styles
-    for h in ["Heading 1", "Heading 2", "Heading 3"]:
+    # Heading styles (sans-serif per handbook; #### in MD uses Heading 4)
+    for h in ["Heading 1", "Heading 2", "Heading 3", "Heading 4"]:
         if h in doc.styles:
             doc.styles[h].font.size = Pt(12)
             doc.styles[h].font.name = "Arial"
@@ -258,6 +276,11 @@ def main():
 
     doc.save(OUT_PATH)
     print(f"Saved: {OUT_PATH}")
+    if not PROJECT_SPEC.exists():
+        print(
+            "WARNING: Agreed specification .docx not found. Embed manually from:",
+            [str(p.relative_to(ROOT)) for p in _PROJECT_SPEC_CANDIDATES],
+        )
     print("Next steps:")
     print("  1. Replace placeholder pages with downloaded forms from Moodle")
     print("  2. Add page numbers to Table of Figures/Tables manually if needed")

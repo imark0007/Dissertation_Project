@@ -1,0 +1,7 @@
+{
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1": 1.0,
+  "roc_auc": 1.0,
+  "inference_ms": 22.70362599287182
+}

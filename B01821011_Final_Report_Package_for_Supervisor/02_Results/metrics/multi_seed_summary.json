@@ -1,0 +1,46 @@
+{
+  "seeds": [
+    42,
+    123,
+    456
+  ],
+  "per_seed": [
+    {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "false_alarm_rate": 0.0,
+      "false_positives": 0,
+      "true_negatives": 31,
+      "roc_auc": 1.0,
+      "inference_ms": 42.346901996061206,
+      "seed": 42
+    },
+    {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "false_alarm_rate": 0.0,
+      "false_positives": 0,
+      "true_negatives": 24,
+      "roc_auc": 1.0,
+      "inference_ms": 17.800193992443383,
+      "seed": 123
+    },
+    {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "false_alarm_rate": 0.0,
+      "false_positives": 0,
+      "true_negatives": 38,
+      "roc_auc": 1.0,
+      "inference_ms": 12.775137997232378,
+      "seed": 456
+    }
+  ],
+  "f1_mean": 1.0,
+  "f1_std": 0.0,
+  "roc_auc_mean": 1.0,
+  "roc_auc_std": 0.0
+}

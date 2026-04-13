@@ -1,0 +1,3 @@
+Variant,Precision,Recall,F1,ROC-AUC,Inference (ms)
+Full (GAT + GRU),1.0000,1.0000,1.0000,1.0000,22.70
+GAT only (no GRU),0.9923,1.0000,0.9961,1.0000,16.06

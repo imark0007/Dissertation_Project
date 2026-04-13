@@ -85,15 +85,25 @@ If `run_ablation.py` stopped before writing metrics but the checkpoint exists:
 python scripts/eval_ablation_from_ckpt.py --config config/experiment.yaml
 ```
 
-### 7. Final Report (Word)
+### 7. Sensitivity grid and multi-seed (thesis §8.8–8.9)
+
+Requires `data/processed/` parquets from the main pipeline. **CPU-heavy** (retrains GNN for each grid cell and each seed):
+
+```bash
+python scripts/run_sensitivity_and_seeds.py --config config/experiment.yaml
+```
+
+Writes `results/metrics/sensitivity_table.csv`, `results/metrics/multi_seed_summary.json`, and `results/figures/sensitivity.png`. Use `--skip-sensitivity` or `--skip-seeds` to run only part of the study.
+
+### 8. Final Report (Word)
 
 ```bash
 python scripts/dissertation_to_docx.py
 ```
 
-Reads `Dissertation_Arka_Talukder.md`, produces `Arka_Talukder_Dissertation_Final.docx`. See **FINAL_REPORT_GENERATION.md** for full procedure.
+Reads `Dissertation_Arka_Talukder.md`, produces `Arka_Talukder_Dissertation_Final.docx`. See **`docs/reports/FINAL_REPORT_GENERATION.md`** for full procedure.
 
-### 8. Federated Learning
+### 9. Federated Learning
 
 Before FL, create non-IID client splits (once):
 
@@ -114,20 +124,20 @@ python -m src.federated.run_federated client --cid 1
 python -m src.federated.run_federated client --cid 2
 ```
 
-### 9. API
+### 10. API
 
 ```bash
 uvicorn src.siem.api:app --reload
 # POST /score with flow/graph data → prediction + ECS alert
 ```
 
-### 10. Tests
+### 11. Tests
 
 ```bash
 python tests/test_api.py
 ```
 
-### 11. Notebooks
+### 12. Notebooks
 
 | Notebook | Purpose |
 |----------|---------|

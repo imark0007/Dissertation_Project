@@ -14,7 +14,7 @@ This file describes every top-level folder and key file so the full dissertation
 | `assets/` | Figure 1 pipeline image for dissertation |
 | `notebooks/` | Exploration and demos (optional for submission) |
 | `tests/` | API tests |
-| `docs/` | Dissertation outline, roadmap, publication plan, quick start (and handbook reference) |
+| `docs/` | Index in `docs/README.md`: **reports/** (checklists, compliance, structure), **planning/** (roadmap, outlines), **viva/**, **reference/** (handbook optional, dissertation samples) |
 | `archive/` | Interim report, process/attendance docs, one-time scripts — **kept for records and appendices** |
 
 ## Dissertation and Submission
@@ -24,10 +24,12 @@ This file describes every top-level folder and key file so the full dissertation
 | `Dissertation_Arka_Talukder.md` | Dissertation source (single source of truth) |
 | `Arka_Talukder_Dissertation_Final.docx` | Generated Word for Turnitin and submission |
 | `Arka-B01821011_MSc Cyber Security Project specification_form_2025-26.docx` | Project specification (Appendix B); referenced by dissertation_to_docx |
-| `SUBMISSION_CHECKLIST.md` | MSc submission requirements and checklist |
-| `FINAL_REPORT_GENERATION.md` | Procedure to produce final report (ablation → Table 4 → DOCX) |
-| `HANDBOOK_COMPLIANCE_REPORT.md` | Alignment with MSc handbook |
-| `DISSERTATION_REVIEW_REPORT.md` | Pre-submission review notes |
+| `docs/reports/SUBMISSION_CHECKLIST.md` | MSc submission requirements and checklist |
+| `docs/reports/FINAL_REPORT_GENERATION.md` | Procedure to produce final report (ablation → Table 4 → DOCX) |
+| `docs/reports/HANDBOOK_COMPLIANCE_REPORT.md` | Alignment with MSc handbook |
+| `docs/reports/DISSERTATION_REVIEW_REPORT.md` | Pre-submission review notes |
+| `docs/reports/PROJECT_STRUCTURE.md` (this file) | Folder and file purposes |
+| `docs/reports/Project_Overview_Reference.md` | High-level project reference (optional PDF via `scripts/md_to_pdf.py`) |
 
 ## Config and Environment
 
@@ -35,7 +37,7 @@ This file describes every top-level folder and key file so the full dissertation
 |------|---------|
 | `config/experiment.yaml` | Single config for preprocessing, graph, models, FL, paths |
 | `requirements.txt` | Python dependencies (PyTorch, PyG, Flower, etc.) |
-| `.gitignore` | Excludes venv, cache, logs; optionally results; excludes `docs/MSc Project Handbook*.docx` (copyright) |
+| `.gitignore` | Excludes venv, cache, logs; optionally results; excludes `docs/**/MSc Project Handbook*.docx` (copyright) |
 
 ## Data and Results (do not delete for reproducibility)
 
@@ -55,4 +57,4 @@ This file describes every top-level folder and key file so the full dissertation
 
 ---
 
-*Use with README.md and SETUP_AND_RUN.md for a full picture of the project.*
+*Use with `README.md` and `SETUP_AND_RUN.md` (repository root) for a full picture of the project.*

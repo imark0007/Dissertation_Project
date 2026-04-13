@@ -37,4 +37,7 @@ Thumbs.db
 logs/
 
 # Do not push to GitHub
-docs/MSc Project Handbook*.docx   # University copyrighted material
+docs/**/MSc Project Handbook*.docx   # University copyrighted material
+
+# Local scratch from handbook text extraction (do not commit)
+_handbook_extract.txt

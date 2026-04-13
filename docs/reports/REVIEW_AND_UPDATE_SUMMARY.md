@@ -17,10 +17,10 @@ This document summarises the review and updates made so that **every file and fo
 
 | File | Change |
 |------|--------|
-| **README.md** | Expanded repository structure to include all scripts (run_ablation, eval_ablation_from_ckpt, update_dissertation_table4, generate_alerts_and_plots, generate_figure1, dissertation_to_docx), dissertation and report files, results layout, archive. Added Quick Start steps for ablation, Table 4 update, and DOCX generation. Linked SETUP_AND_RUN, FINAL_REPORT_GENERATION, PROJECT_STRUCTURE. |
+| **README.md** | Expanded repository structure to include all scripts (run_ablation, eval_ablation_from_ckpt, update_dissertation_table4, generate_alerts_and_plots, generate_figure1, dissertation_to_docx), dissertation and report files, results layout, archive. Added Quick Start steps for ablation, Table 4 update, and DOCX generation. Linked SETUP_AND_RUN, `docs/reports/FINAL_REPORT_GENERATION.md`, `docs/reports/PROJECT_STRUCTURE.md`. |
 | **SETUP_AND_RUN.md** | Clarified “run from project root”. Step 2 (Build Graphs) now shows explicit `--processed-dir` and `--output-dir`. Added steps 5 (Generate figures and alerts), 6 (Ablation + update Table 4), 7 (Final report DOCX). Added step for `eval_ablation_from_ckpt` if ablation stopped early. FL section now includes third client. Output table extended to include ablation and alerts. |
 | **archive/README.md** | Stated that archive is for records and appendices (do not delete). Clarified that **process_attendance** is the canonical location for process documentation and attendance log; `dissertation_to_docx.py` embeds from `archive/process_attendance/`. |
-| **PROJECT_STRUCTURE.md** | **New file.** Lists every top-level folder and key files with their purpose; marks what is required for submission/reproducibility and what must not be deleted. |
+| **`docs/` layout** | Submission and review Markdown moved under **`docs/reports/`**; thesis/publication planning under **`docs/planning/`**; viva notes under **`docs/viva/`**; handbook + sample dissertations under **`docs/reference/`**. See **`docs/README.md`**. |
 
 ---
 
@@ -37,7 +37,7 @@ This document summarises the review and updates made so that **every file and fo
 - **Dissertation appendices:** Already reference `archive/process_attendance/` and project root for spec; no change.
 - **dissertation_to_docx.py:** Already points to `archive/process_attendance/` for process and attendance docs and to project root for project spec; no change.
 - **Config:** `config/experiment.yaml` is the single config; scripts use it via `load_config` (paths resolved from project root).
-- **.gitignore:** Unchanged; only excludes venv, cache, logs, and `docs/MSc Project Handbook*.docx`.
+- **.gitignore:** Excludes venv, cache, logs, and `docs/**/MSc Project Handbook*.docx` (handbook may live under `docs/reference/`).
 
 ---
 
@@ -51,9 +51,9 @@ This document summarises the review and updates made so that **every file and fo
 | Ablation stopped early? | `python scripts/eval_ablation_from_ckpt.py --config config/experiment.yaml` |
 | Update Table 4 in dissertation | `python scripts/update_dissertation_table4.py` |
 | Generate final DOCX | `python scripts/dissertation_to_docx.py` |
-| Understand folders | Read **PROJECT_STRUCTURE.md** |
-| Step-by-step run guide | Read **SETUP_AND_RUN.md** |
-| Final report procedure | Read **FINAL_REPORT_GENERATION.md** |
+| Understand folders | Read **`docs/reports/PROJECT_STRUCTURE.md`** |
+| Step-by-step run guide | Read **`SETUP_AND_RUN.md`** (repo root) |
+| Final report procedure | Read **`docs/reports/FINAL_REPORT_GENERATION.md`** |
 
 ---
 

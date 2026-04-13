@@ -1,0 +1,44 @@
+{
+  "splits": {
+    "train": {
+      "rows": 500000,
+      "benign_flows": 11582,
+      "attack_flows": 488418,
+      "pct_benign": 2.32,
+      "pct_attack": 97.68
+    },
+    "validation": {
+      "rows": 500000,
+      "benign_flows": 11676,
+      "attack_flows": 488324,
+      "pct_benign": 2.34,
+      "pct_attack": 97.66
+    },
+    "test": {
+      "rows": 500000,
+      "benign_flows": 11772,
+      "attack_flows": 488228,
+      "pct_benign": 2.35,
+      "pct_attack": 97.65
+    }
+  },
+  "flow_level": {
+    "train": "500000 flows, 2.3% benign / 97.7% attack",
+    "validation": "500000 flows, 2.3% benign / 97.7% attack",
+    "test": "500000 flows, 2.4% benign / 97.6% attack"
+  },
+  "graph_sequences": {
+    "train": {
+      "graph_windows": 924,
+      "sequences": 920
+    },
+    "validation": {
+      "graph_windows": 932,
+      "sequences": 928
+    },
+    "test": {
+      "graph_windows": 938,
+      "sequences": 934
+    }
+  }
+}

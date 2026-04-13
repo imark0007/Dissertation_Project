@@ -8,9 +8,20 @@ except ImportError:
     print("Install: pip install fpdf2")
     raise
 
-ROOT = Path(__file__).resolve().parent.parent
-MD_PATH = ROOT / "Project_Overview_Reference.md"
-OUT_PATH = ROOT / "Project_Overview_Reference.pdf"
+def _project_root() -> Path:
+    here = Path(__file__).resolve()
+    marker = Path("docs") / "reports" / "Project_Overview_Reference.md"
+    for base in [here.parent.parent, *here.parents]:
+        if (base / marker).is_file():
+            return base
+    raise FileNotFoundError(
+        "Could not find docs/reports/Project_Overview_Reference.md; run from the repository."
+    )
+
+
+ROOT = _project_root()
+MD_PATH = ROOT / "docs" / "reports" / "Project_Overview_Reference.md"
+OUT_PATH = ROOT / "docs" / "reports" / "Project_Overview_Reference.pdf"
 
 
 def clean_for_pdf(text):

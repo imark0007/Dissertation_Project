@@ -1,0 +1,9 @@
+Place your agreed, signed project specification here, e.g.:
+
+  Arka-B01821011_MSc Cyber Security Project specification_form_2025-26.docx
+
+The dissertation export script (scripts/dissertation_to_docx.py) expects this file at the PROJECT ROOT with that name when embedding Appendix C in Word.
+
+If your filename differs, rename to match the script or update PROJECT_SPEC in dissertation_to_docx.py.
+
+This file was not stored in git — add your copy before final submission.

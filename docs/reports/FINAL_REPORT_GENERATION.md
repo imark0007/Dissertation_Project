@@ -68,4 +68,4 @@ The small drop in F1 for GAT-only supports the choice of the full dynamic (GAT+G
 
 ---
 
-*Generated as part of the final report procedure. See also: `SUBMISSION_CHECKLIST.md`, `docs/PREMIUM_THESIS_ROADMAP.md`.*
+*Generated as part of the final report procedure. See also: `SUBMISSION_CHECKLIST.md` (same folder), `../planning/PREMIUM_THESIS_ROADMAP.md`.*
