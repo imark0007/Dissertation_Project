@@ -202,7 +202,7 @@ def main():
         else:
             lines.append(
                 "- **Graph design vs overview text:** The specification’s written overview still refers to **device nodes** and **flow edges**. "
-                "The dissertation correctly implements **flow-level nodes** and **kNN similarity edges** (§1.4, §5.2) because the public CICIoT2023 release does not provide device identifiers. "
+                "The dissertation correctly implements **flow-level nodes** and **kNN similarity edges** (§1.4, §5.3) because the public CICIoT2023 release does not provide device identifiers. "
                 "**Action:** Add one explicit sentence in §1.4 linking the deviation to the signed specification in **Appendix B**."
             )
     if "cybok" not in md_plain_n:

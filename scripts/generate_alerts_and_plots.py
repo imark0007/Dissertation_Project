@@ -21,6 +21,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
+from src.evaluation.plot_style import apply_thesis_style
 from src.data.preprocess import load_config
 from src.data.dataset import GraphSequenceDataset
 from src.models.dynamic_gnn import DynamicGNN
@@ -96,6 +97,7 @@ def generate_example_alerts(cfg, n_alerts=5):
 
 def generate_fl_convergence_plot():
     """Generate FL round-by-round convergence plot."""
+    apply_thesis_style()
     fl_path = Path("results/metrics/fl_rounds.json")
     if not fl_path.exists():
         logger.warning("No FL rounds data found")
@@ -144,6 +146,7 @@ def generate_fl_convergence_plot():
 
 def generate_model_comparison_bar():
     """Bar chart comparing all 4 models."""
+    apply_thesis_style()
     met_dir = Path("results/metrics")
     results = {}
     for name in ["rf", "mlp", "central_gnn", "federated_gnn"]:

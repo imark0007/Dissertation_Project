@@ -4,7 +4,7 @@ Based on MSc Project Handbook 2025-26 and distinction-level marking criteria. Re
 
 ## Document Requirements
 
-- **Abstract:** ≤200 words ✓ (current: **200**; three paragraphs in `Dissertation_Arka_Talukder.md`)
+- **Abstract:** ≤200 words ✓ (current: **180** body words; **196** incl. Keywords; `python scripts/count_abstract_words.py`)
 - **Word count (main body):** Handbook often cites **~18,000** words (excluding references and appendices). **Current estimate (Ch 1–10 only):** **~15,900** words (`python scripts/count_dissertation_words.py`). If your **signed specification** or programme explicitly requires ~18k, expand thin sections (literature critique, methodology justification, limitations) — prefer quality over padding.
 - **Ablation (Table 4):** ✓ Filled from `results/metrics/ablation_table.csv`; **Chapter 8** §8.7 (`python scripts/run_ablation.py`).
 - **Sensitivity + multi-seed:** ✓ **Chapter 8** §8.8–8.9; `scripts/run_sensitivity_and_seeds.py`.
@@ -31,6 +31,8 @@ Reference copies of forms (not substitutes for Moodle) are in **`docs/reference/
 | **C** | — (extra) | Reproducibility commands |
 | **D** | Appendix 1 (code) | Figures A1-1–A1-6 + captions + interpretations; PNGs `results/figures/appendix1/` |
 | **E** | Appendix 4 (optional) | GitHub + CICIoT2023 URL; video placeholder |
+
+**Markdown + Word together:** Whenever you change `Dissertation_Arka_Talukder.md`, run `python scripts/sync_dissertation_and_docx.py` so the Word file and the copy under `B01821011_Final_Report_Package_for_Supervisor/01_Dissertation/` stay aligned (that script runs `dissertation_to_docx.py` and copies both `.md` and `.docx` into the package folder when it exists).
 
 **Word export (`dissertation_to_docx.py`):** After Appendix E, the script merges **Full text — …** sections for process documentation, attendance, and specification (see Chapter 13 note) so appendix letters are not duplicated.
 

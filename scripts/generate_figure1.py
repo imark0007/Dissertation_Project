@@ -1,279 +1,260 @@
 """
-Generate Figure 1: Research Pipeline Diagram
-Run: pip install matplotlib
-Then: python scripts/generate_figure1.py
-Output: figure1_pipeline.png in project root
+Figure 1 — End-to-end research pipeline (topic: IoT flows → graph GNN → FL → XAI → SIEM JSON).
+
+Run from repo root:
+    python scripts/generate_figure1.py
+
+Output: assets/figure1_pipeline.png (matches Dissertation_Arka_Talukder.md and dissertation_to_docx.py).
+Uses Matplotlib style sheets via src.evaluation.plot_style.
 """
-import matplotlib.pyplot as plt
-from matplotlib.patches import FancyBboxPatch
+from __future__ import annotations
+
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+import matplotlib.pyplot as plt
+from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
+
+from src.evaluation.plot_style import apply_thesis_style
+
+OUT_PATH = ROOT / "assets" / "figure1_pipeline.png"
 
 
-def create_pipeline_figure():
-    fig, ax = plt.subplots(1, 1, figsize=(16, 20))
-    ax.set_xlim(0, 16)
-    ax.set_ylim(0, 22)
-    ax.axis('off')
-    fig.patch.set_facecolor('white')
-
-    colors = {
-        'data': '#2E4057',
-        'preprocess': '#048A81',
-        'graph': '#8B5CF6',
-        'model': '#DC2626',
-        'explain': '#EA580C',
-        'siem': '#0284C7',
-        'eval': '#059669',
-        'arrow': '#374151',
-        'title': '#1E293B',
-        'subtitle': '#64748B',
-    }
-
-    ax.text(8, 21.3, 'Figure 1: Research Pipeline',
-            fontsize=18, fontweight='bold', ha='center', va='center',
-            color=colors['title'], fontfamily='serif')
-    ax.text(8, 20.8, 'From Raw IoT Flow Data to Explainable SIEM Alerts',
-            fontsize=11, ha='center', va='center',
-            color=colors['subtitle'], fontfamily='serif', style='italic')
-
-    def draw_stage(x, y, w, h, color, stage_num, title, details, icon=''):
-        box = FancyBboxPatch(
-            (x, y), w, h,
-            boxstyle="round,pad=0.15",
-            facecolor=color, edgecolor='white',
-            linewidth=2, alpha=0.95
-        )
-        ax.add_patch(box)
-        ax.text(x + 0.55, y + h - 0.35, str(stage_num),
-                fontsize=10, fontweight='bold', ha='center', va='center',
-                color='white', fontfamily='serif')
-        ax.text(x + w / 2, y + h - 0.38, f'{icon}  {title}',
-                fontsize=12, fontweight='bold', ha='center', va='center',
-                color='white', fontfamily='serif')
-        for i, detail in enumerate(details):
-            ax.text(x + w / 2, y + h - 0.85 - (i * 0.3), detail,
-                    fontsize=8.5, ha='center', va='center',
-                    color='white', fontfamily='serif', alpha=0.95)
-
-    def draw_arrow(x1, y1, x2, y2):
-        ax.annotate('',
-                    xy=(x2, y2), xytext=(x1, y1),
-                    arrowprops=dict(
-                        arrowstyle='->', color=colors['arrow'],
-                        lw=2.5, connectionstyle='arc3,rad=0',
-                        mutation_scale=18
-                    ))
-
-    def draw_curved_arrow(x1, y1, x2, y2, rad=0.3):
-        ax.annotate('',
-                    xy=(x2, y2), xytext=(x1, y1),
-                    arrowprops=dict(
-                        arrowstyle='->', color=colors['arrow'],
-                        lw=2, connectionstyle=f'arc3,rad={rad}',
-                        mutation_scale=15
-                    ))
-
-    # Stage 1: Data Input
-    draw_stage(1, 19, 6, 1.4, colors['data'], 1,
-               'Data Input',
-               ['CICIoT2023 Dataset',
-                '46 numeric features · 35 labels · Train/Val/Test splits'])
-
-    draw_arrow(4, 19, 4, 18.6)
-
-    # Stage 2: Preprocessing
-    draw_stage(1, 17, 6, 1.5, colors['preprocess'], 2,
-               'Preprocessing',
-               ['Clean rows · Remove NaN/Inf values',
-                'Binary labels: Benign (0) / Attack (1)',
-                'StandardScaler · Save fitted scaler'])
-
-    draw_arrow(4, 17, 4, 16.6)
-
-    # Stage 3: Graph Construction
-    draw_stage(1, 14.8, 6, 1.7, colors['graph'], 3,
-               'Graph Construction',
-               ['kNN graphs (k=5, Euclidean distance)',
-                '50 flows per window → 1 PyG graph',
-                'Stratified windowing · minority_stride=25',
-                'Sequences of 5 windows for temporal input'])
-
-    draw_arrow(4, 14.8, 4, 14.4)
-
-    # Stage 4: Model Training
-    container = FancyBboxPatch(
-        (0.5, 10.5), 15, 3.7,
-        boxstyle="round,pad=0.2",
-        facecolor='#FEF2F2', edgecolor=colors['model'],
-        linewidth=2, alpha=0.3, linestyle='--'
+def _box(ax, x, y, w, h, text, *, fontsize=9, title=None, title_fs=10, fc="#334155", ec="#1e293b"):
+    p = FancyBboxPatch(
+        (x, y),
+        w,
+        h,
+        boxstyle="round,pad=0.08,rounding_size=0.12",
+        facecolor=fc,
+        edgecolor=ec,
+        linewidth=1.25,
+        alpha=0.95,
     )
-    ax.add_patch(container)
+    ax.add_patch(p)
+    yy = y + h - 0.22
+    if title:
+        ax.text(x + w / 2, yy, title, ha="center", va="top", fontsize=title_fs, fontweight="bold", color="white")
+        yy -= 0.38
+    ax.text(x + w / 2, yy, text, ha="center", va="top", fontsize=fontsize, color="white", linespacing=1.35)
 
-    ax.text(8, 13.85, '4    Model Training & Comparison',
-            fontsize=13, fontweight='bold', ha='center', va='center',
-            color=colors['model'], fontfamily='serif')
 
-    # RF
-    rf_box = FancyBboxPatch(
-        (1, 11.6), 3.2, 1.8,
-        boxstyle="round,pad=0.12",
-        facecolor=colors['model'], edgecolor='white',
-        linewidth=1.5, alpha=0.85
+def _arrow(ax, x1, y1, x2, y2, *, rad=0.0):
+    style = "arc3,rad=%.2f" % rad if rad else None
+    kw = dict(arrowstyle="-|>", mutation_scale=14, linewidth=1.8, color="#0f172a", shrinkA=2, shrinkB=2)
+    if style:
+        kw["connectionstyle"] = style
+    ax.add_patch(FancyArrowPatch((x1, y1), (x2, y2), **kw))
+
+
+def create_pipeline_figure() -> None:
+    apply_thesis_style()
+    plt.rcParams["font.family"] = "sans-serif"
+
+    fig_w, fig_h = 14.0, 9.2
+    fig, ax = plt.subplots(1, 1, figsize=(fig_w, fig_h))
+    ax.set_xlim(0, 14)
+    ax.set_ylim(0, fig_h)
+    ax.axis("off")
+    fig.patch.set_facecolor("white")
+    ax.set_facecolor("#fafafa")
+
+    # Swimlane labels (left)
+    ax.text(
+        0.12,
+        fig_h - 0.55,
+        "Research pipeline — prototype path (CPU edge · CICIoT2023)",
+        fontsize=13,
+        fontweight="bold",
+        color="#0f172a",
+        ha="left",
+        va="top",
     )
-    ax.add_patch(rf_box)
-    ax.text(2.6, 13, 'Random Forest', fontsize=10, fontweight='bold',
-            ha='center', va='center', color='white', fontfamily='serif')
-    ax.text(2.6, 12.6, 'Baseline 1', fontsize=8, ha='center',
-            va='center', color='white', fontfamily='serif', alpha=0.8)
-    ax.text(2.6, 12.2, '200 trees · depth=20', fontsize=7.5, ha='center',
-            va='center', color='white', fontfamily='serif', alpha=0.8)
-    ax.text(2.6, 11.9, 'Flat 46-dim features', fontsize=7.5, ha='center',
-            va='center', color='white', fontfamily='serif', alpha=0.8)
-
-    # MLP
-    mlp_box = FancyBboxPatch(
-        (4.6, 11.6), 3.2, 1.8,
-        boxstyle="round,pad=0.12",
-        facecolor=colors['model'], edgecolor='white',
-        linewidth=1.5, alpha=0.85
+    ax.text(
+        0.12,
+        fig_h - 0.95,
+        "Software-defined IoT flow telemetry → dynamic GNN → federated learning → explainable SIEM-shaped alerts",
+        fontsize=9,
+        color="#475569",
+        ha="left",
+        va="top",
     )
-    ax.add_patch(mlp_box)
-    ax.text(6.2, 13, 'MLP', fontsize=10, fontweight='bold',
-            ha='center', va='center', color='white', fontfamily='serif')
-    ax.text(6.2, 12.6, 'Baseline 2', fontsize=8, ha='center',
-            va='center', color='white', fontfamily='serif', alpha=0.8)
-    ax.text(6.2, 12.2, 'Layers: 128→64→32', fontsize=7.5, ha='center',
-            va='center', color='white', fontfamily='serif', alpha=0.8)
-    ax.text(6.2, 11.9, 'Dropout=0.2 · ReLU', fontsize=7.5, ha='center',
-            va='center', color='white', fontfamily='serif', alpha=0.8)
 
-    # Central GNN
-    cgnn_box = FancyBboxPatch(
-        (8.2, 11.6), 3.2, 1.8,
-        boxstyle="round,pad=0.12",
-        facecolor=colors['model'], edgecolor='white',
-        linewidth=1.5, alpha=0.95
+    lane_left = 0.35
+    ax.text(lane_left, 7.55, "Data &\ngraphs", fontsize=8, fontweight="bold", color="#64748b", ha="center", va="center")
+    ax.text(lane_left, 4.85, "Models &\ntraining", fontsize=8, fontweight="bold", color="#64748b", ha="center", va="center")
+    ax.text(lane_left, 2.05, "SOC output\n& eval", fontsize=8, fontweight="bold", color="#64748b", ha="center", va="center")
+
+    # --- Row 1: data pipeline (y ~ 6.5–7.8) ---
+    y1, h = 6.45, 1.35
+    _box(
+        ax,
+        0.85,
+        y1,
+        2.55,
+        h,
+        "CICIoT2023\n46 flow features\n(benign / attack)",
+        title="1  Benchmark",
+        fc="#1e3a5f",
     )
-    ax.add_patch(cgnn_box)
-    ax.text(9.8, 13, 'Central GNN', fontsize=10, fontweight='bold',
-            ha='center', va='center', color='white', fontfamily='serif')
-    ax.text(9.8, 12.6, 'Main Model', fontsize=8, ha='center',
-            va='center', color='white', fontfamily='serif', alpha=0.8)
-    ax.text(9.8, 12.2, 'GAT (2 layers, 4 heads)', fontsize=7.5, ha='center',
-            va='center', color='white', fontfamily='serif', alpha=0.8)
-    ax.text(9.8, 11.9, '→ Pool → GRU → Classifier', fontsize=7.5, ha='center',
-            va='center', color='white', fontfamily='serif', alpha=0.8)
-
-    # Federated GNN
-    fgnn_box = FancyBboxPatch(
-        (11.8, 11.6), 3.2, 1.8,
-        boxstyle="round,pad=0.12",
-        facecolor=colors['model'], edgecolor='white',
-        linewidth=1.5, alpha=0.95
+    _box(
+        ax,
+        3.55,
+        y1,
+        2.65,
+        h,
+        "Clean · impute\nStandardScaler\nbinary labels",
+        title="2  Preprocess",
+        fc="#0f766e",
     )
-    ax.add_patch(fgnn_box)
-    ax.text(13.4, 13, 'Federated GNN', fontsize=10, fontweight='bold',
-            ha='center', va='center', color='white', fontfamily='serif')
-    ax.text(13.4, 12.6, 'Privacy-Preserving', fontsize=8, ha='center',
-            va='center', color='white', fontfamily='serif', alpha=0.8)
-    ax.text(13.4, 12.2, 'FedAvg · 3 clients', fontsize=7.5, ha='center',
-            va='center', color='white', fontfamily='serif', alpha=0.8)
-    ax.text(13.4, 11.9, 'α=0.5 non-IID · 10 rounds', fontsize=7.5, ha='center',
-            va='center', color='white', fontfamily='serif', alpha=0.8)
+    _box(
+        ax,
+        6.45,
+        y1,
+        3.35,
+        h,
+        "kNN graph / window\n50 flows · k=5\nseq. of 5 graphs → PyG",
+        title="3  Graph + sequence",
+        fc="#5b21b6",
+    )
+    _box(
+        ax,
+        10.05,
+        y1,
+        3.6,
+        h,
+        "Train / val / test\n(stratified)\nconfig YAML",
+        title="4  Splits",
+        fc="#4c1d95",
+    )
+    _arrow(ax, 3.4, y1 + h * 0.55, 3.55, y1 + h * 0.55)
+    _arrow(ax, 6.2, y1 + h * 0.55, 6.45, y1 + h * 0.55)
+    _arrow(ax, 9.8, y1 + h * 0.55, 10.05, y1 + h * 0.55)
 
-    ax.text(2.6, 11.2, '← Flat features →', fontsize=7, ha='center',
-            va='center', color=colors['model'], fontfamily='serif',
-            style='italic', alpha=0.7)
-    ax.text(11.6, 11.2, '← Graph sequences →', fontsize=7, ha='center',
-            va='center', color=colors['model'], fontfamily='serif',
-            style='italic', alpha=0.7)
+    # --- Row 2: models (y ~ 3.9–5.2) ---
+    y2, h2 = 3.85, 1.38
+    _box(
+        ax,
+        0.85,
+        y2,
+        2.45,
+        h2,
+        "200 trees · depth 20\n46-D tabular",
+        title="RF baseline",
+        fc="#b91c1c",
+    )
+    _box(
+        ax,
+        3.45,
+        y2,
+        2.45,
+        h2,
+        "128→64→32\nReLU + dropout",
+        title="MLP baseline",
+        fc="#b91c1c",
+    )
+    _box(
+        ax,
+        6.05,
+        y2,
+        3.15,
+        h2,
+        "2× GAT · pool\nGRU · logits\n(central PyTorch)",
+        title="Central GNN",
+        fc="#991b1b",
+    )
+    _box(
+        ax,
+        9.45,
+        y2,
+        4.2,
+        h2,
+        "Flower FedAvg\n3 clients · non-IID α=0.5\n10 rounds · same arch",
+        title="Federated GNN",
+        fc="#7f1d1d",
+    )
+    # Arrows from graph row (bottom) down to each training column
+    y_from = y1 + 0.02
+    targets = (
+        (0.85 + 2.45 / 2, y2 + h2),  # RF column centre, top of box
+        (3.45 + 2.45 / 2, y2 + h2),
+        (6.05 + 3.15 / 2, y2 + h2),
+        (9.45 + 4.2 / 2, y2 + h2),
+    )
+    graph_cx = 6.45 + 3.35 / 2
+    for tcx, ty in targets:
+        _arrow(ax, graph_cx, y_from, tcx, ty, rad=0.08)
 
-    # Arrows from stage 3 to model container
-    draw_arrow(4, 14.4, 2.6, 13.5)
-    draw_curved_arrow(4, 14.4, 6.2, 13.5, rad=0.15)
-    draw_curved_arrow(4, 14.4, 9.8, 13.5, rad=0.25)
-    draw_curved_arrow(4, 14.4, 13.4, 13.5, rad=0.35)
+    # --- Row 3: explain → API → JSON → metrics ---
+    y3, h3 = 1.05, 1.45
+    _box(
+        ax,
+        0.85,
+        y3,
+        3.0,
+        h3,
+        "Integrated Gradients\n+ GAT attention\ntop-k features / flows",
+        title="5  Explain (Captum)",
+        fc="#c2410c",
+    )
+    _box(
+        ax,
+        4.05,
+        y3,
+        2.55,
+        h3,
+        "POST /score\nCPU inference\noptional explain",
+        title="6  FastAPI",
+        fc="#0369a1",
+    )
+    _box(
+        ax,
+        6.85,
+        y3,
+        3.15,
+        h3,
+        "ECS-like JSON\nseverity · score\nexplanation block",
+        title="7  SIEM-shaped alert",
+        fc="#075985",
+    )
+    _box(
+        ax,
+        10.2,
+        y3,
+        3.45,
+        h3,
+        "P, R, F1, ROC-AUC\nFPR · latency (ms)\nFL comms (MB)",
+        title="8  Evaluation",
+        fc="#047857",
+    )
+    _arrow(ax, 3.85, y3 + h3 * 0.5, 4.05, y3 + h3 * 0.5)
+    _arrow(ax, 6.6, y3 + h3 * 0.5, 6.85, y3 + h3 * 0.5)
+    _arrow(ax, 10.0, y3 + h3 * 0.5, 10.2, y3 + h3 * 0.5)
 
-    # Arrows down from models
-    draw_arrow(5, 11.0, 5, 10.1)
-    draw_arrow(11, 11.0, 11, 10.1)
+    # Central column: models down to explainability box
+    gnn_cx = 6.05 + 3.15 / 2
+    ex_cx = 0.85 + 3.0 / 2
+    _arrow(ax, gnn_cx, y2 + 0.05, ex_cx, y3 + h3, rad=0.15)
 
-    # Stage 5: Explainability
-    draw_stage(1, 8, 6.5, 1.9, colors['explain'], 5,
-               'Explainability',
-               ['Captum Integrated Gradients',
-                'Top-5 feature attributions per alert',
-                'GAT attention → influential neighbour flows',
-                'Dual explanation: features + structure'])
+    ax.text(
+        7.0,
+        0.42,
+        "Arka Talukder · B01821011 · MSc Cyber Security · UWS   |   generated by scripts/generate_figure1.py",
+        fontsize=7.5,
+        color="#94a3b8",
+        ha="center",
+        va="bottom",
+    )
 
-    # Stage 6: SIEM
-    draw_stage(8.5, 8, 6.5, 1.9, colors['siem'], 6,
-               'SIEM Alert Generation',
-               ['ECS (Elastic Common Schema) JSON',
-                'FastAPI endpoint: POST /score',
-                'Timestamp · Severity · Score · Label',
-                'Top features + neighbour flows included'])
-
-    draw_arrow(7.5, 9, 8.5, 9)
-    draw_arrow(4.25, 8, 8, 7.2)
-    draw_arrow(11.75, 8, 8, 7.2)
-
-    # Stage 7: Evaluation
-    draw_stage(3, 5, 10, 2.1, colors['eval'], 7,
-               'Evaluation & Comparison',
-               ['Precision · Recall · F1-Score · ROC-AUC',
-                'False Alarm Rate (FAR) · Confusion Matrix',
-                'CPU Inference Time (ms/sample)',
-                'FL Communication Cost (bytes)',
-                'Test against H1, H2, H3'])
-
-    # Legend
-    legend_y = 3.8
-    ax.text(8, legend_y + 0.5, 'Pipeline Legend',
-            fontsize=10, fontweight='bold', ha='center', va='center',
-            color=colors['title'], fontfamily='serif')
-
-    legend_items = [
-        (colors['data'], 'Data Input'),
-        (colors['preprocess'], 'Preprocessing'),
-        (colors['graph'], 'Graph Construction'),
-        (colors['model'], 'Model Training'),
-        (colors['explain'], 'Explainability'),
-        (colors['siem'], 'SIEM Output'),
-        (colors['eval'], 'Evaluation'),
-    ]
-
-    start_x = 1.5
-    for i, (color, label) in enumerate(legend_items):
-        x = start_x + (i * 1.95)
-        rect = FancyBboxPatch(
-            (x, legend_y - 0.15), 0.35, 0.3,
-            boxstyle="round,pad=0.05",
-            facecolor=color, edgecolor='white',
-            linewidth=1, alpha=0.9
-        )
-        ax.add_patch(rect)
-        ax.text(x + 0.5, legend_y, label,
-                fontsize=7.5, ha='left', va='center',
-                color=colors['title'], fontfamily='serif')
-
-    # Footer
-    ax.text(8, 3.0,
-            'Arka Talukder · B01821011 · MSc Cyber Security · '
-            'University of the West of Scotland',
-            fontsize=8, ha='center', va='center',
-            color=colors['subtitle'], fontfamily='serif', style='italic')
-
-    plt.tight_layout(pad=1.0)
-    output_path = ROOT / 'figure1_pipeline.png'
-    fig.savefig(output_path, dpi=300, bbox_inches='tight',
-                facecolor='white', edgecolor='none')
-    plt.close()
-    print(f'\nFigure saved to: {output_path.resolve()}')
-    print('Resolution: 300 DPI (print quality)')
+    OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(OUT_PATH, dpi=300, bbox_inches="tight", facecolor="white", edgecolor="none")
+    plt.close(fig)
+    print(f"Wrote {OUT_PATH.resolve()}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     create_pipeline_figure()

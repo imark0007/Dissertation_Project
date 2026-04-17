@@ -13,9 +13,16 @@ def count_words(s: str) -> int:
     return len(re.findall(r"[A-Za-z0-9']+", s))
 
 
-# Abstract
-m = re.search(r"## 1\. Abstract\n\n(.+?)\n\n\*\*Keywords", text, re.S)
-abstract_n = count_words(m.group(1)) if m else 0
+# Abstract (body only, excluding the Keywords line if present)
+m = re.search(r"^## 1\.\s*Abstract\s*$", text, flags=re.M)
+if m:
+    after = text[m.end() :]
+    m_end = re.search(r"^---\s*$", after, flags=re.M)
+    abstract_block = after[: m_end.start()].strip() if m_end else after.strip()
+    abstract_body = re.split(r"^\*\*Keywords:\*\*.*$", abstract_block, flags=re.M)[0].strip()
+    abstract_n = count_words(abstract_body)
+else:
+    abstract_n = 0
 
 # Main body: Chapter 1 through end of Chapter 10 (exclude references, bib, appendices)
 c1 = text.find("## Chapter 1")

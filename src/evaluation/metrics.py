@@ -14,6 +14,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+from src.evaluation.plot_style import apply_thesis_style
+
 
 def compute_metrics(
     y_true: np.ndarray,
@@ -40,6 +42,7 @@ def compute_metrics(
 
 
 def plot_roc(y_true, y_proba, save_path=None, title="ROC Curve"):
+    apply_thesis_style()
     fpr, tpr, _ = roc_curve(y_true, y_proba)
     auc = roc_auc_score(y_true, y_proba) if len(np.unique(y_true)) > 1 else 0.0
     fig, ax = plt.subplots(figsize=(5, 4))
@@ -57,6 +60,7 @@ def plot_roc(y_true, y_proba, save_path=None, title="ROC Curve"):
 
 
 def plot_confusion_matrix(y_true, y_pred, save_path=None, title="Confusion Matrix"):
+    apply_thesis_style()
     cm = confusion_matrix(y_true, y_pred)
     fig, ax = plt.subplots(figsize=(4, 3.5))
     sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", ax=ax,

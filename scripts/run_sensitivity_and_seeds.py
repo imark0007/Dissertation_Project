@@ -235,6 +235,10 @@ def plot_sensitivity(results):
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
+    from src.evaluation.plot_style import apply_thesis_style
+
+    apply_thesis_style()
+
     if not results:
         return
 
