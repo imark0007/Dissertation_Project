@@ -1,6 +1,6 @@
 # Archive
 
-Material in **`archive/`** is kept for **records**, **MSc programme appendices**, and **audit trail**. It is referenced from the **final dissertation** (**Chapter 13 — Appendices**) and from **`scripts/dissertation_to_docx.py`**, which merges selected documents into **`Arka_Talukder_Dissertation_Final.docx`**.
+Material in **`archive/`** is kept for **records**, **MSc programme appendices**, and **audit trail**. It is referenced from the **final dissertation** (**Chapter 13 — Appendices**) and from **`scripts/dissertation_to_docx.py`**, which merges selected documents into **`submission/Arka_Talukder_Dissertation_Final.docx`**.
 
 **Do not delete** these folders if you intend to regenerate the Word export or evidence the interim / process trail for the School.
 
@@ -16,9 +16,9 @@ For a full map of the active codebase, see **[`README.md`](../README.md)** (root
 | **Interim milestone** (historical) | **`archive/interim_report/`** holds interim report drafts, PDFs, guidelines, and backups — not part of the final technical argument, but kept for submission / moderation records. |
 | **One-off tooling** | **`archive/scripts_one_time/`** holds scripts used during drafting (e.g. interim fixes, doc conversion experiments). **Not** part of the reproducible pipeline; use root **`scripts/`** for experiments that match the dissertation. |
 
-**Not stored in `archive/`:** Moodle **front-sheet / declaration / library** template copies live under **`docs/reference/school_templates/`** (see root `README.md` → Documentation map).
+**Not stored in `archive/`:** Moodle **front-sheet / declaration / library** template copies live under **`submission/forms/`** and **`docs/reference/school_templates/`** (see root `README.md` → Documentation map).
 
-**Supervisor zip mirror:** `B01821011_Final_Report_Package_for_Supervisor/05_Appendix_documents/` may contain copies of process, attendance, and specification files for convenience — **`archive/process_attendance/`** remains the **canonical** path for the two Appendix A Word files used by `dissertation_to_docx.py`.
+**Supervisor zip mirror:** `supervisor_package/05_Appendix_documents/` may contain copies of process, attendance, and specification files for convenience — **`archive/process_attendance/`** remains the **canonical** path for the two Appendix A Word files used by `dissertation_to_docx.py`.
 
 ---
 
@@ -63,7 +63,7 @@ For a full map of the active codebase, see **[`README.md`](../README.md)** (root
 ## Maintenance checklist (after each major thesis edit)
 
 1. If you replace process or attendance files, update the **same filenames** in **`archive/process_attendance/`** (or update paths in `dissertation_to_docx.py`).
-2. Refresh **`B01821011_Final_Report_Package_for_Supervisor/05_Appendix_documents/`** if you zip that folder for the supervisor.
+2. Refresh **`supervisor_package/05_Appendix_documents/`** if you zip that folder for the supervisor.
 3. Regenerate Word: `python scripts/dissertation_to_docx.py`.
 4. Keep this **`archive/README.md`** in sync when you add new record-only subfolders under **`archive/`**.
 

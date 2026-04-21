@@ -8,7 +8,7 @@ from docx import Document
 
 ROOT = Path(__file__).resolve().parents[1]
 MD = ROOT / "Dissertation_Arka_Talukder.md"
-DOCX = ROOT / "Arka_Talukder_Dissertation_Final_Submission.docx"
+DOCX = ROOT / "submission" / "Arka_Talukder_Dissertation_Final_Submission.docx"
 
 
 def md_qa(text: str) -> list[str]:
@@ -67,15 +67,17 @@ def docx_qa(doc: Document) -> list[str]:
     full = "\n".join(paras)
     out.append(f"DOCX em-dash count: {full.count('—')}")
 
-    required_front = [
-        "DECLARATION OF ORIGINALITY",
-        "Library Release Form",
-        "Table of Contents",
-        "List of Figures",
-        "List of Tables",
+    front_checks = [
+        ("DECLARATION OF ORIGINALITY", r"declaration\s+of\s+originality"),
+        ("Library Release Form", r"(library\s+release\s+form|dissertation\s+library\s+form)"),
+        ("Table of Contents", r"table\s+of\s+contents"),
+        ("List of Figures", r"list\s+of\s+figures"),
+        ("List of Tables", r"list\s+of\s+tables"),
     ]
-    for x in required_front:
-        out.append(f"DOCX contains '{x}': {'OK' if x in full else 'MISSING'}")
+    full_l = full.lower()
+    for label, pat in front_checks:
+        ok = re.search(pat, full_l) is not None
+        out.append(f"DOCX contains '{label}': {'OK' if ok else 'MISSING'}")
 
     # Chapter heading presence in docx body
     for n in range(1, 14):

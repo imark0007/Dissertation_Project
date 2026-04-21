@@ -7,7 +7,7 @@ from pathlib import Path
 from docx import Document
 
 ROOT = Path(__file__).resolve().parents[1]
-DOCX = ROOT / "Arka_Talukder_Dissertation_Final.docx"
+DOCX = ROOT / "submission" / "Arka_Talukder_Dissertation_Final.docx"
 
 
 def count_words(s: str) -> int:

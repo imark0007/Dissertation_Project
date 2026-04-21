@@ -18,6 +18,9 @@ build/
 # IDE and OS
 .idea/
 .vscode/
+
+# Cursor / editor-only (not part of thesis submission; keep out of shared clones)
+.cursor/
 ~$*
 
 *.swp

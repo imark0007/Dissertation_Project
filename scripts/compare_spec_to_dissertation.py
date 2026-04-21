@@ -18,9 +18,10 @@ MD_PATH = ROOT / "Dissertation_Arka_Talukder.md"
 OUT_PATH = ROOT / "docs" / "reports" / "SPEC_DISSERTATION_ALIGNMENT.md"
 
 SPEC_CANDIDATES = [
+    ROOT / "submission" / "forms" / "Arka-B01821011_MSc Cyber Security Project specification_form_2025-26.docx",
     ROOT / "Arka-B01821011_MSc Cyber Security Project specification_form_2025-26.docx",
     ROOT
-    / "B01821011_Final_Report_Package_for_Supervisor"
+    / "supervisor_package"
     / "05_Appendix_documents"
     / "Arka-B01821011_MSc Cyber Security Project specification_form_2025-26.docx",
     ROOT / "docs" / "reference" / "Arka-B01821011_MSc Cyber Security Project specification_form_2025-26.docx",

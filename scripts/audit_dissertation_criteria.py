@@ -23,6 +23,13 @@ def chapter_blocks(text: str) -> dict[int, str]:
     return out
 
 
+def _is_contiguous(nums: list[int], start: int = 1) -> bool:
+    if not nums:
+        return False
+    expected = list(range(start, max(nums) + 1))
+    return nums == expected
+
+
 def main() -> None:
     text = MD.read_text(encoding="utf-8")
     ch = chapter_blocks(text)
@@ -48,6 +55,32 @@ def main() -> None:
                 print(f"  Ch{i}: {wc}  target[{lo}-{hi}] {'PASS' if ok else 'FAIL'}")
             else:
                 print(f"  Ch{i}: {wc}")
+
+    # Serial integrity checks (chapter and caption numbering).
+    chapter_heading_nums = [
+        int(n) for n in re.findall(r"^## Chapter (\d+)\b", text, flags=re.MULTILINE)
+    ]
+    fig_body = [
+        int(n)
+        for n in re.findall(r"^\*\*Figure\s+(\d+):", text, flags=re.MULTILINE)
+    ]
+    tab_body = [
+        int(n)
+        for n in re.findall(r"^\*\*Table\s+(\d+):", text, flags=re.MULTILINE)
+    ]
+    fig_app = re.findall(r"^\*\*Figure\s+(A1-\d+)\*\*", text, flags=re.MULTILINE)
+
+    print("\nSerial checks")
+    print("  Chapters in order:", chapter_heading_nums == list(range(1, 14)))
+    print("  Figure captions contiguous (1..N):", _is_contiguous(fig_body, start=1))
+    print("  Table captions contiguous (1..N):", _is_contiguous(tab_body, start=1))
+    print("  Appendix figure labels A1-1..A1-6:", fig_app == [f"A1-{i}" for i in range(1, 7)])
+    if chapter_heading_nums != list(range(1, 14)):
+        print("   - Found chapter headings:", chapter_heading_nums)
+    if not _is_contiguous(fig_body, start=1):
+        print("   - Found figure caption numbers:", fig_body)
+    if not _is_contiguous(tab_body, start=1):
+        print("   - Found table caption numbers:", tab_body)
 
     # Core checks from requested checklist
     rq = (

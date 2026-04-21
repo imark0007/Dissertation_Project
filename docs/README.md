@@ -1,6 +1,6 @@
 # Documentation index
 
-Project prose, checklists, and planning live under **`docs/`** (dissertation source remains **`Dissertation_Arka_Talukder.md`** at repository root). For a **single end-to-end explainer** (timeline, chapter map, supervisor Q&A), use the root file **`DISSERTATION_PROJECT_GUIDE.md`**.
+Project prose, checklists, and planning live under **`docs/`** (dissertation source remains **`Dissertation_Arka_Talukder.md`** at repository root; generated Word and forms live under **`submission/`**). For a **single end-to-end explainer** (timeline, chapter map, supervisor Q&A), use the root file **`DISSERTATION_PROJECT_GUIDE.md`**.
 
 | Folder | Contents |
 |--------|----------|
@@ -9,4 +9,4 @@ Project prose, checklists, and planning live under **`docs/`** (dissertation sou
 | **`docs/viva/`** | Viva master brief and printable cheatsheet. |
 | **`docs/reference/`** | **`school_templates/`** (Moodle forms / guideline copies), handbook copy (if present; may be gitignored), and **`dissertation_samples/`** (example dissertations / PDFs). |
 
-Start from repository **`README.md`** and **`SETUP_AND_RUN.md`**; for folder purposes see **`docs/reports/PROJECT_STRUCTURE.md`**. For **`archive/`** (interim report, process/attendance appendices, one-time scripts) see **`archive/README.md`** at the repo root.
+Start from repository **`README.md`** and **`SETUP_AND_RUN.md`**; for folder purposes see **`docs/reports/PROJECT_STRUCTURE.md`**. For **`archive/`** (interim report, process/attendance appendices, one-time scripts) see **`archive/README.md`** at the repo root. For **supervisor meetings / viva screen share**, see **`viva_supervisor_materials/README.md`**.

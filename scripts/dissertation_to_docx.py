@@ -5,16 +5,21 @@ Embeds appendices (process docs, project spec) if available — see archive/READ
 for canonical paths to process + attendance under archive/process_attendance/.
 
 After any edit to the thesis Markdown, prefer the bundled sync (also refreshes the
-supervisor package copy of .md + .docx when that folder exists):
+supervisor package copy of .md + .docx when that folder exists). By default this
+runs the Final export and, if present, `Dissertation_Arka_Talukder_Humanized.md`
+→ Humanized Word:
 
     python scripts/sync_dissertation_and_docx.py
 
-This file alone:  python scripts/dissertation_to_docx.py [--out PATH]
-Default output: Arka_Talukder_Dissertation_Final.docx (repo root)
+Humanized-only:  python scripts/sync_humanized_md_and_docx.py
+
+This file alone:  python scripts/dissertation_to_docx.py [--md PATH] [--out PATH]
+Defaults: Dissertation_Arka_Talukder.md → submission/Arka_Talukder_Dissertation_Final.docx
 """
 import argparse
 from pathlib import Path
 import re
+import subprocess
 import sys
 
 try:
@@ -22,6 +27,7 @@ try:
     from docx.shared import Pt, Inches
     from docx.enum.text import WD_LINE_SPACING
     from docx.enum.text import WD_ALIGN_PARAGRAPH
+    from docx.enum.table import WD_TABLE_ALIGNMENT
     from docx.enum.section import WD_SECTION_START
     from docx.oxml import OxmlElement
     from docx.oxml.ns import qn
@@ -30,8 +36,10 @@ except ImportError:
     raise
 
 ROOT = Path(__file__).resolve().parent.parent
+SUBMISSION_DIR = ROOT / "submission"
+SUBMISSION_FORMS_DIR = SUBMISSION_DIR / "forms"
 MD_PATH = ROOT / "Dissertation_Arka_Talukder.md"
-DEFAULT_OUT_PATH = ROOT / "Arka_Talukder_Dissertation_Final.docx"
+DEFAULT_OUT_PATH = SUBMISSION_DIR / "Arka_Talukder_Dissertation_Final.docx"
 
 # Figure paths (relative to ROOT)
 FIGURE_PATHS = {
@@ -75,8 +83,9 @@ PROCESS_DOC = ROOT / "archive" / "process_attendance" / "Arka_Talukder_Process_D
 ATTENDANCE_DOC = ROOT / "archive" / "process_attendance" / "Arka Talukder_Attendance_Jan-Feb_B01821011.docx"
 _SPEC_NAME = "Arka-B01821011_MSc Cyber Security Project specification_form_2025-26.docx"
 _PROJECT_SPEC_CANDIDATES = [
+    SUBMISSION_FORMS_DIR / _SPEC_NAME,
     ROOT / _SPEC_NAME,
-    ROOT / "B01821011_Final_Report_Package_for_Supervisor" / "05_Appendix_documents" / _SPEC_NAME,
+    ROOT / "supervisor_package" / "05_Appendix_documents" / _SPEC_NAME,
     ROOT / "docs" / "reference" / _SPEC_NAME,
 ]
 
@@ -89,6 +98,34 @@ def _resolve_project_spec():
 
 
 PROJECT_SPEC = _resolve_project_spec()
+
+_FRONT_SHEET_CANDIDATES = [
+    SUBMISSION_FORMS_DIR / "DissertationFrontSheet.docx",
+    SUBMISSION_FORMS_DIR / "DissertationFrontSheet.doc",
+    ROOT / "DissertationFrontSheet.docx",
+    ROOT / "DissertationFrontSheet.doc",
+    ROOT / "docs" / "reference" / "school_templates" / "DissertationFrontSheet.docx",
+    ROOT / "docs" / "reference" / "school_templates" / "DissertationFrontSheet.doc",
+]
+_LIBRARY_FORM_CANDIDATES = [
+    SUBMISSION_FORMS_DIR / "Dissertation Library Form.docx",
+    SUBMISSION_FORMS_DIR / "Dissertation Library Form.DOC",
+    ROOT / "Dissertation Library Form.docx",
+    ROOT / "Dissertation Library Form.DOC",
+    ROOT / "docs" / "reference" / "school_templates" / "Dissertation Library Form.docx",
+    ROOT / "docs" / "reference" / "school_templates" / "Dissertation Library Form.DOC",
+]
+_DECLARATION_CANDIDATES = [
+    ROOT / "Declaration of originality.docx",
+    ROOT / "docs" / "reference" / "school_templates" / "Declaration of originality.docx",
+]
+
+
+def _resolve_first_existing(candidates: list[Path]) -> Path | None:
+    for p in candidates:
+        if p.exists():
+            return p
+    return None
 
 
 def _add_field_run(paragraph, instruction: str) -> None:
@@ -294,6 +331,49 @@ def _list_bullet_style(level: int) -> str:
     return names[min(max(level, 0), len(names) - 1)]
 
 
+def _set_table_borders(table, *, color: str = "000000", size: str = "8") -> None:
+    """Apply visible single-line borders to all table edges and inner grid."""
+    tbl = table._tbl
+    tbl_pr = tbl.tblPr
+    if tbl_pr is None:
+        tbl_pr = OxmlElement("w:tblPr")
+        tbl.append(tbl_pr)
+
+    # Remove existing borders so regenerated documents stay consistent.
+    for child in list(tbl_pr):
+        if child.tag == qn("w:tblBorders"):
+            tbl_pr.remove(child)
+
+    borders = OxmlElement("w:tblBorders")
+    for edge in ("top", "left", "bottom", "right", "insideH", "insideV"):
+        elem = OxmlElement(f"w:{edge}")
+        elem.set(qn("w:val"), "single")
+        elem.set(qn("w:sz"), size)
+        elem.set(qn("w:space"), "0")
+        elem.set(qn("w:color"), color)
+        borders.append(elem)
+    tbl_pr.append(borders)
+
+
+def _add_bordered_picture(doc, image_path: Path, *, width: Inches = Inches(5.5)) -> None:
+    """
+    Insert image inside a 1x1 table cell so Word always shows a clean figure border.
+    This mirrors the boxed figure look in sample-style dissertations.
+    """
+    fig_tbl = doc.add_table(rows=1, cols=1)
+    fig_tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
+    if "Table Grid" in doc.styles:
+        fig_tbl.style = "Table Grid"
+    _set_table_borders(fig_tbl, color="000000", size="8")
+    cell = fig_tbl.cell(0, 0)
+    p = cell.paragraphs[0]
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p.paragraph_format.space_before = Pt(4)
+    p.paragraph_format.space_after = Pt(4)
+    run = p.add_run()
+    run.add_picture(str(image_path), width=width)
+
+
 def process_markdown(doc, content):
     """Parse markdown and add to document."""
     lines = content.split("\n")
@@ -359,6 +439,9 @@ def process_markdown(doc, content):
                         rows.append(cells)
                 if headers and rows:
                     t = doc.add_table(rows=len(rows) + 1, cols=len(headers))
+                    if "Table Grid" in doc.styles:
+                        t.style = "Table Grid"
+                    _set_table_borders(t, color="000000", size="8")
                     for j, h in enumerate(headers):
                         t.rows[0].cells[j].text = _markdown_plain(h)
                     # Estimated page numbers for Table of Figures and Tables
@@ -414,7 +497,7 @@ def process_markdown(doc, content):
                 if match:
                     img_path = resolve_image_path(match.group(2))
                     if img_path and img_path.exists():
-                        doc.add_picture(str(img_path), width=Inches(5.5))
+                        _add_bordered_picture(doc, img_path, width=Inches(5.5))
                         alt = match.group(1).strip()
                         j = i + 1
                         while j < len(lines) and not lines[j].strip():
@@ -474,8 +557,98 @@ def append_document(master_doc, other_path):
         return False
 
 
-def main(out_path: Path) -> None:
-    content = MD_PATH.read_text(encoding="utf-8")
+def _convert_legacy_doc_to_docx(src: Path, dst: Path) -> bool:
+    """
+    Convert legacy .doc/.DOC to .docx using local Word COM automation (Windows).
+    Returns True on success.
+    """
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    # SaveAs2 FileFormat=16 => wdFormatDocumentDefault (.docx)
+    src_ps = str(src.resolve()).replace("'", "''")
+    dst_ps = str(dst.resolve()).replace("'", "''")
+    ps = (
+        "$ErrorActionPreference='Stop';"
+        "$word=New-Object -ComObject Word.Application;"
+        "$word.Visible=$false;"
+        "$word.DisplayAlerts=0;"
+        f"$doc=$word.Documents.Open('{src_ps}');"
+        f"$doc.SaveAs2('{dst_ps}',16);"
+        "$doc.Close();"
+        "$word.Quit();"
+    )
+    try:
+        run = subprocess.run(
+            ["powershell", "-NoProfile", "-NonInteractive", "-Command", ps],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except Exception as e:
+        print(f"Warning: could not run Word conversion for {src}: {e}")
+        return False
+    if run.returncode != 0:
+        stderr = (run.stderr or "").strip()
+        if stderr:
+            print(f"Warning: Word conversion failed for {src}: {stderr[:240]}")
+        else:
+            print(f"Warning: Word conversion failed for {src} (exit {run.returncode})")
+        return False
+    return dst.exists()
+
+
+def _append_or_note_form(doc, title: str, source_path: Path | None, generated_dir: Path) -> None:
+    """Append form document when possible; otherwise keep explicit placeholder note."""
+    # Keep explicit section title so QA checks and human readers can verify form presence.
+    doc.add_heading(title, level=1)
+    if source_path is None:
+        doc.add_paragraph(f"Required form not found automatically. Insert manually: {title}")
+        doc.add_page_break()
+        return
+
+    path_for_append = source_path
+    if source_path.suffix.lower() == ".doc":
+        converted = generated_dir / f"{source_path.stem}.docx"
+        if _convert_legacy_doc_to_docx(source_path, converted):
+            path_for_append = converted
+        else:
+            doc.add_paragraph(f"Could not auto-convert legacy file. Insert manually from: {source_path}")
+            doc.add_page_break()
+            return
+
+    # If .docx path is mergeable, append directly.
+    if path_for_append.suffix.lower() == ".docx":
+        ok = append_document(doc, path_for_append)
+        if not ok:
+            doc.add_paragraph(f"Could not merge form automatically. Insert manually from: {path_for_append}")
+            doc.add_page_break()
+        else:
+            doc.add_page_break()
+    else:
+        doc.add_paragraph(f"Unsupported form type. Insert manually from: {source_path}")
+        doc.add_page_break()
+
+
+def add_official_front_forms(doc) -> bool:
+    """
+    Insert official school front forms when available.
+    Returns True if at least one form was inserted or placeholder-added via this routine.
+    """
+    front_sheet = _resolve_first_existing(_FRONT_SHEET_CANDIDATES)
+    declaration = _resolve_first_existing(_DECLARATION_CANDIDATES)
+    library_form = _resolve_first_existing(_LIBRARY_FORM_CANDIDATES)
+    if not any([front_sheet, declaration, library_form]):
+        return False
+
+    generated_dir = ROOT / "results" / "generated_forms"
+    _append_or_note_form(doc, "Dissertation Front Sheet", front_sheet, generated_dir)
+    _append_or_note_form(doc, "Declaration of Originality", declaration, generated_dir)
+    _append_or_note_form(doc, "Library Release Form", library_form, generated_dir)
+    return True
+
+
+def main(out_path: Path, md_path: Path | None = None) -> None:
+    src = md_path if md_path is not None else MD_PATH
+    content = src.read_text(encoding="utf-8")
     doc = Document()
 
     # Set default font and line spacing
@@ -538,8 +711,11 @@ def main(out_path: Path) -> None:
         section.right_margin = Inches(1.0)    # 2.54 cm
         section.left_margin = Inches(1.25)    # 3.17 cm
 
-    # Front-matter pages aligned to submission checklist
-    add_front_pages(doc)
+    # Front-matter pages aligned to submission checklist.
+    # Prefer official school forms when available; otherwise use generated placeholders.
+    used_official_forms = add_official_front_forms(doc)
+    if not used_official_forms:
+        add_front_pages(doc)
     add_auto_reference_pages(doc)
 
     # Front matter numbering (roman)
@@ -556,31 +732,23 @@ def main(out_path: Path) -> None:
     # are already used in the Markdown body for manifest + reproducibility + code figures.)
     if PROCESS_DOC.exists():
         doc.add_page_break()
-        doc.add_heading("Full text - Project process documentation (embedded)", level=1)
-        doc.add_paragraph(
-            "Corresponds to the file named in Appendix A of the body. "
-            "This section is merged automatically; keep page breaks if you re-order for School templates."
-        )
         append_document(doc, PROCESS_DOC)
 
     if ATTENDANCE_DOC.exists():
         doc.add_page_break()
-        doc.add_heading("Full text - Attendance log (embedded)", level=1)
-        doc.add_paragraph("Corresponds to the file named in Appendix A of the body.")
         append_document(doc, ATTENDANCE_DOC)
 
     if PROJECT_SPEC.exists():
         doc.add_page_break()
-        doc.add_heading("Full text - Agreed project specification (embedded)", level=1)
-        doc.add_paragraph("Corresponds to the file named in Appendix B of the body.")
         append_document(doc, PROJECT_SPEC)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     try:
         doc.save(out_path)
     except PermissionError:
-        pkg = ROOT / "B01821011_Final_Report_Package_for_Supervisor" / "01_Dissertation" / "Arka_Talukder_Dissertation_Final.docx"
-        if out_path.resolve() != pkg.resolve() and pkg.parent.is_dir():
+        pkg_dir = ROOT / "supervisor_package" / "01_Dissertation"
+        pkg = pkg_dir / out_path.name
+        if out_path.resolve() != pkg.resolve() and pkg_dir.is_dir():
             print(f"Permission denied writing {out_path}; trying {pkg}", file=sys.stderr)
             doc.save(pkg)
             print(f"Saved: {pkg}")
@@ -594,7 +762,10 @@ def main(out_path: Path) -> None:
             [str(p.relative_to(ROOT)) for p in _PROJECT_SPEC_CANDIDATES],
         )
     print("Next steps:")
-    print("  1. Replace placeholder pages with downloaded forms from Moodle")
+    if used_official_forms:
+        print("  1. Verify front sheet, declaration, and library forms render correctly")
+    else:
+        print("  1. Replace placeholder pages with downloaded forms from Moodle")
     print("  2. Update TOC / List of Figures / List of Tables page numbers in Word (Insert > Table of Contents)")
     print("  3. Abstract: add drop cap on first letter if required by the School sample")
     print("  4. List of Abbreviations: colour the abbreviation column in Word if required")
@@ -602,7 +773,13 @@ def main(out_path: Path) -> None:
 
 
 def _parse_args() -> argparse.Namespace:
-    p = argparse.ArgumentParser(description="Convert Dissertation_Arka_Talukder.md to Word.")
+    p = argparse.ArgumentParser(description="Convert dissertation Markdown to Word.")
+    p.add_argument(
+        "--md",
+        type=Path,
+        default=None,
+        help=f"Input .md path (default: {MD_PATH.name} in repo root)",
+    )
     p.add_argument(
         "--out",
         type=Path,
@@ -615,4 +792,5 @@ def _parse_args() -> argparse.Namespace:
 if __name__ == "__main__":
     args = _parse_args()
     out = (args.out if args.out is not None else DEFAULT_OUT_PATH).resolve()
-    main(out_path=out)
+    md = (args.md.resolve() if args.md is not None else MD_PATH)
+    main(out_path=out, md_path=md)

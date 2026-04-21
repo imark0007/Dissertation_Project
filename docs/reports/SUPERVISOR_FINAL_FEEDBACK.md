@@ -1,6 +1,6 @@
 # Final supervisor meeting — what to bring and what is done
 
-Use this **before** your last feedback session with **Dr. Raja Ujjan** (and moderator if present). The canonical technical work lives at the **repository root**; **`B01821011_Final_Report_Package_for_Supervisor/`** is a **snapshot** for one-folder sharing (refresh from root if you edited anything after copying).
+Use this **before** your last feedback session with **Dr. Raja Ujjan** (and moderator if present). The canonical technical work lives at the **repository root**; **`supervisor_package/`** is a **snapshot** for one-folder sharing (refresh from root if you edited anything after copying).
 
 **Read first for the whole story in one document:** **`DISSERTATION_PROJECT_GUIDE.md`** at the repository root (plain-language timeline, chapter map, Q&A grid, limitations). A copy is in the supervisor package folder.
 
@@ -10,7 +10,7 @@ Use this **before** your last feedback session with **Dr. Raja Ujjan** (and mode
 
 | # | Item | Location | Purpose |
 |---|------|----------|---------|
-| 1 | **Final Word thesis** | `Arka_Talukder_Dissertation_Final.docx` (root) or `B01821011_Final_Report_Package_for_Supervisor/01_Dissertation/` | Walkthrough Ch 1 → 10; Ch 8–9 for numbers; Ch 13 for appendices |
+| 1 | **Final Word thesis** | `submission/Arka_Talukder_Dissertation_Final_Submission.docx` (or generated `submission/Arka_Talukder_Dissertation_Final.docx`) and mirror under `supervisor_package/01_Dissertation/` | Walkthrough Ch 1 → 10; Ch 8–9 for numbers; Ch 13 for appendices |
 | 2 | **Source Markdown** (optional) | `Dissertation_Arka_Talukder.md` | If they want to comment in Git / track changes in MD |
 | 3 | **Metrics JSON/CSV** | `results/metrics/` or package `02_Results/metrics/` | Prove Tables 1–7 and FL rounds |
 | 4 | **Figures** | `results/figures/` + `results/figures/appendix1/` | Match plots to metrics; Appendix 1 code figures |

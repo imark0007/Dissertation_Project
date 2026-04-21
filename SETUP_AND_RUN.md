@@ -101,7 +101,7 @@ Writes `results/metrics/sensitivity_table.csv`, `results/metrics/multi_seed_summ
 python scripts/dissertation_to_docx.py
 ```
 
-Reads `Dissertation_Arka_Talukder.md`, produces `Arka_Talukder_Dissertation_Final.docx`. See **`docs/reports/FINAL_REPORT_GENERATION.md`** for full procedure.
+Reads `Dissertation_Arka_Talukder.md`, produces `submission/Arka_Talukder_Dissertation_Final.docx`. See **`docs/reports/FINAL_REPORT_GENERATION.md`** for full procedure.
 
 ### 9. Federated Learning
 

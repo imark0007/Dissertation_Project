@@ -4,6 +4,8 @@
 
 **Personal walkthrough (you + supervisor prep):** read **[`DISSERTATION_PROJECT_GUIDE.md`](DISSERTATION_PROJECT_GUIDE.md)** — full project story, chapter map, Q&A grid, and limitations in plain language.
 
+**Supervisor / viva (what to show on screen):** read **[`viva_supervisor_materials/README.md`](viva_supervisor_materials/README.md)** — which folders matter for examination, what to keep closed (including editor-only paths), and a suggested walkthrough order.
+
 End-to-end prototype: **CICIoT2023** flow data → **kNN temporal graphs** → **GAT + GRU** → optional **Flower FedAvg** → **Captum** explanations → **ECS-style JSON alerts** via **FastAPI** (CPU-oriented).
 
 ---
@@ -18,7 +20,7 @@ End-to-end prototype: **CICIoT2023** flow data → **kNN temporal graphs** → *
 | **Federated learning** | **FedAvg** with **Flower**, 3 clients, non-IID split (`src/federated/`) |
 | **Explainability** | **Integrated Gradients** + GAT attention → ranked features / nodes for alerts (`src/explain/`) |
 | **SOC output** | **FastAPI** `POST /score` → prediction + ECS-like alert JSON (`src/siem/`) |
-| **Thesis** | Source: [`Dissertation_Arka_Talukder.md`](Dissertation_Arka_Talukder.md) → Word via [`scripts/dissertation_to_docx.py`](scripts/dissertation_to_docx.py) |
+| **Thesis** | Source: [`Dissertation_Arka_Talukder.md`](Dissertation_Arka_Talukder.md) → Word in [`submission/`](submission/) via [`scripts/dissertation_to_docx.py`](scripts/dissertation_to_docx.py) |
 
 ---
 
@@ -127,13 +129,18 @@ scripts/
   generate_alerts_and_plots.py  # FL curve, model comparison, alerts
   run_ablation.py               # GAT-only ablation
   run_sensitivity_and_seeds.py  # Grid + seeds
-  dissertation_to_docx.py       # MD → Arka_Talukder_Dissertation_Final.docx
+  dissertation_to_docx.py       # MD → submission/Arka_Talukder_Dissertation_Final.docx
+  sync_dissertation_and_docx.py # MD/Word sync + copy into supervisor_package when present
   render_appendix1_code_figures.py
+submission/                     # Turnitin/submission Word + school forms — see submission/README.md
+supervisor_package/             # Curated one-folder bundle for supervisor review (mirror of key outputs)
+viva_supervisor_materials/      # What to show vs hide in meetings/viva (checklist — see README inside)
+artifacts/                      # Extra packaged figures / exports (e.g. main_report_figures/)
 results/                        # metrics/, figures/, checkpoints/, alerts/ (local only unless committed)
-Dissertation_Arka_Talukder.md   # Thesis source (Markdown)
+Dissertation_Arka_Talukder.md   # Thesis source (Markdown; image paths stay repo-relative)
+Dissertation_Arka_Talukder_Humanized.md  # Optional humanized track (if you use that workflow)
 docs/                           # Checklists, compliance notes, supervisor brief, planning
 archive/                        # Records + Appendix A docs — see [archive/README.md](archive/README.md)
-B01821011_Final_Report_Package_for_Supervisor/   # Curated zip-style bundle for review
 ```
 
 Large binaries, `venv/`, and raw/processed data stay **out of git** per [`.gitignore`](.gitignore).
@@ -151,6 +158,7 @@ Large binaries, `venv/`, and raw/processed data stay **out of git** per [`.gitig
 | [`docs/reports/FINAL_REPORT_GENERATION.md`](docs/reports/FINAL_REPORT_GENERATION.md) | Dissertation / Word workflow |
 | [`archive/README.md`](archive/README.md) | **Archive index:** interim report, process/attendance (Appendix A), one-time scripts; ties to Chapter 13 + `dissertation_to_docx.py` |
 | [`DISSERTATION_PROJECT_GUIDE.md`](DISSERTATION_PROJECT_GUIDE.md) | **Full narrative + Q&A prep** (read this for viva / supervisor meetings) |
+| [`viva_supervisor_materials/README.md`](viva_supervisor_materials/README.md) | **Supervisor / viva screen share:** what to open, what to collapse, IDE exclude snippet |
 
 ---
 
