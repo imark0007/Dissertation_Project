@@ -99,10 +99,6 @@ This **does not** edit the file; it prints structural checks. Update the script 
 
 ---
 
-## Optional files in this folder
-
-- **`optional_cursor_workflow.docx`** — private notes on editor workflow; **not** part of the degree deliverable. Remove before sharing if you prefer a lean tree.
-
 ## Feedback / action-point file (if included)
 
 If a feedback action sheet is in [`feedback/`](feedback/) (`.doc` from the programme), it is a **log** to align with the dissertation and meetings — it is not part of the automated pipeline.

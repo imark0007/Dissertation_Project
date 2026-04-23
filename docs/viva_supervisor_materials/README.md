@@ -1,14 +1,14 @@
 # Supervisor meetings and viva — what to show
 
-Use this folder as the **single briefing** before you share your screen in **VS Code**, **Cursor**, or any editor. It does not duplicate your project; it tells you **where to navigate** and **what to keep out of view** so the session stays focused on **your MSc work**, not tooling.
+Use this folder as a **briefing** before you share your screen in an IDE (e.g. **Visual Studio Code** or similar). It does not duplicate your project; it points to **where** to go and what to keep closed so the session stays on **your MSc work**, not toolbar clutter.
 
 ---
 
 ## Before you share your screen (about two minutes)
 
-1. **Close** any AI chat / Copilot / agent side panel (Cursor, GitHub Copilot, etc.). If you can, use **plain VS Code** for the meeting.
+1. **Close** non-essential side panels and extensions so the file tree and code are easy to read (use a **clean** editor window for the session).
 2. In the file explorer, **collapse** folders you will not open (see *Do not emphasise* below).
-3. Optional: add **files exclude** so hidden folders disappear locally during the session — copy the JSON fragment at the end of this file into `.vscode/settings.json` under `files.exclude` (create the file if needed). Remove those entries after the viva if you want everything visible again.
+3. Optional: use your editor’s **files exclude** or **hide pattern** so rarely used folders stay collapsed during the session; clear those settings again later if you want the full tree.
 
 ---
 
@@ -38,12 +38,12 @@ These items defend **method, implementation, results, and reproducibility**.
 
 You are not hiding coursework; you are **avoiding noise** and **editor-specific** material.
 
-### Editor and assistant tooling
+### Editor-only folders (not part of the degree mark)
 
 | Path | Reason |
 |------|--------|
-| **`.cursor/`** | Cursor-specific settings and skills; **not part of the degree**. Keep out of the explorer during the viva (and ideally out of Git — see root [`.gitignore`](../../.gitignore)). |
-| **`.vscode/`** | Personal workspace settings; only show if you are demonstrating a deliberate `files.exclude` for a clean tree. |
+| **`.cursor/`** (if present) | Local editor or tooling settings; **not** assessment content. You may keep it out of the explorer in meetings (and it is **gitignored** at the root — see [`.gitignore`](../../.gitignore)). |
+| **`.vscode/`** (if present) | Personal workspace settings; use only if you are demonstrating a deliberate `files.exclude` for a tidy tree. |
 
 ### Optional / drafting tracks (can distract from the canonical thesis)
 
@@ -86,24 +86,9 @@ You are not hiding coursework; you are **avoiding noise** and **editor-specific*
 
 ---
 
-## Optional: hide folders in VS Code / Cursor during the session
+## Optional: hide selected folders in the editor during a live demo
 
-Merge something like this into **`.vscode/settings.json`** at the repo root (create the file if it does not exist). Adjust if you still need a folder visible.
-
-```json
-{
-  "files.exclude": {
-    "**/.cursor": true,
-    "**/.git": true,
-    "archive/interim_report": true,
-    "archive/scripts_one_time": true,
-    "artifacts": true,
-    "docs/planning": true
-  }
-}
-```
-
-Remove or set `false` after the meeting if you want the full tree back.
+You can add a temporary `files.exclude` entry in local editor settings so optional folders (e.g. `archive/`, `artifacts/`) stay collapsed. Remove those entries after the session if you want the full tree back.
 
 ---
 

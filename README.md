@@ -1,6 +1,10 @@
 # Explainable Dynamic GNN for IoT Intrusion Detection (Federated + SIEM-Ready)
 
-**MSc Cyber Security** — University of the West of Scotland (UWS). **Project focus:** a **runnable** pipeline on **CPU** — CICIoT2023 flow rows → *k*NN **graphs** → **GAT+GRU** → optional **Flower FedAvg** → **Captum** + **FastAPI** ECS-style **JSON** for SOC-style triage.
+**MSc Cyber Security** — University of the West of Scotland (UWS).
+
+This is **Arka Talukder’s (B01821011)** final-year **individual** project: design, code, experiments, and written report are the student’s own degree work, supervised by **Dr Raja Ujjan**, with references and data handling as described in the dissertation. See **[`AUTHORSHIP.md`](AUTHORSHIP.md)** for a one-page authorship and integrity summary for staff and examiners.
+
+**What the software does (CPU-oriented prototype):** CICIoT2023 flow rows → *k*NN **graphs** → **GAT+GRU** → optional **Flower FedAvg** → **Captum** + **FastAPI** ECS-style **JSON** for security operations–style triage.
 
 | Reader | Open first |
 |--------|------------|
@@ -157,6 +161,7 @@ Large binaries, `venv/`, and raw/processed data stay **out of git** per [`.gitig
 
 | Document | Purpose |
 |----------|---------|
+| [`AUTHORSHIP.md`](AUTHORSHIP.md) | **Student identity, scope, and academic attribution** (for examiners) |
 | [`docs/project_portfolio/README.md`](docs/project_portfolio/README.md) | **Stakeholder start page** (coordinator, programme, final Word path, forms) |
 | [`SETUP_AND_RUN.md`](SETUP_AND_RUN.md) | Step-by-step CLI, FL, API, literature figures |
 | [`docs/README.md`](docs/README.md) | Index of `docs/reports/`, `planning/`, `reference/` |
@@ -197,5 +202,7 @@ This repository supports an **academic MSc project**. It is **not** production S
 
 ## Author
 
-**Arka Talukder** (B01821011) — MSc Cyber Security, UWS.  
-Supervisor: **Dr. Raja Ujjan**.
+**Arka Talukder** (B01821011) — MSc Cyber Security, University of the West of Scotland, School of Computing, Engineering and Physical Sciences.  
+**Supervisor:** Dr Raja Ujjan.
+
+The dissertation, implementation, and analysis are submitted as **original work** for assessment; datasets and software libraries are **acknowledged** in the report and `requirements.txt` as required by the programme.

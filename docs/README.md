@@ -1,5 +1,7 @@
 # Documentation index
 
+**Authorship and integrity (examiners):** **[`../AUTHORSHIP.md`](../AUTHORSHIP.md)** at the repository root.
+
 Stakeholder **“start here”** (final report, coordinator, supervisor, reproduce steps): **[`project_portfolio/README.md`](project_portfolio/README.md)** (this tree).
 
 Project prose, checklists, and planning live under **`docs/`**. The dissertation **source** is **`Arka_Talukder_Dissertation_Final_DRAFT.md`** at the **repository root**; final **Word / PDF** and **forms** are under **`../submission/`** (especially **`B01821011_Arka_Talukder_Dissertation_Final.docx`**). For a **single long-form explainer** (timeline, chapter map, Q&A), use **`../DISSERTATION_PROJECT_GUIDE.md`**.
