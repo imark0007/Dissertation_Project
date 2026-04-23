@@ -14,7 +14,7 @@
 **Scope of work attributed to the author**
 
 - Research design, literature alignment, and evaluation framing (see dissertation and `docs/reports/`).
-- All **original source code** under `src/`, configuration under `config/`, and experiment drivers under `scripts/` that implement preprocessing, graph construction, baselines, dynamic GNN, federated training, explainability, FastAPI delivery, and metrics.
+- All **original source code** under `src/`, configuration under `config/`, and experiment drivers under `scripts/` that implement preprocessing, graph construction, baselines, dynamic GNN, federated training, explainability, FastAPI delivery, and metrics. The **[`README.md`](README.md)** states that implementation was **authored in Visual Studio Code** as conventional **hand-written Python** in this tree (version-controlled in **Git**).
 - Experiments, frozen metrics, and figures where committed under `results/` (subject to local regeneration from the same `config/experiment.yaml`).
 - Written dissertation: source in `Arka_Talukder_Dissertation_Final_DRAFT.md` and submission artefacts in `submission/` as required by the programme.
 

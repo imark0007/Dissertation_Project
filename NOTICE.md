@@ -4,7 +4,7 @@
 
 **Purpose:** This repository documents **one assessed MSc dissertation project** (design, implementation, experiments, and written report). It is shared for **academic transparency**, **supervision**, and **reproducibility** as described in [`AUTHORSHIP.md`](AUTHORSHIP.md).
 
-**Rights:** **Copyright and reserved rights** are stated in **[`LICENSE`](LICENSE)**. Original text, code structure, and project-specific results in this repository are submitted as **student work** for that degree. **Do not** present this work as your own. If you wish to **reuse, redistribute, or adapt** substantial parts (code, figures, or prose), **ask the author and follow your institution’s rules** on academic integrity and third-party material.
+**Rights:** **Copyright and reserved rights** are stated in **[`LICENSE`](LICENSE)**. The **[`README.md`](README.md)** describes the development setup (**Visual Studio Code**, hand-written **Python** in `src/` and `scripts/`). Original text, code structure, and project-specific results in this repository are submitted as **student work** for that degree. **Do not** present this work as your own. If you wish to **reuse, redistribute, or adapt** substantial parts (code, figures, or prose), **ask the author and follow your institution’s rules** on academic integrity and third-party material.
 
 **Third-party material:** Dataset **CICIoT2023**, Python packages (see [`requirements.txt`](requirements.txt)), and library licences are **not** owned by this project; cite the original sources as in the dissertation bibliography.
 

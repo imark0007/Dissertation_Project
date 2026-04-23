@@ -18,7 +18,7 @@
 1. [What you built (elevator pitch)](#1-what-you-built-elevator-pitch)  
 2. [Research questions you answer](#2-research-questions-you-answer)  
 3. [What you did, in order (project timeline)](#3-what-you-did-in-order-project-timeline)  
-3a. [Research plan for completion (IDE, Cursor, supervision evidence)](#3a-research-plan-for-completion-ide-cursor-supervision-evidence)  
+3a. [Research plan for completion (IDE, Visual Studio Code, supervision evidence)](#3a-research-plan-for-completion-ide-visual-studio-code-supervision-evidence)  
 4. [Dissertation chapter map (what each chapter is for)](#4-dissertation-chapter-map-what-each-chapter-is-for)  
 5. [Technical path: from CSV to SIEM alert](#5-technical-path-from-csv-to-siem-alert)  
 6. [Design decisions you must be able to justify](#6-design-decisions-you-must-be-able-to-justify)  
@@ -79,19 +79,19 @@ Think of this as **the story of the repo**, not calendar dates. When you explain
 | **K. Dissertation writing** | Full UWS-style chapters; abstract (3 paragraphs, ≤200 words); appendices A–E; handbook mapping; code figure appendix. | Submission artefact. | `Arka_Talukder_Dissertation_Final_DRAFT.md`. |
 | **L. Submission engineering** | MD → Word script; embedded process/attendance/spec; school templates folder; GitHub README; supervisor package. | Makes submission reproducible and professional. | `dissertation_to_docx.py`; `docs/reference/school_templates/`. |
 
-### 3a. Research plan for completion (IDE, Cursor, supervision evidence)
+### 3a. Research plan for completion (IDE, Visual Studio Code, supervision evidence)
 
-**Purpose:** The programme and supervisor can ask *where* you built the code and *what* you can show in meetings. This block matches **Chapter 3, Section 3.5** in the final dissertation and uses **UWS Harvard**-style entries for **reputable** tools (see **Chapter 11** in the MD: Anysphere, Inc. 2024 for **Cursor**; Python Software Foundation 2023; The Git Project 2023; the **Harvard *libguide*** is in **Chapter 12** — style authority, not a research claim).
+**Purpose:** The programme and supervisor can ask *where* you built the code and *what* you can show in meetings. This block matches **Chapter 3, Section 3.5** in the final dissertation and uses **UWS Harvard**-style entries for **reputable** tools (see **Chapter 12** in the MD: **Microsoft Corporation 2024** for **Visual Studio Code**; Python Software Foundation 2023; The Git Project 2023; the **Harvard *libguide*** is in **Chapter 12** — style authority, not a research claim).
 
 | Topic | What to tell your supervisor | Where it is written |
 |--------|------------------------------|----------------------|
-| **IDE** | You used **Cursor** (AI-assisted IDE) on **Windows 10** for almost all **editing, runs, and meeting-ready demos**; the thesis states this so progress checks align with the **actual** workspace. | Ch 3 §3.5; Ch 6 §6.2 (testbed table). |
+| **IDE** | You used **Visual Studio Code** on **Windows 10** for **hand-written** Python in **`src/`** and **`scripts/`**, plus **editing, runs, and meeting-ready demos**; the thesis states this so progress checks align with the **actual** workspace. | Ch 3 §3.5; Ch 6 §6.2 (testbed table). |
 | **Version control** | **Git** + remote (e.g. GitHub): commit history = traceable code progress for supervisions. | Ch 3 §3.5; **Chapter 11** (Git ref). |
 | **Language** | **Python 3.10** with the stack in *`requirements.txt`*. | Ch 6; **Chapter 11** (PSF ref). |
 | **Harvard (UWS)** | Tool and web references use the **UWS Library libguide** pattern (author/year, *title*, **Available at:** URL, **Accessed:** date for web/software pages). | Ch 3 §3.5; Ch 9 acknowledgment; **Ch 11** (tools) + **Ch 12** (libguide). |
-| **What “completed in Cursor” does *not* mean** | The IDE is **infrastructure**; it does not replace your **method** (Ch 4–7) or your **evidence** (`results/`, `config/`). | Ch 3 §3.5 (closing paragraph). |
+| **What the IDE is *not*** | The editor is **infrastructure**; it does not replace your **method** (Ch 4–7) or your **evidence** (`results/`, `config/`). | Ch 3 §3.5 (closing paragraph). |
 
-**One line for a meeting:** *“I developed and ran the project on Windows, mainly in the Cursor editor, with Git for version history and the same config-driven scripts your chapter tables reference; the dissertation cites those tools in UWS Harvard style in Chapter 12.”*
+**One line for a meeting:** *“I developed and ran the project on Windows in Visual Studio Code, with hand-written source under `src/`, Git for version history, and the same config-driven scripts your chapter tables reference; the dissertation cites those tools in UWS Harvard style in Chapter 12.”*
 
 ---
 

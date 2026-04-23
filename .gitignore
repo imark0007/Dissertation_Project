@@ -19,7 +19,7 @@ build/
 .idea/
 .vscode/
 
-# Cursor / editor-only (not part of thesis submission; keep out of shared clones)
+# Optional: other editor-only or local tooling (not part of thesis submission)
 .cursor/
 ~$*
 

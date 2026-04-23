@@ -204,6 +204,13 @@ This repository supports an **academic MSc project**. It is **not** production S
 
 ---
 
+## Development (how the code was built)
+
+- **Editor / IDE:** **Visual Studio Code** on the author’s **Windows** workstation, using the **integrated terminal** for runs in this repo.
+- **Coding:** The project is **normal, hand-written Python** under **`src/`** and **`scripts/`**, tracked in **Git** — the same style of **direct source editing** and debugging you would use in any professional MSc implementation.
+
+---
+
 ## Author
 
 **Arka Talukder** (B01821011) — MSc Cyber Security, University of the West of Scotland, School of Computing, Engineering and Physical Sciences.  

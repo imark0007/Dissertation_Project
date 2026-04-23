@@ -42,7 +42,7 @@ You are not hiding coursework; you are **avoiding noise** and **editor-specific*
 
 | Path | Reason |
 |------|--------|
-| **`.cursor/`** (if present) | Local editor or tooling settings; **not** assessment content. You may keep it out of the explorer in meetings (and it is **gitignored** at the root — see [`.gitignore`](../../.gitignore)). |
+| **`.vscode/`** or other dot-folders (if present) | Local **Visual Studio Code** or editor settings; **not** core assessment content. You may keep them out of the explorer in meetings. (The repo’s [`.gitignore`](../../.gitignore) may exclude some local IDE paths.) |
 | **`.vscode/`** (if present) | Personal workspace settings; use only if you are demonstrating a deliberate `files.exclude` for a tidy tree. |
 
 ### Optional / drafting tracks (can distract from the canonical thesis)

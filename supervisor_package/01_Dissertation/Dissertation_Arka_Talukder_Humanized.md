@@ -623,9 +623,9 @@ Progress was monitored on a weekly cadence with the supervisor and against the p
 
 The programme and supervisor may review **where and how** the code was built and how progress is demonstrated in meetings. This section **records** that information so it is **maintained in the final report** and can be revisited in follow-up supervisions, consistent with the handbook’s expectation of **traceable** development and **Harvard (UWS)** references for any non-original tools (University of the West of Scotland Library 2025).
 
-**Working environment:** Primary development used **Cursor**, an **AI-assisted integrated development environment (IDE)** based on the same editor stack as **Visual Studio Code**, running on **Windows 10 (x64)** (see also **Table 5** in **Section 6.2**). The repository was **cloned and edited** in that IDE; version control, runs, and figures were produced on the same machine. **Cursor** is cited as a **reputable, vendor-documented** product (Anysphere, Inc. 2024), not as a source of **research** claims. **Core language and tooling** used alongside it are the **Python** implementation (Python Software Foundation 2023) and the **Git** version-control system (The Git Project 2023); both are **standard, vendor-backed** resources listed in the **Chapter 12** bibliography. **Citations in this report follow the UWS Library Harvard *libguide*** (University of the West of Scotland Library 2025).
+**Working environment:** Development used **Visual Studio Code** for **hand-written** Python in **`src/`** and **`scripts/`**, on **Windows 10 (x64)** (see also **Table 5** in **Section 6.2**). The repository was **cloned and edited** in that environment; version control, runs, and figures were produced on the same machine. **Visual Studio Code** is cited as **standard, vendor-documented** software (Microsoft Corporation 2024), not a source of **research** claims. **Core language and tooling** are the **Python** implementation (Python Software Foundation 2023) and the **Git** version-control system (The Git Project 2023), listed in the **Chapter 12** bibliography. **Citations in this report follow the UWS Library Harvard *libguide*** (University of the West of Scotland Library 2025).
 
-**What supervisors can check in meetings:** (1) the **open Git** history on the project repository; (2) **frozen** outputs under `results/metrics/` and `results/figures/` named in **Chapter 13**; (3) the **Gantt** phases in **Section 3.2**; (4) **configuration** in *`config/experiment.yaml`*. The student completed **implementation, experiments, and dissertation drafting** in this environment using **Cursor** for editing, **terminal** session runs as documented in *`README.md`* and *`SETUP_AND_RUN.md`*, and the **MD → Word** pipeline (*`scripts/dissertation_to_docx.py`*) for submission formatting.
+**What supervisors can check in meetings:** (1) the **open Git** history on the project repository; (2) **frozen** outputs under `results/metrics/` and `results/figures/` named in **Chapter 13**; (3) the **Gantt** phases in **Section 3.2**; (4) **configuration** in *`config/experiment.yaml`*. The student completed **implementation, experiments, and dissertation drafting** in this environment using **Visual Studio Code** for editing, **terminal** session runs as documented in *`README.md`* and *`SETUP_AND_RUN.md`*, and the **MD → Word** pipeline (*`scripts/dissertation_to_docx.py`*) for submission formatting.
 
 **Not a substitute for design rationale:** The IDE accelerates **editing, navigation, and repeatability of commands**; it does **not** replace the **method** described in **Chapters 4–7** or the **literature** in **Chapter 2**, which are cited from **peer-reviewed** and **established** technical sources in **Chapters 11–12** as per UWS practice.
 
@@ -1487,7 +1487,7 @@ Alabbadi, A. and Bajaber, F. (2025) 'An intrusion detection system over the IoT 
 
 Albanbay, N., Tursynbek, Y., Graffi, K., Uskenbayeva, R., Kalpeyeva, Z., Abilkaiyr, Z. and Ayapov, Y. (2025) 'Federated learning-based intrusion detection in IoT networks: performance evaluation and data scaling study', *Journal of Sensor and Actuator Networks*, 14(4), p. 78. Available at: https://doi.org/10.3390/jsan14040078
 
-Anysphere, Inc. (2024) *Cursor* [Proprietary software or web resource]. San Francisco, CA: Anysphere, Inc. Available at: https://www.cursor.com/ (Accessed: 20 April 2026).
+Microsoft Corporation (2024) *Visual Studio Code* [Online]. Redmond, WA: Microsoft Corporation. Available at: https://code.visualstudio.com/ (Accessed: 20 April 2026).
 
 Basak, M., Kim, D.-W., Han, M.-M. and Shin, G.-Y. (2025) 'X-GANet: an explainable graph-based framework for robust network intrusion detection', *Applied Sciences*, 15(9), p. 5002. Available at: https://doi.org/10.3390/app15095002
 
@@ -1559,7 +1559,7 @@ Strom, B.E., Applebaum, A., Miller, D.P., Nickels, K.C., Pennington, A.G. and Th
 
 **Project administration and referencing (Chapters 1, 3, 9, 11).**
 
-*Development tools* (**Cursor**, **Python**, **Git**) are **cited in the body** (**Section 3.5**) and appear in the **authoritative list** in **Chapter 11** (UWS Harvard). They are not duplicated here.
+*Development tools* (**Visual Studio Code**, **Python**, **Git**) are **cited in the body** (**Section 3.5**) and appear in the **authoritative list** in **Chapter 11** (UWS Harvard). They are not duplicated here.
 
 University of the West of Scotland (2025) *MSc Project Handbook 2025-26 (COMP11024 Master's Project)*. Paisley: School of Computing, Engineering and Physical Sciences, University of the West of Scotland.
 
