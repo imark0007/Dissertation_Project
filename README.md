@@ -100,7 +100,7 @@ python scripts/render_appendix1_code_figures.py
 
 **API:** `uvicorn src.siem.api:app --reload` → `POST /score` with flow windows.
 
-**Tests:** `python tests/test_api.py`
+**Tests:** `python -m pytest tests/ -q` (or `python tests/test_api.py` for the API tests only).
 
 ---
 
@@ -155,6 +155,8 @@ archive/                        # Interim, process/attendance, one-off — see a
 
 Large binaries, `venv/`, and raw/processed data stay **out of git** per [`.gitignore`](.gitignore).
 
+**Canonical code vs mirror:** The **authoritative implementation** is under **`src/`** and **`scripts/`** at the repository root. **`supervisor_package/`** is an optional **hand-in style bundle** (copies of dissertation, results, and code for one-folder review). If both appear, **develop and cite from root `src/`**, not the package copy, unless you are following a supervisor-specific path.
+
 ---
 
 ## Documentation map
@@ -162,6 +164,7 @@ Large binaries, `venv/`, and raw/processed data stay **out of git** per [`.gitig
 | Document | Purpose |
 |----------|---------|
 | [`AUTHORSHIP.md`](AUTHORSHIP.md) | **Student identity, scope, and academic attribution** (for examiners) |
+| [`NOTICE.md`](NOTICE.md) | **Reuse, rights, and third-party use** (for visitors reusing or citing the repo) |
 | [`docs/project_portfolio/README.md`](docs/project_portfolio/README.md) | **Stakeholder start page** (coordinator, programme, final Word path, forms) |
 | [`SETUP_AND_RUN.md`](SETUP_AND_RUN.md) | Step-by-step CLI, FL, API, literature figures |
 | [`docs/README.md`](docs/README.md) | Index of `docs/reports/`, `planning/`, `reference/` |
@@ -196,7 +199,7 @@ If you use **CICIoT2023**:
 
 ## Disclaimer
 
-This repository supports an **academic MSc project**. It is **not** production SOC software. Detection performance depends on your data slice, splits, and configuration; validate on your own traffic before any real deployment.
+This repository supports an **academic MSc project**. It is **not** production SOC software. Detection performance depends on your data slice, splits, and configuration; validate on your own traffic before any real deployment. For permissions, third-party material, and limitations, see **[`NOTICE.md`](NOTICE.md)**.
 
 ---
 
