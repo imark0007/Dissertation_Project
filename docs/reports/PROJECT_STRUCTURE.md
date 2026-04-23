@@ -17,7 +17,7 @@ This file describes every top-level folder and key file so the full dissertation
 | `docs/` | All non-code **documentation** — index in `docs/README.md` |
 | `docs/project_portfolio/` | **“Start here”** for programme coordinator, supervisor, and GitHub visitors — see **`project_portfolio/README.md`** in that folder |
 | `docs/viva_supervisor_materials/` | **Viva / screen share** — what to open vs. hide — see **`viva_supervisor_materials/README.md`** |
-| `docs/video/` | **5–6 min demo** — script, preflight, recording pack (`README.md`, etc.) |
+| `docs/video/` | **5–6 min demo** — `GUIDE.md`, `SCRIPT.md`, `BLOCKS.md`, `CHECKLIST.md` (see `docs/video/README.md`) |
 | `docs/reports/`, `docs/viva/`, `docs/planning/`, `docs/reference/` | Checklists, viva notes, roadmaps, school templates and samples (see `docs/README.md`) |
 | `submission/` | Final **B018** Word (and optional PDF), generated Word, and **school forms** — see **`submission/README.md`** |
 | `supervisor_package/` | Optional **one-folder bundle** for supervisor review (mirrors dissertation, results, code snapshot) — see **`supervisor_package/README.md`** |

@@ -73,7 +73,7 @@ docs/project_portfolio/     # Stakeholder “start here” (this file) + feedbac
 docs/viva_supervisor_materials/  # Screen-share etiquette and walkthrough
 docs/video/                 # 5–6 min demo video script and checklists
 docs/reports/               # Checklists, compliance, SUBMISSION, SUPERVISOR feedback
-docs/viva/                  # Viva brief, printable cheats (also docs/video/ for recording pack)
+docs/viva/                  # Viva brief, printable cheatsheet
 supervisor_package/         # One-folder mirror for supervisor (optional zip)
 archive/                    # Interim, process/attendance sources, one-off scripts
 ```

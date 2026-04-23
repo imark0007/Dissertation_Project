@@ -12,7 +12,7 @@ This is **Arka Talukder’s (B01821011)** final-year **individual** project: des
 | **Coordinator / hand-in** | [`docs/project_portfolio/README.md`](docs/project_portfolio/README.md) · [`submission/`](submission/) |
 | **Supervisor / viva (screen share)** | [`docs/viva_supervisor_materials/README.md`](docs/viva_supervisor_materials/README.md) |
 | **Long story + Q&A** | [`DISSERTATION_PROJECT_GUIDE.md`](DISSERTATION_PROJECT_GUIDE.md) |
-| **5–6 min demo video (script + preflight)** | [`docs/video/README.md`](docs/video/README.md) |
+| **5–6 min demo video** | [`docs/video/README.md`](docs/video/README.md) (`GUIDE`, `SCRIPT`, `BLOCKS`, `CHECKLIST`) |
 
 ---
 
@@ -142,7 +142,7 @@ submission/                     # Final B018 Word/PDF + school forms — see sub
 docs/
   project_portfolio/            # Stakeholder “start here” (coordinator, programme, visitors)
   viva_supervisor_materials/  # Viva: what to show / hide on screen
-  video/                        # Demo video script, preflight, recording
+  video/                        # 5–6 min demo pack (see also `video/` at repo root → here)
   reports/ viva/ planning/      # Checklists, compliance, viva notes
 supervisor_package/             # Optional zip-style bundle (dissertation + results + code mirror)
 artifacts/                      # Optional packaged figure exports
@@ -151,6 +151,7 @@ Arka_Talukder_Dissertation_Final_DRAFT.md   # Thesis source (Markdown)
 Dissertation_Arka_Talukder_Humanized.md  # Optional alternate drafting track
 thesis_artifacts/               # Humanized / export outputs (if used)
 archive/                        # Interim, process/attendance, one-off — see archive/README.md
+video/                          # Stub → `docs/video/` (start at `docs/video/README.md`)
 ```
 
 Large binaries, `venv/`, and raw/processed data stay **out of git** per [`.gitignore`](.gitignore).
@@ -175,7 +176,7 @@ Large binaries, `venv/`, and raw/processed data stay **out of git** per [`.gitig
 | [`archive/README.md`](archive/README.md) | **Archive index:** interim report, process/attendance (Appendix A), one-time scripts; ties to Chapter 13 + `dissertation_to_docx.py` |
 | [`DISSERTATION_PROJECT_GUIDE.md`](DISSERTATION_PROJECT_GUIDE.md) | **Full narrative + Q&A prep** (read this for viva / supervisor meetings) |
 | [`docs/viva_supervisor_materials/README.md`](docs/viva_supervisor_materials/README.md) | **Supervisor / viva** — screen share: what to open, what to collapse |
-| [`docs/video/README.md`](docs/video/README.md) | 5–6 min demo: script, preflight, recording |
+| [`docs/video/README.md`](docs/video/README.md) | 5–6 min demo pack (GUIDE, SCRIPT, BLOCKS, CHECKLIST) |
 
 ---
 

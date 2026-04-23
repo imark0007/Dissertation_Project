@@ -1,10 +1,9 @@
-# 5–6 minute supervisor demo — spoken script (one page)
+# 5–6 minute supervisor demo — spoken script
 
 **Title:** *Explainable Dynamic Graph Neural Network SIEM for Software-Defined IoT using Edge AI and Federated Learning*  
 **Student:** Arka Talukder (B01821011)  
+**Final dissertation:** `submission/B01821011_Arka_Talukder_Dissertation_Final.docx`  
 **Read at a calm pace; pause on transitions. Total target: ~5:20–5:50.**
-
-Use with the block timings in the master plan. Adjust names/paths to match your recording setup.
 
 ---
 
@@ -14,7 +13,7 @@ Hello. This project is a **research prototype** for **intrusion detection** on *
 
 Today’s software-defined IoT networks generate huge volumes of flow data. We need models that can run on **CPUs** at the edge, that do **not require pooling raw traffic** in one place when we want to train collaboratively, and that give analysts more than a black-box score: they need **explainable, SIEM-style alerts** that can feed triage and automation.
 
-**What I built** is a full pipeline: public **CICIoT2023** flow data, turned into **time-windowed graphs**, classified by a **dynamic graph neural network** with **baselines** and **federated learning**, and exposed through a **FastAPI** service that returns **ECS-like JSON** with **feature- and node-level explanations**.
+**What I built** is a full pipeline: public **CICIoT2023** flow data, turned into **time-windowed graphs**, classified by a **dynamic graph neural network** with **baselines** and **federated learning**, and exposed through a **FastAPI** service that returns **ECS-like JSON** with **feature- and node-level explanations**. The full written work is in my **submitted dissertation** on screen now.
 
 ---
 
@@ -54,7 +53,7 @@ I then call the **running API**—**POST `/score`**—so you see a **live** **pr
 
 ### Block 6 — Reproduction and limits (5:10–5:50)
 
-**Reproducibility** is: clone the repo, follow **`SETUP_AND_RUN.md`**, and run **`python scripts/run_all.py --config config/experiment.yaml`** for preprocess through training and the **metrics** **table**. The **written dissertation** in **`submission/`** is the full research **report**—**literature, design, implementation, evaluation, and limitations**.
+**Reproducibility** is: clone the repo, follow **`SETUP_AND_RUN.md`**, and run **`python scripts/run_all.py --config config/experiment.yaml`** for preprocess through training and the **metrics** **table**. The **written dissertation**—**B01821011** final submission in **`submission/`**—is the full research **report**—**literature, design, implementation, evaluation, and limitations**.
 
 **Limitations in one line:** this is **CICIoT2023** in a **fixed** **subset**, **no** real **SOC** **user** **study**—strengths are **reproducibility** and a **clear** **end-to-end** **path** from **flows** to **explained** **alerts**.
 
@@ -66,4 +65,4 @@ Thank you, Dr. Ujjan. I’m happy to take questions on the design, the federated
 
 ---
 
-*Companion files: `VIDEO_DEMO_PREFLIGHT_CHECKLIST.md`, `VIDEO_DEMO_RECORDING_GUIDE.md` in this folder.*
+*On-screen plan: [`BLOCKS.md`](BLOCKS.md). Day-of: [`CHECKLIST.md`](CHECKLIST.md).*
