@@ -165,6 +165,7 @@ Large binaries, `venv/`, and raw/processed data stay **out of git** per [`.gitig
 |----------|---------|
 | [`AUTHORSHIP.md`](AUTHORSHIP.md) | **Student identity, scope, and academic attribution** (for examiners) |
 | [`NOTICE.md`](NOTICE.md) | **Reuse, rights, and third-party use** (for visitors reusing or citing the repo) |
+| [`LICENSE`](LICENSE) | **Copyright — all rights reserved** (original repo content; third-party remains under their own licences) |
 | [`docs/project_portfolio/README.md`](docs/project_portfolio/README.md) | **Stakeholder start page** (coordinator, programme, final Word path, forms) |
 | [`SETUP_AND_RUN.md`](SETUP_AND_RUN.md) | Step-by-step CLI, FL, API, literature figures |
 | [`docs/README.md`](docs/README.md) | Index of `docs/reports/`, `planning/`, `reference/` |

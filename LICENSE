@@ -1,0 +1,24 @@
+Copyright (c) 2026 Arka Talukder (B01821011)
+
+All rights reserved.
+
+This repository contains original work submitted in partial fulfillment of the
+MSc Cyber Security programme at the University of the West of Scotland (UWS).
+
+No licence is granted to copy, modify, merge, publish, distribute, sublicense,
+or sell copies of this software or documentation, or to use them for commercial
+purposes, except:
+
+  • fair dealing / fair use for private study, academic examination, assessment,
+    and scholarly citation with proper attribution; and
+  • reproduction of small excerpts for review or commentary where your
+    institution’s academic integrity rules allow it.
+
+For any other use (including substantial reuse of code or text), contact the
+author. See also NOTICE.md in this repository.
+
+THIRD-PARTY COMPONENTS: Python packages (see requirements.txt), the CICIoT2023
+dataset, and other external materials remain under their respective licences;
+this file applies only to original material contributed by the author in this repo.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.

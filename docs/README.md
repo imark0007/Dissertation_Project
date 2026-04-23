@@ -1,6 +1,6 @@
 # Documentation index
 
-**Authorship and integrity (examiners):** **[`../AUTHORSHIP.md`](../AUTHORSHIP.md)** at the repository root. **Reuse / rights for visitors:** **[`../NOTICE.md`](../NOTICE.md)**.
+**Authorship and integrity (examiners):** **[`../AUTHORSHIP.md`](../AUTHORSHIP.md)** at the repository root. **Copyright:** **[`../LICENSE`](../LICENSE)**. **Reuse / context for visitors:** **[`../NOTICE.md`](../NOTICE.md)**.
 
 Stakeholder **“start here”** (final report, coordinator, supervisor, reproduce steps): **[`project_portfolio/README.md`](project_portfolio/README.md)** (this tree).
 
