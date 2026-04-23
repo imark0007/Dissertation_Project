@@ -3,6 +3,7 @@ FastAPI endpoint for scoring and SIEM alert generation.
 
 Run: uvicorn src.siem.api:app --reload
 """
+import logging
 import sys
 import time
 from pathlib import Path
@@ -20,7 +21,9 @@ if str(ROOT) not in sys.path:
 from src.data.preprocess import load_config
 from src.models.dynamic_gnn import DynamicGNN
 from src.explain.explainer import explain_sequence
-from src.siem.alert_formatter import format_ecs_alert, alert_to_json
+from src.siem.alert_formatter import format_ecs_alert
+
+logger = logging.getLogger(__name__)
 
 app = FastAPI(title="IoT GNN SIEM API", version="1.0")
 
@@ -29,13 +32,22 @@ _CFG: Optional[dict] = None
 _DEVICE = torch.device("cpu")
 
 
-def _load():
+def _load() -> None:
     global _MODEL, _CFG
     _CFG = load_config("config/experiment.yaml")
     ckpt = Path("results/checkpoints/dynamic_gnn_best.pt")
     _MODEL = DynamicGNN.from_config(_CFG)
     if ckpt.exists():
-        _MODEL.load_state_dict(torch.load(ckpt, map_location=_DEVICE))
+        state = torch.load(ckpt, map_location=_DEVICE)
+        incompatible = _MODEL.load_state_dict(state, strict=False)
+        if incompatible.missing_keys or incompatible.unexpected_keys:
+            logger.warning(
+                "Checkpoint %s does not match current model exactly; some weights are default. "
+                "missing_keys=%s unexpected_keys=%s",
+                ckpt,
+                incompatible.missing_keys,
+                incompatible.unexpected_keys,
+            )
     _MODEL.eval()
 
 

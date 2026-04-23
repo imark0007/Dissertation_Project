@@ -14,6 +14,7 @@ Steps:
 import argparse
 import json
 import logging
+import os
 import sys
 import time
 from pathlib import Path
@@ -36,10 +37,11 @@ logger = logging.getLogger(__name__)
 
 
 def train_baselines(cfg, nrows=None):
+    p = cfg.get("paths", {})
     feat_cols = cfg["data"]["flow_feature_columns"]
     proc = cfg["data"]["processed_dir"]
-    met_dir = Path(cfg["paths"]["metrics"])
-    fig_dir = Path(cfg["paths"]["figures"])
+    met_dir = Path(p.get("metrics", "results/metrics"))
+    fig_dir = Path(p.get("figures", "results/figures"))
     met_dir.mkdir(parents=True, exist_ok=True)
     fig_dir.mkdir(parents=True, exist_ok=True)
 
@@ -81,8 +83,9 @@ def train_baselines(cfg, nrows=None):
     Xt = torch.from_numpy(X_train).float().to(device)
     yt = torch.from_numpy(y_train).long().to(device)
 
-    # Class weights for MLP
+    # Class weights for MLP (avoid div-by-zero if a class is missing under --nrows)
     counts = np.bincount(y_train, minlength=2).astype(float)
+    counts = np.maximum(counts, 1.0)
     w = torch.tensor(counts.sum() / (2 * counts), dtype=torch.float32).to(device)
 
     logger.info("Training MLP (%d epochs)...", mlp_cfg.get("epochs", 30))
@@ -120,9 +123,9 @@ def train_baselines(cfg, nrows=None):
     plot_confusion_matrix(y_test, mlp_pred, fig_dir / "cm_mlp.png", "MLP")
 
 
-def train_central_gnn(cfg):
+def train_central_gnn(cfg, config_path: str) -> None:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    loaders = get_dataloaders(graphs_dir="data/graphs")
+    loaders = get_dataloaders(config_path=config_path, graphs_dir="data/graphs")
     if "train" not in loaders:
         logger.error("No train graphs found. Run graph builder first.")
         return
@@ -130,6 +133,9 @@ def train_central_gnn(cfg):
     model = DynamicGNN.from_config(cfg).to(device)
     gnn_cfg = cfg["models"]["dynamic_gnn"]
     train_cfg = cfg.get("training", {})
+    paths = cfg.get("paths", {})
+    ckpt_dir = paths.get("checkpoints", "results/checkpoints")
+    met_dir_train = paths.get("metrics", "results/metrics")
 
     train_gnn(
         model, loaders["train"], loaders.get("validation", loaders["train"]),
@@ -137,12 +143,25 @@ def train_central_gnn(cfg):
         epochs=gnn_cfg.get("epochs", 30),
         lr=gnn_cfg.get("lr", 0.001),
         patience=train_cfg.get("early_stopping_patience", 5),
+        checkpoint_dir=ckpt_dir,
+        metrics_dir=met_dir_train,
         auto_class_weight=train_cfg.get("class_weight_auto", True),
     )
 
-    # Evaluate on test + generate plots
+    # Evaluate on test + generate plots (reload best weights from same dir train_gnn used)
     if "test" in loaders:
-        model.load_state_dict(torch.load("results/checkpoints/dynamic_gnn_best.pt", map_location=device))
+        ckpt_path = Path(ckpt_dir) / "dynamic_gnn_best.pt"
+        if not ckpt_path.exists():
+            logger.error("No checkpoint at %s; skip GNN test evaluation.", ckpt_path)
+            return
+        state = torch.load(ckpt_path, map_location=device)
+        inc = model.load_state_dict(state, strict=False)
+        if inc.missing_keys or inc.unexpected_keys:
+            logger.warning(
+                "Checkpoint partial load: missing_keys=%s unexpected_keys=%s",
+                inc.missing_keys,
+                inc.unexpected_keys,
+            )
         test_metrics = evaluate(model, loaders["test"], device)
         test_metrics["inference_ms"] = measure_inference_time(model, loaders["test"], device)
         logger.info("GNN central test metrics: %s", test_metrics)
@@ -156,25 +175,25 @@ def train_central_gnn(cfg):
                 proba = torch.softmax(logits, dim=1)[:, 1].cpu().numpy()
                 preds = logits.argmax(dim=1).cpu().numpy()
                 all_preds.extend(preds)
-                all_labels.extend(labels.numpy())
+                all_labels.extend(labels.detach().cpu().numpy())
                 all_proba.extend(proba)
         y_true_gnn = np.array(all_labels)
         y_pred_gnn = np.array(all_preds)
         y_proba_gnn = np.array(all_proba)
 
-        fig_dir = Path(cfg["paths"]["figures"])
+        fig_dir = Path(paths.get("figures", "results/figures"))
         fig_dir.mkdir(parents=True, exist_ok=True)
         if len(np.unique(y_true_gnn)) > 1:
             plot_roc(y_true_gnn, y_proba_gnn, fig_dir / "roc_gnn.png", "Dynamic GNN ROC")
         plot_confusion_matrix(y_true_gnn, y_pred_gnn, fig_dir / "cm_gnn.png", "Dynamic GNN")
 
-        met_dir = Path(cfg["paths"]["metrics"])
+        met_dir = Path(paths.get("metrics", "results/metrics"))
         with open(met_dir / "central_gnn_metrics.json", "w") as f:
             json.dump(test_metrics, f, indent=2)
 
 
 def build_results_table(cfg):
-    met_dir = Path(cfg["paths"]["metrics"])
+    met_dir = Path(cfg.get("paths", {}).get("metrics", "results/metrics"))
     rows = []
     for name in ["rf", "mlp", "central_gnn", "federated_gnn"]:
         p = met_dir / f"{name}_metrics.json"
@@ -213,6 +232,7 @@ def main():
     ap.add_argument("--skip-gnn", action="store_true")
     args = ap.parse_args()
 
+    os.chdir(ROOT)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
     cfg = load_config(args.config)
 
@@ -235,7 +255,7 @@ def main():
 
     if not args.skip_gnn:
         logger.info("=== Step 4: Training Dynamic GNN ===")
-        train_central_gnn(cfg)
+        train_central_gnn(cfg, config_path=args.config)
 
     logger.info("=== Step 5: Results table ===")
     build_results_table(cfg)

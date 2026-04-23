@@ -18,8 +18,8 @@ sys.path.insert(0, str(ROOT))
 def test_health():
     from fastapi.testclient import TestClient
     from src.siem.api import app
-    client = TestClient(app)
-    resp = client.get("/health")
+    with TestClient(app) as client:
+        resp = client.get("/health")
     assert resp.status_code == 200
     data = resp.json()
     assert "status" in data
@@ -30,11 +30,11 @@ def test_health():
 def test_score_response_schema():
     from fastapi.testclient import TestClient
     from src.siem.api import app
-    client = TestClient(app)
 
     dummy_window = {"features": np.random.randn(50, 46).tolist()}
     payload = {"windows": [dummy_window] * 3}
-    resp = client.post("/score", json=payload)
+    with TestClient(app) as client:
+        resp = client.post("/score", json=payload)
     assert resp.status_code == 200
     data = resp.json()
     assert "prediction" in data
@@ -52,17 +52,17 @@ def test_score_response_schema():
 def test_inference_latency():
     from fastapi.testclient import TestClient
     from src.siem.api import app
-    client = TestClient(app)
 
     dummy_window = {"features": np.random.randn(50, 46).tolist()}
     payload = {"windows": [dummy_window] * 5}
 
     times = []
-    for _ in range(10):
-        t0 = time.perf_counter()
-        resp = client.post("/score", json=payload)
-        times.append((time.perf_counter() - t0) * 1000)
-        assert resp.status_code == 200
+    with TestClient(app) as client:
+        for _ in range(10):
+            t0 = time.perf_counter()
+            resp = client.post("/score", json=payload)
+            times.append((time.perf_counter() - t0) * 1000)
+            assert resp.status_code == 200
 
     avg = np.mean(times)
     p95 = np.percentile(times, 95)
