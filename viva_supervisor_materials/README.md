@@ -18,8 +18,8 @@ These items defend **method, implementation, results, and reproducibility**.
 
 | Area | What to open | Why |
 |------|----------------|-----|
-| **Written thesis** | [`submission/`](../submission/) — final `.docx` (and `forms/` if they ask for paperwork) | Submitted artefact; matches programme expectations. |
-| **Thesis source** | [`Dissertation_Arka_Talukder.md`](../Dissertation_Arka_Talukder.md) at repo root | Single source for structure, chapters, figure references. |
+| **Written thesis** | [`submission/B01821011_Arka_Talukder_Dissertation_Final.docx`](../submission/B01821011_Arka_Talukder_Dissertation_Final.docx) (and [`submission/forms/`](../submission/forms/) if they ask for paperwork) | **Final** Word; matches programme expectations. Stakeholder map: [`project_portfolio/README.md`](../project_portfolio/README.md). |
+| **Thesis source** | [`Arka_Talukder_Dissertation_Final_DRAFT.md`](../Arka_Talukder_Dissertation_Final_DRAFT.md) at repo root | Single source for structure, chapters, figure references. |
 | **Core implementation** | [`src/`](../src/) — especially `models/dynamic_gnn.py`, `data/`, `federated/`, `explain/`, `siem/` | Where the GNN, FL, explanations, and API live. |
 | **Configuration** | [`config/experiment.yaml`](../config/experiment.yaml) | Hyperparameters, paths, and experimental settings in one place. |
 | **Reproduction** | [`SETUP_AND_RUN.md`](../SETUP_AND_RUN.md) | Step-by-step commands for preprocess → train → plots. |
@@ -49,7 +49,7 @@ You are not hiding coursework; you are **avoiding noise** and **editor-specific*
 
 | Path | Reason |
 |------|--------|
-| [`Dissertation_Arka_Talukder_Humanized.md`](../Dissertation_Arka_Talukder_Humanized.md) | Alternate drafting track; the **examined** line is [`Dissertation_Arka_Talukder.md`](../Dissertation_Arka_Talukder.md). |
+| [`Dissertation_Arka_Talukder_Humanized.md`](../Dissertation_Arka_Talukder_Humanized.md) | Alternate drafting track; the **examined** line is [`Arka_Talukder_Dissertation_Final_DRAFT.md`](../Arka_Talukder_Dissertation_Final_DRAFT.md). |
 | **Humanized / compare / patch Word tooling** under `scripts/` | Files such as `*humanized*`, `compare_submission_humanized.py`, `align_humanized_*.py`, `fix_humanized_*.py`, `export_humanized_*.py`, `deep_compare_final_humanized.py`, `compare_two_docx.py`, etc. — **internal QA**, not the scientific pipeline. |
 
 ### Archive and records (show only if asked)

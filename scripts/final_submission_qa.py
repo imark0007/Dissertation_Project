@@ -7,8 +7,8 @@ from pathlib import Path
 from docx import Document
 
 ROOT = Path(__file__).resolve().parents[1]
-MD = ROOT / "Dissertation_Arka_Talukder.md"
-DOCX = ROOT / "submission" / "Arka_Talukder_Dissertation_Final_Submission.docx"
+MD = ROOT / "Arka_Talukder_Dissertation_Final_DRAFT.md"
+DOCX = ROOT / "submission" / "B01821011_Arka_Talukder_Dissertation_Final.docx"
 
 
 def md_qa(text: str) -> list[str]:
@@ -20,11 +20,13 @@ def md_qa(text: str) -> list[str]:
         ok = re.search(rf"^## Chapter {n}\b", text, flags=re.M) is not None
         out.append(f"MD chapter {n} heading: {'OK' if ok else 'MISSING'}")
 
-    # Figure numbering 1..24 and A1-1..A1-6
+    # Figure numbering 1..24 and appendix code figures (A1-1..A1-14 via paths or explicit labels)
     missing_fig = [n for n in range(1, 25) if f"Figure {n}:" not in text]
-    missing_a1 = [n for n in range(1, 7) if f"Figure A1-{n}" not in text]
+    a1_hits = text.count("results/figures/appendix1/fig_a1_")
+    has_a1 = a1_hits == 14
+    missing_a1 = [] if has_a1 else [f"expected 14 appendix1 images, found {a1_hits}"]
     out.append(f"MD body figures 1..24: {'OK' if not missing_fig else 'MISSING ' + str(missing_fig)}")
-    out.append(f"MD appendix figures A1-1..A1-6: {'OK' if not missing_a1 else 'MISSING ' + str(missing_a1)}")
+    out.append(f"MD appendix A1 code images (A1-1..A1-14 paths): {'OK' if not missing_a1 else 'MISSING ' + str(missing_a1)}")
 
     # Table numbering 1..7
     missing_tab = [n for n in range(1, 8) if f"Table {n}:" not in text and f"| {n} |" not in text]

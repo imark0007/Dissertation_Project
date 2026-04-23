@@ -51,7 +51,7 @@ def _transform_body(text: str) -> str:
 
 def main() -> None:
     root = Path(__file__).resolve().parent.parent
-    md_path = root / "Dissertation_Arka_Talukder.md"
+    md_path = root / "Arka_Talukder_Dissertation_Final_DRAFT.md"
     if len(sys.argv) > 1:
         md_path = Path(sys.argv[1])
 

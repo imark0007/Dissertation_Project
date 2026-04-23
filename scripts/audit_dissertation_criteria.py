@@ -5,7 +5,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MD = ROOT / "Dissertation_Arka_Talukder.md"
+MD = ROOT / "Arka_Talukder_Dissertation_Final_DRAFT.md"
 
 
 def count_words(s: str) -> int:
@@ -69,12 +69,17 @@ def main() -> None:
         for n in re.findall(r"^\*\*Table\s+(\d+):", text, flags=re.MULTILINE)
     ]
     fig_app = re.findall(r"^\*\*Figure\s+(A1-\d+)\*\*", text, flags=re.MULTILINE)
+    fig_a1_paths = len(re.findall(r"fig_a1_(\d+)\.png", text))
 
     print("\nSerial checks")
     print("  Chapters in order:", chapter_heading_nums == list(range(1, 14)))
     print("  Figure captions contiguous (1..N):", _is_contiguous(fig_body, start=1))
     print("  Table captions contiguous (1..N):", _is_contiguous(tab_body, start=1))
-    print("  Appendix figure labels A1-1..A1-6:", fig_app == [f"A1-{i}" for i in range(1, 7)])
+    print("  Appendix A1 code images (expected 14 png refs):", fig_a1_paths == 14, f"(found {fig_a1_paths})")
+    if fig_app:
+        print("  **Figure A1-* formal captions in MD:", fig_app)
+    if fig_a1_paths != 14:
+        print("   - Appendix A1: list fig_a1_*.png paths in Final_DRAFT.md (see scripts/render_appendix1_code_figures.py).")
     if chapter_heading_nums != list(range(1, 14)):
         print("   - Found chapter headings:", chapter_heading_nums)
     if not _is_contiguous(fig_body, start=1):

@@ -5,7 +5,7 @@
 **How to use it**
 
 1. Read **§2–4** before a supervisor meeting (what you built + how the thesis is organised + technical path).  
-2. Skim **§5** (chapter map) with `Dissertation_Arka_Talukder.md` open.  
+2. Skim **§5** (chapter map) with `Arka_Talukder_Dissertation_Final_DRAFT.md` open.  
 3. Memorise the **decision list in §6** and **limitations in §11** — examiners often probe there.  
 4. Use **§10** as a flashcard grid: cover the answer column and quiz yourself.
 
@@ -40,7 +40,7 @@ You built a **working research prototype** that:
 4. Compares against **Random Forest** and **MLP** on the **same** train/validation/test splits.  
 5. Trains the same GNN with **federated learning** (**Flower**, **FedAvg**, three clients, **non-IID** split) so raw data does not leave “sites.”  
 6. Produces **explainable**, **SIEM-shaped JSON alerts** (ECS-like) using **Captum Integrated Gradients** + **GAT attention**, exposed through **FastAPI** on **CPU**.  
-7. Documents everything in a **full MSc dissertation** (`Dissertation_Arka_Talukder.md` → Word) with **ablation**, **sensitivity grid**, and **multi-seed** checks.
+7. Documents everything in a **full MSc dissertation** (`Arka_Talukder_Dissertation_Final_DRAFT.md` → Word) with **ablation**, **sensitivity grid**, and **multi-seed** checks.
 
 **One sentence for your supervisor:** *“I combined graph-based IoT intrusion detection, federated training, and explainable SOC-style alerts in one reproducible pipeline on CICIoT2023, with strong baselines and robustness experiments.”*
 
@@ -75,7 +75,7 @@ Think of this as **the story of the repo**, not calendar dates. When you explain
 | **H. Federated learning** | `split_and_save` for clients; Flower server + 3 clients; logged rounds. | Privacy narrative. | Ch 8; `src/federated/`; `fl_rounds.json`. |
 | **I. Explainability & SIEM** | Integrated Gradients + attention; ECS-like JSON; example alerts file. | SOC angle. | Ch 6, 8; `results/alerts/`. |
 | **J. Robustness** | **Ablation:** GAT-only (no GRU). **Sensitivity:** window size × *k*. **Multi-seed:** 42, 123, 456. | Shows you did not rely on one lucky config. | Ch 8 §8.7–8.9; `run_ablation.py`, `run_sensitivity_and_seeds.py`. |
-| **K. Dissertation writing** | Full UWS-style chapters; abstract (3 paragraphs, ≤200 words); appendices A–E; handbook mapping; code figure appendix. | Submission artefact. | `Dissertation_Arka_Talukder.md`. |
+| **K. Dissertation writing** | Full UWS-style chapters; abstract (3 paragraphs, ≤200 words); appendices A–E; handbook mapping; code figure appendix. | Submission artefact. | `Arka_Talukder_Dissertation_Final_DRAFT.md`. |
 | **L. Submission engineering** | MD → Word script; embedded process/attendance/spec; school templates folder; GitHub README; supervisor package. | Makes submission reproducible and professional. | `dissertation_to_docx.py`; `docs/reference/school_templates/`. |
 
 ---
@@ -154,8 +154,8 @@ Tell this story **slowly** if asked *“how does data move?”*
 
 | You want… | Open… |
 |-----------|--------|
-| Thesis text | `Dissertation_Arka_Talukder.md` |
-| Generated Word | `submission/Arka_Talukder_Dissertation_Final.docx` (regenerate with `python scripts/dissertation_to_docx.py`; submission-ready rename may live alongside as `submission/Arka_Talukder_Dissertation_Final_Submission.docx`) |
+| Thesis text | `Arka_Talukder_Dissertation_Final_DRAFT.md` |
+| Generated Word | `submission/Arka_Talukder_Dissertation_Final_DRAFT.docx` (regenerate with `python scripts/sync_dissertation_and_docx.py` or `python scripts/dissertation_to_docx.py`; optional hand-finished Turnitin file: `submission/Arka_Talukder_Dissertation_Final_Submission.docx`) |
 | All hyperparameters | `config/experiment.yaml` |
 | One-command pipeline | `scripts/run_all.py` |
 | FL + sensitivity + seeds | `scripts/run_sensitivity_and_seeds.py`, `src/federated/run_federated.py` |

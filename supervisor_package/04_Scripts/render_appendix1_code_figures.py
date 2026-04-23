@@ -3,7 +3,7 @@ Render line-numbered code screenshots for Handbook Appendix 1 (project code figu
 Run from repo root: python scripts/render_appendix1_code_figures.py
 
 Outputs: results/figures/appendix1/fig_a1_0*.png
-Line ranges match Dissertation_Arka_Talukder.md Appendix D at generation time.
+Line ranges match Arka_Talukder_Dissertation_Final_DRAFT.md Appendix D at generation time.
 """
 from __future__ import annotations
 

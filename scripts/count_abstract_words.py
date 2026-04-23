@@ -1,5 +1,5 @@
 """
-Count the word length of the dissertation abstract in Dissertation_Arka_Talukder.md.
+Count the word length of the dissertation abstract in Arka_Talukder_Dissertation_Final_DRAFT.md.
 
 Usage:
     python scripts/count_abstract_words.py
@@ -11,7 +11,7 @@ from pathlib import Path
 
 
 def main() -> None:
-    md = Path("Dissertation_Arka_Talukder.md").read_text(encoding="utf-8")
+    md = Path("Arka_Talukder_Dissertation_Final_DRAFT.md").read_text(encoding="utf-8")
     m = re.search(r"^## 1\.\s*Abstract\s*$", md, flags=re.M)
     if not m:
         raise SystemExit("Could not find '## 1. Abstract' heading")

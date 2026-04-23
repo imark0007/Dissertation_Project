@@ -1,5 +1,5 @@
 """
-Convert Dissertation_Arka_Talukder.md to Word for final submission.
+Convert Arka_Talukder_Dissertation_Final_DRAFT.md to Word for final submission.
 Follows MSc Project Handbook: 1.5 line spacing, 11pt+ font, page numbers.
 Embeds appendices (process docs, project spec) if available — see archive/README.md
 for canonical paths to process + attendance under archive/process_attendance/.
@@ -13,8 +13,8 @@ runs the Final export and, if present, `Dissertation_Arka_Talukder_Humanized.md`
 
 Humanized-only:  python scripts/sync_humanized_md_and_docx.py
 
-This file alone:  python scripts/dissertation_to_docx.py [--md PATH] [--out PATH]
-Defaults: Dissertation_Arka_Talukder.md → submission/Arka_Talukder_Dissertation_Final.docx
+This file alone:      python scripts/dissertation_to_docx.py [--md PATH] [--out PATH]
+Defaults: Arka_Talukder_Dissertation_Final_DRAFT.md → submission/Arka_Talukder_Dissertation_Final_DRAFT.docx
 """
 import argparse
 from pathlib import Path
@@ -38,8 +38,8 @@ except ImportError:
 ROOT = Path(__file__).resolve().parent.parent
 SUBMISSION_DIR = ROOT / "submission"
 SUBMISSION_FORMS_DIR = SUBMISSION_DIR / "forms"
-MD_PATH = ROOT / "Dissertation_Arka_Talukder.md"
-DEFAULT_OUT_PATH = SUBMISSION_DIR / "Arka_Talukder_Dissertation_Final.docx"
+MD_PATH = ROOT / "Arka_Talukder_Dissertation_Final_DRAFT.md"
+DEFAULT_OUT_PATH = SUBMISSION_DIR / "Arka_Talukder_Dissertation_Final_DRAFT.docx"
 
 # Figure paths (relative to ROOT)
 FIGURE_PATHS = {
@@ -62,13 +62,21 @@ FIGURE_PATHS = {
     "results/figures/cm_mlp.png": ROOT / "results" / "figures" / "cm_mlp.png",
     "results/figures/roc_rf.png": ROOT / "results" / "figures" / "roc_rf.png",
     "results/figures/roc_mlp.png": ROOT / "results" / "figures" / "roc_mlp.png",
-    # Handbook Appendix 1 — auto-rendered code figures (see scripts/render_appendix1_code_figures.py)
-    "results/figures/appendix1/fig_a1_01_dynamic_gnn.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_01_dynamic_gnn.png",
-    "results/figures/appendix1/fig_a1_02_graph_builder_knn_graph.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_02_graph_builder_knn_graph.png",
-    "results/figures/appendix1/fig_a1_03_graph_builder_stratified.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_03_graph_builder_stratified.png",
-    "results/figures/appendix1/fig_a1_04_explainer_integrated_gradients.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_04_explainer_integrated_gradients.png",
-    "results/figures/appendix1/fig_a1_05_federated_flower_client.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_05_federated_flower_client.png",
-    "results/figures/appendix1/fig_a1_06_fastapi_score_alert.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_06_fastapi_score_alert.png",
+    # Appendix A — code screenshots (see scripts/render_appendix1_code_figures.py)
+    "results/figures/appendix1/fig_a1_01_experiment_yaml.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_01_experiment_yaml.png",
+    "results/figures/appendix1/fig_a1_02_preprocess.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_02_preprocess.png",
+    "results/figures/appendix1/fig_a1_03_graph_knn.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_03_graph_knn.png",
+    "results/figures/appendix1/fig_a1_04_graph_stratified.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_04_graph_stratified.png",
+    "results/figures/appendix1/fig_a1_05_graph_sequence_dataset.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_05_graph_sequence_dataset.png",
+    "results/figures/appendix1/fig_a1_06_dataloaders.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_06_dataloaders.png",
+    "results/figures/appendix1/fig_a1_07_baselines.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_07_baselines.png",
+    "results/figures/appendix1/fig_a1_08_dynamic_gnn.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_08_dynamic_gnn.png",
+    "results/figures/appendix1/fig_a1_09_train_one_epoch.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_09_train_one_epoch.png",
+    "results/figures/appendix1/fig_a1_10_explain_sequence.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_10_explain_sequence.png",
+    "results/figures/appendix1/fig_a1_11_run_federated.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_11_run_federated.png",
+    "results/figures/appendix1/fig_a1_12_flower_client.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_12_flower_client.png",
+    "results/figures/appendix1/fig_a1_13_flower_server.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_13_flower_server.png",
+    "results/figures/appendix1/fig_a1_14_fastapi_score.png": ROOT / "results" / "figures" / "appendix1" / "fig_a1_14_fastapi_score.png",
     # Chapter 6 — dark IDE-style code screenshots (see scripts/render_chapter6_code_screenshots.py)
     "results/figures/chapter6/fig_ch6_01_flows_to_knn_core.png": ROOT / "results" / "figures" / "chapter6" / "fig_ch6_01_flows_to_knn_core.png",
     "results/figures/chapter6/fig_ch6_02_stratified_split_core.png": ROOT / "results" / "figures" / "chapter6" / "fig_ch6_02_stratified_split_core.png",
@@ -307,6 +315,16 @@ def _markdown_plain(s: str) -> str:
     return t.strip()
 
 
+def _apply_body_text_format(p) -> None:
+    """Enforce 11pt Times New Roman on paragraph runs (lists inherit Normal inconsistently)."""
+    for r in p.runs:
+        r.font.name = "Times New Roman"
+        r.font.size = Pt(11)
+    if not p.runs and p.text:
+        # Edge case: single run without .runs populated yet
+        pass
+
+
 def _add_paragraph(
     doc,
     text: str,
@@ -323,6 +341,8 @@ def _add_paragraph(
     if italic:
         for r in p.runs:
             r.italic = True
+    _apply_body_text_format(p)
+    p.paragraph_format.line_spacing_rule = WD_LINE_SPACING.ONE_POINT_FIVE
     return p
 
 
@@ -418,7 +438,10 @@ def process_markdown(doc, content):
         elif line.startswith("### "):
             doc.add_heading(_markdown_plain(line[4:]), level=2)
         elif line.startswith("#### "):
+            # Word Heading 3 (## = H1, ### = H2, #### = H3)
             doc.add_heading(_markdown_plain(line[5:]), level=3)
+        elif line.startswith("##### "):
+            doc.add_heading(_markdown_plain(line[6:]), level=4)
 
         elif line.strip() == "---":
             pass
@@ -651,10 +674,10 @@ def main(out_path: Path, md_path: Path | None = None) -> None:
     content = src.read_text(encoding="utf-8")
     doc = Document()
 
-    # Set default font and line spacing
+    # Set default font and line spacing (UWS MSc final report: 11pt body, 1.5 line spacing)
     style = doc.styles["Normal"]
     font = style.font
-    font.size = Pt(12)
+    font.size = Pt(11)
     font.name = "Times New Roman"
     paragraph_format = style.paragraph_format
     paragraph_format.line_spacing_rule = WD_LINE_SPACING.ONE_POINT_FIVE
@@ -769,7 +792,8 @@ def main(out_path: Path, md_path: Path | None = None) -> None:
     print("  2. Update TOC / List of Figures / List of Tables page numbers in Word (Insert > Table of Contents)")
     print("  3. Abstract: add drop cap on first letter if required by the School sample")
     print("  4. List of Abbreviations: colour the abbreviation column in Word if required")
-    print("  5. Verify 1.5 line spacing and 11pt font; submit per module instructions")
+    print("  5. Body text is 11pt / 1.5 spacing from Normal style; verify in Word; submit per module")
+    print("  6. Final Harvard list: Mendeley / Zotero / EndNote; see docs/reports/FINAL_WORD_FORMAT_MENDELEY_PAGE_BUDGET.md")
 
 
 def _parse_args() -> argparse.Namespace:
@@ -778,7 +802,7 @@ def _parse_args() -> argparse.Namespace:
         "--md",
         type=Path,
         default=None,
-        help=f"Input .md path (default: {MD_PATH.name} in repo root)",
+        help=f"Input .md path (default: {MD_PATH.name})",
     )
     p.add_argument(
         "--out",

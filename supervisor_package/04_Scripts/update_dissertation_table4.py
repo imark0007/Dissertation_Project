@@ -1,5 +1,5 @@
 """
-Update Table 4 (Ablation) in Dissertation_Arka_Talukder.md from results/metrics/ablation_table.csv.
+Update Table 4 (Ablation) in Arka_Talukder_Dissertation_Final_DRAFT.md from results/metrics/ablation_table.csv.
 Run after: python scripts/run_ablation.py --config config/experiment.yaml
 
 Usage: python scripts/update_dissertation_table4.py
@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MD_PATH = ROOT / "Dissertation_Arka_Talukder.md"
+MD_PATH = ROOT / "Arka_Talukder_Dissertation_Final_DRAFT.md"
 METRICS_DIR = ROOT / "results" / "metrics"
 CSV_PATH = METRICS_DIR / "ablation_table.csv"
 GAT_ONLY_JSON = METRICS_DIR / "ablation_gat_only.json"
@@ -57,7 +57,7 @@ def main():
     if note in text:
         text = text.replace(note, "*Note: Ablation results from `scripts/run_ablation.py`.*")
     MD_PATH.write_text(text, encoding="utf-8")
-    print("Updated Table 4 in Dissertation_Arka_Talukder.md with GAT-only ablation results.")
+    print("Updated Table 4 in Arka_Talukder_Dissertation_Final_DRAFT.md with GAT-only ablation results.")
 
 
 if __name__ == "__main__":

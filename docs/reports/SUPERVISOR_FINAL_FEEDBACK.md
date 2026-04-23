@@ -10,8 +10,8 @@ Use this **before** your last feedback session with **Dr. Raja Ujjan** (and mode
 
 | # | Item | Location | Purpose |
 |---|------|----------|---------|
-| 1 | **Final Word thesis** | `submission/Arka_Talukder_Dissertation_Final_Submission.docx` (or generated `submission/Arka_Talukder_Dissertation_Final.docx`) and mirror under `supervisor_package/01_Dissertation/` | Walkthrough Ch 1 → 10; Ch 8–9 for numbers; Ch 13 for appendices |
-| 2 | **Source Markdown** (optional) | `Dissertation_Arka_Talukder.md` | If they want to comment in Git / track changes in MD |
+| 1 | **Final Word thesis** | `submission/Arka_Talukder_Dissertation_Final_DRAFT.docx` (or optional `submission/Arka_Talukder_Dissertation_Final_Submission.docx`) and mirror under `supervisor_package/01_Dissertation/` | Walkthrough Ch 1 → 10; Ch 8–9 for numbers; Ch 13 for appendices |
+| 2 | **Source Markdown** (optional) | `Arka_Talukder_Dissertation_Final_DRAFT.md` | If they want to comment in Git / track changes in MD |
 | 3 | **Metrics JSON/CSV** | `results/metrics/` or package `02_Results/metrics/` | Prove Tables 1–7 and FL rounds |
 | 4 | **Figures** | `results/figures/` + `results/figures/appendix1/` | Match plots to metrics; Appendix 1 code figures |
 | 5 | **Example alerts** | `results/alerts/example_alerts.json` | SIEM / explainability story |

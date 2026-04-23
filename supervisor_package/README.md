@@ -2,6 +2,12 @@
 
 **Purpose:** One folder to share with your **supervisor**: written dissertation, **evidence files** (metrics, figures, alerts), **how to reproduce** (config + guide), and a **snapshot of code**.
 
+**Authoritative final Word (entire repository):**  
+[`../submission/B01821011_Arka_Talukder_Dissertation_Final.docx`](../submission/B01821011_Arka_Talukder_Dissertation_Final.docx)  
+Use `01_Dissertation/` below as a **mirror** for a zip or offline bundle; the path above is the **single** canonical filename for the hand-finished report.
+
+**Coordinator / programme “start here”** (all stakeholders): see **[`../project_portfolio/README.md`](../project_portfolio/README.md)**.
+
 **Important:** This folder was copied at a point in time. The **canonical** project (latest dissertation, `scripts/run_sensitivity_and_seeds.py`, etc.) is the **repository root** (`attempt 2`). Before a meeting, refresh `01_Dissertation/` and `04_Scripts/` from the root if you have edited the thesis or moved scripts.
 
 **Screen-sharing / viva:** At the repo root, read **`viva_supervisor_materials/README.md`** for what to open in the IDE versus what to keep collapsed (including editor-only folders).
@@ -16,7 +22,7 @@ Use this as a **walkthrough** of your whole MSc work: question → design → bu
 
 ### 1. The written thesis (main story)
 
-- **`01_Dissertation/Arka_Talukder_Dissertation_Final.docx`** (mirror of repo `submission/`; or the `.md` if they prefer source).
+- **`01_Dissertation/Arka_Talukder_Dissertation_Final_DRAFT.docx`** (mirror of repo `submission/`; or `Arka_Talukder_Dissertation_Final_DRAFT.md` if they prefer source).
 - **Where to point them first:** **Chapter 1 §1.6** (marking criteria ↔ chapters), **Chapter 2** (literature + gap), **Chapters 4–5** (method + design), **Chapter 6** (what you built), **Chapter 8** (results tables/figures), **Chapter 9** (what it means + limits), **Chapter 10** (reflection).
 - If they ask about **specification vs literature %**: **§1.6–1.6.1** ties the thesis to the **agreed specification**; bring your **signed spec** (see `05_Appendix_documents/`).
 
@@ -78,12 +84,12 @@ Use this as a **walkthrough** of your whole MSc work: question → design → bu
 
 From the repo root, re-copy at least:
 
-- `Dissertation_Arka_Talukder.md` and the latest Word from `submission/` (e.g. `Arka_Talukder_Dissertation_Final.docx`, `Arka_Talukder_Dissertation_Final_Submission.docx`) → `01_Dissertation/`
+- `Arka_Talukder_Dissertation_Final_DRAFT.md` and the latest Word from `submission/` (e.g. `Arka_Talukder_Dissertation_Final_DRAFT.docx`, optional `Arka_Talukder_Dissertation_Final_Submission.docx`) → `01_Dissertation/`
 - `scripts/*.py` → `04_Scripts/` (including **`run_sensitivity_and_seeds.py`**)
 - `results/metrics/`, `results/figures/`, `results/alerts/` → `02_Results/…`
 - `SETUP_AND_RUN.md` → `03_Reproducibility/`
 
-Then regenerate the Word file if needed: `python scripts/dissertation_to_docx.py`.
+Then regenerate the Word file if needed: `python scripts/sync_dissertation_and_docx.py` (or `python scripts/dissertation_to_docx.py`).
 
 ---
 

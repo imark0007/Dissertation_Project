@@ -6,9 +6,9 @@ After editing repo-root Markdown, run:
     python scripts/sync_dissertation_and_docx.py
 
 This will:
-  1. Final track — `Dissertation_Arka_Talukder.md` → `submission/Arka_Talukder_Dissertation_Final.docx`
+  1. Final track — `Arka_Talukder_Dissertation_Final_DRAFT.md` → `submission/Arka_Talukder_Dissertation_Final_DRAFT.docx` and a snapshot to `thesis_artifacts/Arka_Talukder_Dissertation_Final_DRAFT.md`
   2. Humanized track — when `Dissertation_Arka_Talukder_Humanized.md` exists:
-     → `submission/Arka_Talukder_Dissertation_Final_Submission_Humanized_version.docx`
+     → `thesis_artifacts/01_Humanized_Updated.docx` and `submission/Arka_Talukder_Dissertation_Final_Submission_Humanized_version.docx`
   3. When `supervisor_package/01_Dissertation/` exists,
      copy each updated `.md` and `.docx` there (supervisor package stays aligned).
 
@@ -31,15 +31,20 @@ import subprocess
 import sys
 from pathlib import Path
 
+_SCRIPTS = Path(__file__).resolve().parent
+if str(_SCRIPTS) not in sys.path:
+    sys.path.insert(0, str(_SCRIPTS))
+import thesis_artifact_paths as tap
+
 ROOT = Path(__file__).resolve().parent.parent
 SUBMISSION_DIR = ROOT / "submission"
-MD_SRC = ROOT / "Dissertation_Arka_Talukder.md"
-DOCX_OUT = SUBMISSION_DIR / "Arka_Talukder_Dissertation_Final.docx"
+MD_SRC = ROOT / "Arka_Talukder_Dissertation_Final_DRAFT.md"
+DOCX_OUT = SUBMISSION_DIR / "Arka_Talukder_Dissertation_Final_DRAFT.docx"
 HUMANIZED_MD = ROOT / "Dissertation_Arka_Talukder_Humanized.md"
 HUMANIZED_DOCX = SUBMISSION_DIR / "Arka_Talukder_Dissertation_Final_Submission_Humanized_version.docx"
 PACKAGE_DIR = ROOT / "supervisor_package" / "01_Dissertation"
-PACKAGE_MD = PACKAGE_DIR / "Dissertation_Arka_Talukder.md"
-PACKAGE_DOCX = PACKAGE_DIR / "Arka_Talukder_Dissertation_Final.docx"
+PACKAGE_MD = PACKAGE_DIR / "Arka_Talukder_Dissertation_Final_DRAFT.md"
+PACKAGE_DOCX = PACKAGE_DIR / "Arka_Talukder_Dissertation_Final_DRAFT.docx"
 PACKAGE_HUMANIZED_MD = PACKAGE_DIR / "Dissertation_Arka_Talukder_Humanized.md"
 PACKAGE_HUMANIZED_DOCX = PACKAGE_DIR / "Arka_Talukder_Dissertation_Final_Submission_Humanized_version.docx"
 CONVERTER = ROOT / "scripts" / "dissertation_to_docx.py"
@@ -81,9 +86,22 @@ def _sync_one_track(
             f"[{label}] Skip package MD (folder missing): {PACKAGE_DIR.relative_to(ROOT)}",
         )
 
-    r = _run_convert(md_src, docx_out)
+    # Humanized track: build Word under thesis_artifacts/, then copy to submission/ long filename.
+    sibling: Path | None = None
+    if md_src.resolve() == HUMANIZED_MD.resolve():
+        tap.THESIS_ARTIFACTS.mkdir(parents=True, exist_ok=True)
+        sibling = tap.HUMANIZED_DOCX
+        r = _run_convert(md_src, sibling)
+    else:
+        r = _run_convert(md_src, docx_out)
     if r != 0:
         sys.exit(r)
+    if sibling is not None:
+        docx_out.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(sibling, docx_out)
+        print(
+            f"[{label}] Paired: {HUMANIZED_MD.name} + {sibling.relative_to(ROOT)}",
+        )
 
     if not docx_out.is_file() and not package_docx.is_file():
         print(
@@ -96,9 +114,23 @@ def _sync_one_track(
 
     if copy_package and PACKAGE_DIR.is_dir() and built.resolve() != package_docx.resolve():
         shutil.copy2(built, package_docx)
+        if label == "humanized" and sibling is not None and package_md.is_file():
+            pkg_sibling = package_md.with_suffix(".docx")
+            shutil.copy2(sibling, pkg_sibling)
         print(f"[{label}] Copied DOCX -> {package_docx.relative_to(ROOT)}")
 
     print(f"OK [{label}]: {built.relative_to(ROOT)}")
+
+
+def _copy_final_md_artifact() -> None:
+    """Mirror canonical Markdown into thesis_artifacts/ for a single “final .md” handoff."""
+    if not MD_SRC.is_file():
+        return
+    tap.THESIS_ARTIFACTS.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(MD_SRC, tap.FINAL_MD)
+    print(
+        f"[final] Copied {MD_SRC.name} -> {tap.FINAL_MD.relative_to(ROOT)}",
+    )
 
 
 def main() -> None:
@@ -106,7 +138,7 @@ def main() -> None:
     p.add_argument(
         "--final-only",
         action="store_true",
-        help="Only sync Dissertation_Arka_Talukder.md -> Final .docx",
+        help="Only sync Arka_Talukder_Dissertation_Final_DRAFT.md -> Final DRAFT .docx",
     )
     p.add_argument(
         "--humanized-only",
@@ -149,6 +181,7 @@ def main() -> None:
             label="final",
             copy_package=copy_pkg,
         )
+        _copy_final_md_artifact()
         if HUMANIZED_MD.is_file():
             _sync_one_track(
                 md_src=HUMANIZED_MD,
@@ -170,6 +203,7 @@ def main() -> None:
         label="final",
         copy_package=copy_pkg,
     )
+    _copy_final_md_artifact()
 
 
 if __name__ == "__main__":

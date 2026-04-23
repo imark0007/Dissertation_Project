@@ -1,11 +1,11 @@
-"""Approximate word counts for Dissertation_Arka_Talukder.md (quick supervisor check)."""
+"""Approximate word counts for Arka_Talukder_Dissertation_Final_DRAFT.md (quick supervisor check)."""
 from __future__ import annotations
 
 import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MD = ROOT / "Dissertation_Arka_Talukder.md"
+MD = ROOT / "Arka_Talukder_Dissertation_Final_DRAFT.md"
 text = MD.read_text(encoding="utf-8")
 
 
@@ -40,7 +40,7 @@ ch13_end = len(text)
 with_appendices = text[c1:ch13_end] if c1 >= 0 else text
 with_app_n = count_words(with_appendices)
 
-print("Dissertation_Arka_Talukder.md")
+print("Arka_Talukder_Dissertation_Final_DRAFT.md")
 print("  abstract_words:", abstract_n)
 print("  main_body_ch1_to_ch10_words (excl. refs, bib, appendices):", main_n)
 print("  ch1_through_file_end_words:", with_app_n)

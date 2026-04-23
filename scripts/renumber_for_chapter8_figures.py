@@ -24,7 +24,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-PATH = Path(__file__).resolve().parents[1] / "Dissertation_Arka_Talukder.md"
+PATH = Path(__file__).resolve().parents[1] / "Arka_Talukder_Dissertation_Final_DRAFT.md"
 
 # The mapping is read in order; do larger new-value first to avoid clashes.
 RENUMBER_MAP = [

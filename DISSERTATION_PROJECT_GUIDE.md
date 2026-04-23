@@ -5,7 +5,7 @@
 **How to use it**
 
 1. Read **§2–4** before a supervisor meeting (what you built + how the thesis is organised + technical path).  
-2. Skim **§5** (chapter map) with `Dissertation_Arka_Talukder.md` open.  
+2. Skim **§5** (chapter map) with `Arka_Talukder_Dissertation_Final_DRAFT.md` open.  
 3. Memorise the **decision list in §6** and **limitations in §11** — examiners often probe there.  
 4. Use **§10** as a flashcard grid: cover the answer column and quiz yourself.
 
@@ -18,6 +18,7 @@
 1. [What you built (elevator pitch)](#1-what-you-built-elevator-pitch)  
 2. [Research questions you answer](#2-research-questions-you-answer)  
 3. [What you did, in order (project timeline)](#3-what-you-did-in-order-project-timeline)  
+3a. [Research plan for completion (IDE, Cursor, supervision evidence)](#3a-research-plan-for-completion-ide-cursor-supervision-evidence)  
 4. [Dissertation chapter map (what each chapter is for)](#4-dissertation-chapter-map-what-each-chapter-is-for)  
 5. [Technical path: from CSV to SIEM alert](#5-technical-path-from-csv-to-siem-alert)  
 6. [Design decisions you must be able to justify](#6-design-decisions-you-must-be-able-to-justify)  
@@ -40,7 +41,7 @@ You built a **working research prototype** that:
 4. Compares against **Random Forest** and **MLP** on the **same** train/validation/test splits.  
 5. Trains the same GNN with **federated learning** (**Flower**, **FedAvg**, three clients, **non-IID** split) so raw data does not leave “sites.”  
 6. Produces **explainable**, **SIEM-shaped JSON alerts** (ECS-like) using **Captum Integrated Gradients** + **GAT attention**, exposed through **FastAPI** on **CPU**.  
-7. Documents everything in a **full MSc dissertation** (`Dissertation_Arka_Talukder.md` → Word) with **ablation**, **sensitivity grid**, and **multi-seed** checks.
+7. Documents everything in a **full MSc dissertation** (`Arka_Talukder_Dissertation_Final_DRAFT.md` → Word) with **ablation**, **sensitivity grid**, and **multi-seed** checks.
 
 **One sentence for your supervisor:** *“I combined graph-based IoT intrusion detection, federated training, and explainable SOC-style alerts in one reproducible pipeline on CICIoT2023, with strong baselines and robustness experiments.”*
 
@@ -75,8 +76,22 @@ Think of this as **the story of the repo**, not calendar dates. When you explain
 | **H. Federated learning** | `split_and_save` for clients; Flower server + 3 clients; logged rounds. | Privacy narrative. | Ch 8; `src/federated/`; `fl_rounds.json`. |
 | **I. Explainability & SIEM** | Integrated Gradients + attention; ECS-like JSON; example alerts file. | SOC angle. | Ch 6, 8; `results/alerts/`. |
 | **J. Robustness** | **Ablation:** GAT-only (no GRU). **Sensitivity:** window size × *k*. **Multi-seed:** 42, 123, 456. | Shows you did not rely on one lucky config. | Ch 8 §8.7–8.9; `run_ablation.py`, `run_sensitivity_and_seeds.py`. |
-| **K. Dissertation writing** | Full UWS-style chapters; abstract (3 paragraphs, ≤200 words); appendices A–E; handbook mapping; code figure appendix. | Submission artefact. | `Dissertation_Arka_Talukder.md`. |
+| **K. Dissertation writing** | Full UWS-style chapters; abstract (3 paragraphs, ≤200 words); appendices A–E; handbook mapping; code figure appendix. | Submission artefact. | `Arka_Talukder_Dissertation_Final_DRAFT.md`. |
 | **L. Submission engineering** | MD → Word script; embedded process/attendance/spec; school templates folder; GitHub README; supervisor package. | Makes submission reproducible and professional. | `dissertation_to_docx.py`; `docs/reference/school_templates/`. |
+
+### 3a. Research plan for completion (IDE, Cursor, supervision evidence)
+
+**Purpose:** The programme and supervisor can ask *where* you built the code and *what* you can show in meetings. This block matches **Chapter 3, Section 3.5** in the final dissertation and uses **UWS Harvard**-style entries for **reputable** tools (see **Chapter 11** in the MD: Anysphere, Inc. 2024 for **Cursor**; Python Software Foundation 2023; The Git Project 2023; the **Harvard *libguide*** is in **Chapter 12** — style authority, not a research claim).
+
+| Topic | What to tell your supervisor | Where it is written |
+|--------|------------------------------|----------------------|
+| **IDE** | You used **Cursor** (AI-assisted IDE) on **Windows 10** for almost all **editing, runs, and meeting-ready demos**; the thesis states this so progress checks align with the **actual** workspace. | Ch 3 §3.5; Ch 6 §6.2 (testbed table). |
+| **Version control** | **Git** + remote (e.g. GitHub): commit history = traceable code progress for supervisions. | Ch 3 §3.5; **Chapter 11** (Git ref). |
+| **Language** | **Python 3.10** with the stack in *`requirements.txt`*. | Ch 6; **Chapter 11** (PSF ref). |
+| **Harvard (UWS)** | Tool and web references use the **UWS Library libguide** pattern (author/year, *title*, **Available at:** URL, **Accessed:** date for web/software pages). | Ch 3 §3.5; Ch 9 acknowledgment; **Ch 11** (tools) + **Ch 12** (libguide). |
+| **What “completed in Cursor” does *not* mean** | The IDE is **infrastructure**; it does not replace your **method** (Ch 4–7) or your **evidence** (`results/`, `config/`). | Ch 3 §3.5 (closing paragraph). |
+
+**One line for a meeting:** *“I developed and ran the project on Windows, mainly in the Cursor editor, with Git for version history and the same config-driven scripts your chapter tables reference; the dissertation cites those tools in UWS Harvard style in Chapter 12.”*
 
 ---
 
@@ -88,7 +103,7 @@ Use this when your supervisor says *“walk me through the document.”*
 |----|--------|-------------------------|
 | **1** | Introduction | Problem: IoT + SOC load; why graphs + FL + XAI; **your** research aim and sub-questions; scope (subset, 45-day, no device graph). |
 | **2** | Literature Review | What others did on IDS, GNN, FL, XAI; **gap** you fill; Table 5 positioning; CyBOK §2.9. |
-| **3** | Project Management | How you ran the project, risks, ethics, interim alignment. |
+| **3** | Project Management | How you ran the project, **IDE/platform for supervision (§3.5)**, risks, ethics, interim alignment. |
 | **4** | Research design | Dataset description, splits, **stratified windowing** (why), metrics, FL protocol, threat to validity. |
 | **5** | Design | Architecture, components, alert schema, figures (pipeline, concepts). |
 | **6** | Implementation | Modules, key classes, API, config-driven behaviour, where FL and XAI hook in. |
@@ -154,8 +169,9 @@ Tell this story **slowly** if asked *“how does data move?”*
 
 | You want… | Open… |
 |-----------|--------|
-| Thesis text | `Dissertation_Arka_Talukder.md` |
-| Generated Word | `submission/Arka_Talukder_Dissertation_Final.docx` (regenerate with `python scripts/dissertation_to_docx.py`; submission-ready rename may live alongside as `submission/Arka_Talukder_Dissertation_Final_Submission.docx`) |
+| Thesis text | `Arka_Talukder_Dissertation_Final_DRAFT.md` |
+| Generated Word | `submission/Arka_Talukder_Dissertation_Final_DRAFT.docx` (regenerate with `python scripts/sync_dissertation_and_docx.py` or `dissertation_to_docx.py`; keep an optional `submission/Arka_Talukder_Dissertation_Final_Submission.docx` if you use a hand-finished Turnitin file) |
+| **Humanized pair (same content as canonical)** | `Dissertation_Arka_Talukder_Humanized.md` is **kept in lockstep** with `Arka_Talukder_Dissertation_Final_DRAFT.md` (one-line **humanized** preface on the file only). **`thesis_artifacts/01_Humanized_Updated.docx`** + `submission/…_Humanized_version.docx` after `python scripts/sync_humanized_md_and_docx.py` (see `thesis_artifacts/README.md`). |
 | All hyperparameters | `config/experiment.yaml` |
 | One-command pipeline | `scripts/run_all.py` |
 | FL + sensitivity + seeds | `scripts/run_sensitivity_and_seeds.py`, `src/federated/run_federated.py` |

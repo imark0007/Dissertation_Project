@@ -1,6 +1,6 @@
 # Archive
 
-Material in **`archive/`** is kept for **records**, **MSc programme appendices**, and **audit trail**. It is referenced from the **final dissertation** (**Chapter 13 — Appendices**) and from **`scripts/dissertation_to_docx.py`**, which merges selected documents into **`submission/Arka_Talukder_Dissertation_Final.docx`**.
+Material in **`archive/`** is kept for **records**, **MSc programme appendices**, and **audit trail**. It is referenced from the **final dissertation** (**Chapter 13 — Appendices**) and from **`scripts/dissertation_to_docx.py`**, which merges selected documents into **`submission/Arka_Talukder_Dissertation_Final_DRAFT.docx`**.
 
 **Do not delete** these folders if you intend to regenerate the Word export or evidence the interim / process trail for the School.
 

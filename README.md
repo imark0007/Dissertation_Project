@@ -1,6 +1,10 @@
 # Explainable Dynamic GNN for IoT Intrusion Detection (Federated + SIEM-Ready)
 
-**MSc Cyber Security dissertation codebase** — University of the West of Scotland (UWS).  
+**MSc Cyber Security dissertation codebase** — University of the West of Scotland (UWS).
+
+### Start here (GitHub, coordinator, supervisor)
+
+**Step-by-step:** read **[`project_portfolio/README.md`](project_portfolio/README.md)** — where the **final dissertation** lives (`submission/B01821011_Arka_Talukder_Dissertation_Final.docx`), how to **reproduce** experiments, **school forms**, and what **supervisor / viva** readers should open.
 
 **Personal walkthrough (you + supervisor prep):** read **[`DISSERTATION_PROJECT_GUIDE.md`](DISSERTATION_PROJECT_GUIDE.md)** — full project story, chapter map, Q&A grid, and limitations in plain language.
 
@@ -20,7 +24,7 @@ End-to-end prototype: **CICIoT2023** flow data → **kNN temporal graphs** → *
 | **Federated learning** | **FedAvg** with **Flower**, 3 clients, non-IID split (`src/federated/`) |
 | **Explainability** | **Integrated Gradients** + GAT attention → ranked features / nodes for alerts (`src/explain/`) |
 | **SOC output** | **FastAPI** `POST /score` → prediction + ECS-like alert JSON (`src/siem/`) |
-| **Thesis** | Source: [`Dissertation_Arka_Talukder.md`](Dissertation_Arka_Talukder.md) → Word in [`submission/`](submission/) via [`scripts/dissertation_to_docx.py`](scripts/dissertation_to_docx.py) |
+| **Thesis** | Source: [`Arka_Talukder_Dissertation_Final_DRAFT.md`](Arka_Talukder_Dissertation_Final_DRAFT.md) → Word in [`submission/`](submission/) (final: **`B01821011_Arka_Talukder_Dissertation_Final.docx`**) via [`scripts/dissertation_to_docx.py`](scripts/dissertation_to_docx.py) / [`scripts/sync_dissertation_and_docx.py`](scripts/sync_dissertation_and_docx.py) |
 
 ---
 
@@ -129,16 +133,18 @@ scripts/
   generate_alerts_and_plots.py  # FL curve, model comparison, alerts
   run_ablation.py               # GAT-only ablation
   run_sensitivity_and_seeds.py  # Grid + seeds
-  dissertation_to_docx.py       # MD → submission/Arka_Talukder_Dissertation_Final.docx
+  dissertation_to_docx.py       # MD → submission/Arka_Talukder_Dissertation_Final_DRAFT.docx
   sync_dissertation_and_docx.py # MD/Word sync + copy into supervisor_package when present
   render_appendix1_code_figures.py
-submission/                     # Turnitin/submission Word + school forms — see submission/README.md
+submission/                     # Final B018 Word/PDF + school forms — see submission/README.md
+project_portfolio/              # “Start here” for GitHub, coordinator, supervisor (step-by-step)
 supervisor_package/             # Curated one-folder bundle for supervisor review (mirror of key outputs)
 viva_supervisor_materials/      # What to show vs hide in meetings/viva (checklist — see README inside)
 artifacts/                      # Extra packaged figures / exports (e.g. main_report_figures/)
 results/                        # metrics/, figures/, checkpoints/, alerts/ (local only unless committed)
-Dissertation_Arka_Talukder.md   # Thesis source (Markdown; image paths stay repo-relative)
-Dissertation_Arka_Talukder_Humanized.md  # Optional humanized track (if you use that workflow)
+Arka_Talukder_Dissertation_Final_DRAFT.md   # Thesis source (Markdown; image paths stay repo-relative)
+Dissertation_Arka_Talukder_Humanized.md  # Optional humanized drafting track
+thesis_artifacts/01_Humanized_Updated.docx  # Regenerated from Humanized .md via sync_humanized_md_and_docx.py
 docs/                           # Checklists, compliance notes, supervisor brief, planning
 archive/                        # Records + Appendix A docs — see [archive/README.md](archive/README.md)
 ```
@@ -151,6 +157,7 @@ Large binaries, `venv/`, and raw/processed data stay **out of git** per [`.gitig
 
 | Document | Purpose |
 |----------|---------|
+| [`project_portfolio/README.md`](project_portfolio/README.md) | **Stakeholder start page:** final report path, reproduce steps, forms, supervisor map |
 | [`SETUP_AND_RUN.md`](SETUP_AND_RUN.md) | Step-by-step CLI, FL, API, literature figures |
 | [`docs/README.md`](docs/README.md) | Index of `docs/reports/`, `planning/`, `reference/` |
 | [`docs/reports/SUPERVISOR_FINAL_FEEDBACK.md`](docs/reports/SUPERVISOR_FINAL_FEEDBACK.md) | Final meeting checklist + evidence pointers |

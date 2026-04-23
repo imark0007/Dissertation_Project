@@ -8,8 +8,8 @@ This document describes the procedure used to produce the final dissertation rep
 
 | Format | File | Description |
 |--------|------|-------------|
-| **MD** | `Dissertation_Arka_Talukder.md` | Single source of truth for the dissertation text (figures, tables, appendices references). |
-| **DOCX** | `submission/Arka_Talukder_Dissertation_Final.docx` | Word document generated from the MD for submission (Turnitin, Moodle, module co-ordinator). |
+| **MD** | `Arka_Talukder_Dissertation_Final_DRAFT.md` | Single source of truth for the dissertation text (figures, tables, appendices references). |
+| **DOCX** | `submission/Arka_Talukder_Dissertation_Final_DRAFT.docx` | Word document generated from the MD for submission (Turnitin, Moodle, module co-ordinator). |
 
 Both files are the **final report**; the DOCX is derived from the MD.
 
@@ -27,11 +27,11 @@ Both files are the **final report**; the DOCX is derived from the MD.
 
 2. **Update Table 4 in the dissertation (MD)**  
    - Run: `python scripts/update_dissertation_table4.py`  
-   - Reads `results/metrics/ablation_table.csv` (or `ablation_gat_only.json`) and replaces the “GAT only (no GRU)” row in §7.6 (Table 4) in `Dissertation_Arka_Talukder.md`.
+   - Reads `results/metrics/ablation_table.csv` (or `ablation_gat_only.json`) and replaces the “GAT only (no GRU)” row in §7.6 (Table 4) in `Arka_Talukder_Dissertation_Final_DRAFT.md`.
 
 3. **Generate Word document**  
    - Run: `python scripts/dissertation_to_docx.py`  
-   - Reads `Dissertation_Arka_Talukder.md`, applies styles (1.5 line spacing, 11pt font), embeds figures and tables, and writes `submission/Arka_Talukder_Dissertation_Final.docx`.
+   - Reads `Arka_Talukder_Dissertation_Final_DRAFT.md`, applies styles (1.5 line spacing, 11pt font), embeds figures and tables, and writes `submission/Arka_Talukder_Dissertation_Final_DRAFT.docx`.
 
 4. **Pre-submission (manual)**  
    - Replace front-matter placeholders with downloaded Moodle forms (front sheet, declaration, library release).  

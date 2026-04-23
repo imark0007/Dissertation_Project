@@ -35,8 +35,11 @@ def _slice_body(md: str) -> str:
 
 
 def main() -> None:
-    md_path = Path("Dissertation_Arka_Talukder.md")
+    import sys
+
+    md_path = Path(sys.argv[1] if len(sys.argv) > 1 else "Arka_Talukder_Dissertation_Final_DRAFT.md")
     md = md_path.read_text(encoding="utf-8")
+    print(f"File: {md_path}\n")
 
     refs_text = _slice_chapter_11(md)
     body = _slice_body(md)

@@ -22,7 +22,7 @@ Based on MSc Project Handbook 2025-26 and distinction-level marking criteria. Re
 
 Reference copies of forms (not substitutes for Moodle) are in **`docs/reference/school_templates/`**.
 
-## Appendices (thesis = `Dissertation_Arka_Talukder.md` → Word)
+## Appendices (thesis = `Arka_Talukder_Dissertation_Final_DRAFT.md` → Word)
 
 | Thesis appendix | Handbook (typical) | Content |
 |------------------|--------------------|---------|
@@ -32,7 +32,7 @@ Reference copies of forms (not substitutes for Moodle) are in **`docs/reference/
 | **D** | Appendix 1 (code) | Figures A1-1–A1-6 + captions + interpretations; PNGs `results/figures/appendix1/` |
 | **E** | Appendix 4 (optional) | GitHub + CICIoT2023 URL; video placeholder |
 
-**Markdown + Word together:** Whenever you change `Dissertation_Arka_Talukder.md`, run `python scripts/sync_dissertation_and_docx.py` so the Word file under `submission/` and the copy under `supervisor_package/01_Dissertation/` stay aligned (that script runs `dissertation_to_docx.py` and copies both `.md` and `.docx` into the package folder when it exists).
+**Markdown + Word together:** Whenever you change `Arka_Talukder_Dissertation_Final_DRAFT.md`, run `python scripts/sync_dissertation_and_docx.py` so the Word file under `submission/` and the copy under `supervisor_package/01_Dissertation/` stay aligned (that script runs `dissertation_to_docx.py` and copies both `.md` and `.docx` into the package folder when it exists).
 
 **Word export (`dissertation_to_docx.py`):** After Appendix E, the script merges **Full text — …** sections for process documentation, attendance, and specification (see Chapter 13 note) so appendix letters are not duplicated.
 

@@ -6,7 +6,7 @@ title + line-numbered syntax-highlighted code on a dark background).
 Run from repo root:
     python scripts/render_chapter6_code_screenshots.py
 
-Outputs under results/figures/chapter6/ — referenced from Dissertation_Arka_Talukder.md §6.10.
+Outputs under results/figures/chapter6/ — referenced from Arka_Talukder_Dissertation_Final_DRAFT.md §6.10.
 Each PNG is a **short excerpt** (function core, training step, or handler body), not a full module.
 Requires: pygments, pillow (Pygments ImageFormatter).
 """

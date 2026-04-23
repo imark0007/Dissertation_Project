@@ -1,8 +1,8 @@
-"""Count words per chapter (Ch 1..10) in Dissertation_Arka_Talukder.md."""
+"""Count words per chapter (Ch 1..10) in Arka_Talukder_Dissertation_Final_DRAFT.md."""
 import re
 from pathlib import Path
 
-PATH = Path(__file__).resolve().parents[1] / "Dissertation_Arka_Talukder.md"
+PATH = Path(__file__).resolve().parents[1] / "Arka_Talukder_Dissertation_Final_DRAFT.md"
 text = PATH.read_text(encoding="utf-8")
 
 # Split into chapters by '## Chapter N' heading.

@@ -1,10 +1,10 @@
 """
-Convert Dissertation_Arka_Talukder.md to Word for final submission.
+Convert Arka_Talukder_Dissertation_Final_DRAFT.md to Word for final submission.
 Follows MSc Project Handbook: 1.5 line spacing, 11pt+ font, page numbers.
 Embeds appendices (process docs, project spec) if available — see archive/README.md
 for canonical paths to process + attendance under archive/process_attendance/.
 Run: python scripts/dissertation_to_docx.py
-Output: submission/Arka_Talukder_Dissertation_Final.docx
+Output: submission/Arka_Talukder_Dissertation_Final_DRAFT.docx
 """
 from pathlib import Path
 import re
@@ -23,8 +23,8 @@ _SCRIPT_DIR = Path(__file__).resolve().parent
 ROOT = _SCRIPT_DIR.parent.parent.parent if _SCRIPT_DIR.name == "04_Scripts" else _SCRIPT_DIR.parent
 SUBMISSION_DIR = ROOT / "submission"
 SUBMISSION_FORMS_DIR = SUBMISSION_DIR / "forms"
-MD_PATH = ROOT / "Dissertation_Arka_Talukder.md"
-OUT_PATH = SUBMISSION_DIR / "Arka_Talukder_Dissertation_Final.docx"
+MD_PATH = ROOT / "Arka_Talukder_Dissertation_Final_DRAFT.md"
+OUT_PATH = SUBMISSION_DIR / "Arka_Talukder_Dissertation_Final_DRAFT.docx"
 
 # Figure paths (relative to ROOT)
 FIGURE_PATHS = {

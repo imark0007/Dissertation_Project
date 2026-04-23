@@ -29,8 +29,11 @@ from docx.table import Table
 from docx.text.paragraph import Paragraph
 
 ROOT = Path(__file__).resolve().parent.parent
-DOCX_PATH = ROOT / "submission" / "Arka_Talukder_Dissertation_Final_Submission_Humanized_version.docx"
-MD_PATH = ROOT / "Dissertation_Arka_Talukder_Humanized.md"
+DEFAULT_DOCX = ROOT / "submission" / "Arka_Talukder_Dissertation_Final_Submission_Humanized_version.docx"
+DEFAULT_MD = ROOT / "Dissertation_Arka_Talukder_Humanized.md"
+# Overridden by CLI in main()
+DOCX_PATH = DEFAULT_DOCX
+MD_PATH = DEFAULT_MD
 
 
 def iter_block_items(parent: DocumentObject):
@@ -390,18 +393,57 @@ def export_md(
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(description="Export Humanized .docx -> Humanized .md")
+    global DOCX_PATH, MD_PATH
+    p = argparse.ArgumentParser(description="Export Humanized (or DRAFT) .docx -> .md")
     p.add_argument("--dry-run", action="store_true", help="Print to stdout only")
+    p.add_argument(
+        "--docx",
+        type=Path,
+        help=f"Input Word file (default: {DEFAULT_DOCX.name})",
+    )
+    p.add_argument(
+        "--out-md",
+        type=Path,
+        help=f"Output Markdown (default: {DEFAULT_MD.name})",
+    )
+    p.add_argument(
+        "--toc-from",
+        type=Path,
+        help="Existing .md to preserve Table of Contents / LOF / LOT block from (default: out-md, else Humanized.md)",
+    )
     args = p.parse_args()
 
-    if not DOCX_PATH.is_file():
-        print(f"ERROR: missing {DOCX_PATH}", file=sys.stderr)
+    if args.docx is not None:
+        docx_p = (args.docx if args.docx.is_absolute() else (ROOT / args.docx)).resolve()
+    else:
+        docx_p = DEFAULT_DOCX
+
+    if args.out_md is not None:
+        out_md = (args.out_md if args.out_md.is_absolute() else (ROOT / args.out_md)).resolve()
+    else:
+        out_md = (docx_p.with_suffix(".md") if args.docx is not None else DEFAULT_MD)
+
+    if args.toc_from is not None:
+        toc_path = (args.toc_from if args.toc_from.is_absolute() else (ROOT / args.toc_from)).resolve()
+    elif out_md.is_file():
+        toc_path = out_md
+    else:
+        toc_path = DEFAULT_MD
+
+    DOCX_PATH = docx_p
+    MD_PATH = out_md
+
+    if not docx_p.is_file():
+        print(f"ERROR: missing {docx_p}", file=sys.stderr)
         sys.exit(1)
-    if not MD_PATH.is_file():
-        print(f"ERROR: missing {MD_PATH}", file=sys.stderr)
+    if not toc_path.is_file():
+        print(
+            f"ERROR: need a Markdown file for preserved TOC/LOF/LOT: {toc_path}",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
-    old = MD_PATH.read_text(encoding="utf-8")
+    old = toc_path.read_text(encoding="utf-8")
     preserved = _extract_preserved_toc_block(old)
     note = _extract_abbrev_note(old)
     if not note:

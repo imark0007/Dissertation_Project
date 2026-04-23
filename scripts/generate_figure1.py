@@ -4,7 +4,7 @@ Figure 1 — End-to-end research pipeline (topic: IoT flows → graph GNN → FL
 Run from repo root:
     python scripts/generate_figure1.py
 
-Output: assets/figure1_pipeline.png (matches Dissertation_Arka_Talukder.md and dissertation_to_docx.py).
+Output: assets/figure1_pipeline.png (matches Arka_Talukder_Dissertation_Final_DRAFT.md and dissertation_to_docx.py).
 Uses Matplotlib style sheets via src.evaluation.plot_style.
 """
 from __future__ import annotations

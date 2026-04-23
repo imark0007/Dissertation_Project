@@ -2,7 +2,7 @@
 
 These files are **UWS / programme templates** kept next to the repository for convenience. They are **not** part of the Python codebase.
 
-- Complete and sign the forms as required by Moodle, then insert them into the **front** of the final Word/PDF (see `Dissertation_Arka_Talukder.md` — Front Matter).
+- Complete and sign the forms as required by Moodle, then insert them into the **front** of the final Word/PDF (see `Arka_Talukder_Dissertation_Final_DRAFT.md` — Front Matter).
 - Official wording and deadlines always follow **Moodle and the module co-ordinator**, not this folder.
 
 | File | Typical use |

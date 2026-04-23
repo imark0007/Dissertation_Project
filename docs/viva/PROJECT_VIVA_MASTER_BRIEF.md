@@ -149,7 +149,7 @@ Federated: **split** training graphs to clients, then server + three `client` pr
 | FL entry | `src/federated/run_federated.py`, `client.py`, `server.py` |
 | Explain | `src/explain/explainer.py` |
 | API | `src/siem/api.py`, `alert_formatter.py` |
-| Written thesis source | `Dissertation_Arka_Talukder.md` → Word via `scripts/dissertation_to_docx.py` |
+| Written thesis source | `Arka_Talukder_Dissertation_Final_DRAFT.md` → Word via `scripts/dissertation_to_docx.py` / `scripts/sync_dissertation_and_docx.py` |
 
 ---
 

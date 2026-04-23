@@ -1,5 +1,5 @@
 """
-Detect repeated sentences/paragraphs in Dissertation_Arka_Talukder.md.
+Detect repeated sentences/paragraphs in Arka_Talukder_Dissertation_Final_DRAFT.md.
 
 This is a heuristic tool to find obvious duplication that harms readability.
 
@@ -28,7 +28,7 @@ def split_sentences(text: str) -> list[str]:
 
 
 def main() -> None:
-    md = Path("Dissertation_Arka_Talukder.md").read_text(encoding="utf-8")
+    md = Path("Arka_Talukder_Dissertation_Final_DRAFT.md").read_text(encoding="utf-8")
 
     # Remove code fences, tables, and reference list to focus on narrative repetition
     md_wo_code = re.sub(r"```[\s\S]*?```", "", md)

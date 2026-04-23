@@ -11,7 +11,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MD = ROOT / "Dissertation_Arka_Talukder.md"
+MD = ROOT / "Arka_Talukder_Dissertation_Final_DRAFT.md"
 
 # old figure number -> new (document order)
 FIG: dict[int, int] = {

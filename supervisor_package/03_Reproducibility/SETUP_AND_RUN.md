@@ -91,7 +91,7 @@ python scripts/eval_ablation_from_ckpt.py --config config/experiment.yaml
 python scripts/dissertation_to_docx.py
 ```
 
-Reads `Dissertation_Arka_Talukder.md`, produces `submission/Arka_Talukder_Dissertation_Final.docx`. See **`docs/reports/FINAL_REPORT_GENERATION.md`** in the full repository for full procedure.
+Reads `Arka_Talukder_Dissertation_Final_DRAFT.md`, produces `submission/Arka_Talukder_Dissertation_Final_DRAFT.docx`. See **`docs/reports/FINAL_REPORT_GENERATION.md`** in the full repository for full procedure.
 
 ### 8. Federated Learning
 

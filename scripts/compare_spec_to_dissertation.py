@@ -1,5 +1,5 @@
 """
-Compare agreed project specification (or interim proxy) to Dissertation_Arka_Talukder.md.
+Compare agreed project specification (or interim proxy) to Arka_Talukder_Dissertation_Final_DRAFT.md.
 Run: python scripts/compare_spec_to_dissertation.py
 Output: docs/reports/SPEC_DISSERTATION_ALIGNMENT.md
 """
@@ -14,7 +14,7 @@ except ImportError:
     raise SystemExit("pip install python-docx")
 
 ROOT = Path(__file__).resolve().parent.parent
-MD_PATH = ROOT / "Dissertation_Arka_Talukder.md"
+MD_PATH = ROOT / "Arka_Talukder_Dissertation_Final_DRAFT.md"
 OUT_PATH = ROOT / "docs" / "reports" / "SPEC_DISSERTATION_ALIGNMENT.md"
 
 SPEC_CANDIDATES = [

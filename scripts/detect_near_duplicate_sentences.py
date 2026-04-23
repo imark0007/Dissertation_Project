@@ -1,5 +1,5 @@
 """
-Detect near-duplicate sentences in Dissertation_Arka_Talukder.md using TF-IDF cosine similarity.
+Detect near-duplicate sentences in Arka_Talukder_Dissertation_Final_DRAFT.md using TF-IDF cosine similarity.
 
 Usage:
     python scripts/detect_near_duplicate_sentences.py
@@ -16,7 +16,7 @@ def split_sentences(text: str) -> list[str]:
 
 
 def main() -> None:
-    md = Path("Dissertation_Arka_Talukder.md").read_text(encoding="utf-8")
+    md = Path("Arka_Talukder_Dissertation_Final_DRAFT.md").read_text(encoding="utf-8")
     md = re.sub(r"```[\s\S]*?```", "", md)
     md = re.sub(r"^\|.*\|\s*$", "", md, flags=re.M)
     md = re.split(r"^## Chapter 11\s+–\s+References\s*$", md, flags=re.M)[0]
