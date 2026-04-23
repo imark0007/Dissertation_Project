@@ -2,6 +2,8 @@
 
 Paths from **repository root** unless noted. This file is in `docs/video/`.
 
+**aligned with final report:** What you show ([`results/metrics/results_table.csv`](../../results/metrics/results_table.csv), figures) should match **[`submission/B01821011_Arka_Talukder_Dissertation_Final.docx`](../../submission/B01821011_Arka_Talukder_Dissertation_Final.docx)** / [`Arka_Talukder_Dissertation_Final_DRAFT.md`](../../Arka_Talukder_Dissertation_Final_DRAFT.md). If you re-ran experiments after submitting, either refresh `results/` or say on camera that numbers are from the **logged** run cited in the thesis.
+
 ## Before you hit record
 
 - [ ] Close AI chat / agent side panels — [`viva_supervisor_materials/README.md`](../viva_supervisor_materials/README.md)

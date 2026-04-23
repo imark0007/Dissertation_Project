@@ -1,8 +1,15 @@
 # 5–6 minute supervisor demo video
 
-**What this is:** a **short screen recording** plan for *how the project works* and *what it outputs*, aligned with [`submission/B01821011_Arka_Talukder_Dissertation_Final.docx`](../../submission/B01821011_Arka_Talukder_Dissertation_Final.docx) and root [`Arka_Talukder_Dissertation_Final_DRAFT.md`](../../Arka_Talukder_Dissertation_Final_DRAFT.md).
+**What this is:** a **short screen recording** plan for *how the project works* and *what it outputs*, aligned with your **final submission Word** and the **same text** in repository Markdown (no changes to the `.docx` from this folder).
 
-## Use these three files
+| Final report (examined) | Text source of truth (repo) |
+|--------------------------|------------------------------|
+| [`submission/B01821011_Arka_Talukder_Dissertation_Final.docx`](../../submission/B01821011_Arka_Talukder_Dissertation_Final.docx) | [`Arka_Talukder_Dissertation_Final_DRAFT.md`](../../Arka_Talukder_Dissertation_Final_DRAFT.md) (root) |
+| Optional read-only PDF: [`B01821011_Final_Report.pdf`](../../submission/B01821011_Final_Report.pdf) | *same content as Word* |
+
+**What to match on camera:** the **title**, **abstract** (research question, contribution, outcomes, limitations), and **chapter evidence map** in **GUIDE.md** — so what you **say** tracks **Dr Raja Ujjan**-supervised, **UWS** **MSc Cyber Security** report **B01821011**, and the **implemented** pipeline in `src/`, `config/`, `results/`.
+
+## Use these four files
 
 | File | Use |
 |------|-----|

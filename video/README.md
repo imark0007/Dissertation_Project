@@ -1,5 +1,7 @@
 # 5–6 min demo video
 
+**Aligned with final report:** `submission/B01821011_Arka_Talukder_Dissertation_Final.docx` (same text as `Arka_Talukder_Dissertation_Final_DRAFT.md`).
+
 **Start here:** [`../docs/video/README.md`](../docs/video/README.md)
 
 | | |

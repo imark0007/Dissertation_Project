@@ -2,6 +2,8 @@
 
 Companion to [`SCRIPT.md`](SCRIPT.md). Paths are **repository root** (from `docs/video/`, use `../..`).
 
+**Final report on screen (pick one for Block 1 / 6):** [`B01821011_Arka_Talukder_Dissertation_Final.docx`](../../submission/B01821011_Arka_Talukder_Dissertation_Final.docx) or read-only [`B01821011_Final_Report.pdf`](../../submission/B01821011_Final_Report.pdf) — same content as the **submitted** Word.
+
 ---
 
 ## Block 1 — Problem and what you built (0:00–1:00)

@@ -1,7 +1,16 @@
 # 5–6 minute demo — guide (story + outputs + thesis map)
 
-**Audience:** supervisor / anyone who needs **end-to-end behaviour**, not a chapter-by-chapter thesis read.  
-**Written thesis:** [`submission/B01821011_Arka_Talukder_Dissertation_Final.docx`](../../submission/B01821011_Arka_Talukder_Dissertation_Final.docx) — do not contradict the **abstract** (fixed subset; limitations apply).
+**Audience:** supervisor / anyone who needs **end-to-end behaviour**, not a full thesis read.
+
+**Aligns with final report:** *Explainable Dynamic Graph Neural Network SIEM for Software-Defined IoT using Edge AI and Federated Learning* — **Arka Talukder**, **B01821011**, **MSc Cyber Security**, **University of the West of Scotland**, **Supervisor: Dr Raja Ujjan**. Written artefact: [`submission/B01821011_Arka_Talukder_Dissertation_Final.docx`](../../submission/B01821011_Arka_Talukder_Dissertation_Final.docx) (same narrative as root [`Arka_Talukder_Dissertation_Final_DRAFT.md`](../../Arka_Talukder_Dissertation_Final_DRAFT.md)). Do not contradict the **abstract** (fixed subset; limitations apply).
+
+### Abstract ↔ video (from your final report)
+
+- **Research question (headline):** how an **explainable GAT+GRU** on *k*NN **flow** graphs, with **Flower FedAvg** and **SIEM-shaped** output, can run on **CPU**.
+- **Contribution (prototype):** **reproducible, integrated** system on **CICIoT2023** (Pinto *et al.*, 2023): public splits, **leakage-aware** preprocessing, **Captum** integrated gradients + **GAT** attention, **FastAPI** JSON, **one** [`config/experiment.yaml`](../../config/experiment.yaml).
+- **Where the thesis develops this:** Chapters **2, 4–6** justify and build; **7–8** test; **9** answers the sub-questions with **Tables 7–12** (the video names **key files** and **one** results table, not every table).
+- **Headline outcomes (abstract; say only if they match your on-screen `results_table.csv` and final Word):** e.g. central/federated GNN and baselines on the **fixed** subset; **~23 ms** mean CPU inference (five-window sequence); **~31 MB** federated weight traffic over **ten** rounds — otherwise **point to the table** and “see dissertation Chapter 8.”
+- **Reliability studies named in the abstract:** ablation, **(window, *k*)** sensitivity, multi-seed — optional **15 s** in the video only if you are under time (see [CHECKLIST.md](CHECKLIST.md)).
 
 ---
 
@@ -47,7 +56,7 @@
 
 ## 4. Dissertation ↔ video (one screen each)
 
-Abstract maps **Ch 2, 4–6** build; **7–8** test; **9** + **Tables 7–12** answer sub-questions — the video is **not** a table read.
+This mirrors the **abstract’s evidence map**: **Ch 2, 4–6** build; **7–8** test; **9** with **Tables 7–12** for sub-question answers. The **6-minute** video is **not** a table read — it **shows** the pipeline and **one** metrics file.
 
 | Thesis bit | Video |
 |------------|--------|

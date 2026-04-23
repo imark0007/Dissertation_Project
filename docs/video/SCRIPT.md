@@ -1,8 +1,11 @@
 # 5–6 minute supervisor demo — spoken script
 
 **Title:** *Explainable Dynamic Graph Neural Network SIEM for Software-Defined IoT using Edge AI and Federated Learning*  
-**Student:** Arka Talukder (B01821011)  
-**Final dissertation:** `submission/B01821011_Arka_Talukder_Dissertation_Final.docx`  
+**Student:** Arka Talukder (B01821011) — **MSc Cyber Security**, **University of the West of Scotland**  
+**Supervisor:** Dr Raja Ujjan  
+**Final dissertation (submission):** [`B01821011_Arka_Talukder_Dissertation_Final.docx`](../../submission/B01821011_Arka_Talukder_Dissertation_Final.docx) — same text as root [`Arka_Talukder_Dissertation_Final_DRAFT.md`](../../Arka_Talukder_Dissertation_Final_DRAFT.md).  
+*This script follows the **abstract** and main evaluation story of that report; on-screen numbers should match **Chapter 8** tables and your frozen [`results/metrics/`](../../results/metrics/) files.*
+
 **Read at a calm pace; pause on transitions. Total target: ~5:20–5:50.**
 
 ---
@@ -31,7 +34,7 @@ For the main model, I turn those windows into **sequences** of graphs and classi
 
 I evaluate **three** model families: **Random Forest** and **MLP** on flow rows, and a **dynamic GNN** with **GAT**—graph attention—layers and a **GRU** over the sequence of window embeddings, plus a **binary** classifier.
 
-On the **held-out test split** I report in the dissertation, the metrics are in **`results/metrics/results_table.csv`**, with **ROC curves** and **confusion matrices** under **`results/figures`**. I’ll show **F1, ROC-AUC, and inference time in milliseconds** for the GNN and baselines. The thesis discusses **class balance** and the **lab subset**—so I’m not claiming “solved IoT security everywhere”; I’m showing a **reproducible** evaluation on this split.
+On the **held-out test split** I report in the dissertation (Chapters **7–8** and **Tables 7–12** in the final write-up), the headline lines are in **`results/metrics/results_table.csv`**, with **ROC curves** and **confusion matrices** under **`results/figures`**. I’ll show **F1, ROC-AUC, and inference time in milliseconds** for the GNN and baselines, consistent with the **abstract** on this **fixed** subset. The thesis discusses **class balance** and **reliability** studies—so I’m not claiming “solved IoT security everywhere”; I’m showing a **reproducible** evaluation aligned with the report.
 
 ---
 
