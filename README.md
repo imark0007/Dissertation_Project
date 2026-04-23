@@ -1,4 +1,4 @@
-# Explainable Dynamic GNN for IoT Intrusion Detection (Federated + SIEM-Ready)
+# Explainable Dynamic Graph Neural Network SIEM for Software-Defined IoT using Edge AI and Federated Learning
 
 **MSc Cyber Security** — University of the West of Scotland (UWS).
 
