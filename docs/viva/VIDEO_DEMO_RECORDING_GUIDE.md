@@ -40,5 +40,5 @@ If **under 5:00**: add **15–20 s** from the plan’s optional **ablation** (`r
 
 ## Links
 
-- Screen-share etiquette: [`viva_supervisor_materials/README.md`](../../viva_supervisor_materials/README.md)
+- Screen-share etiquette: [`viva_supervisor_materials/README.md`](../viva_supervisor_materials/README.md)
 - Project narrative: [`PROJECT_VIVA_MASTER_BRIEF.md`](PROJECT_VIVA_MASTER_BRIEF.md)

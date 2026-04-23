@@ -4,7 +4,7 @@ Run through this **immediately before** you hit record. Paths are relative to th
 
 ## Screen and project hygiene
 
-- [ ] Close AI chat / agent side panels (see [`viva_supervisor_materials/README.md`](../../viva_supervisor_materials/README.md)).
+- [ ] Close AI chat / agent side panels (see [`viva_supervisor_materials/README.md`](../viva_supervisor_materials/README.md)).
 - [ ] Collapse folders you will not open; bump editor/browser zoom to **125–150%**.
 - [ ] Work from a **clean** branch or stash unrelated edits if you will show the file tree.
 

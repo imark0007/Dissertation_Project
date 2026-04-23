@@ -6,11 +6,11 @@
 [`../submission/B01821011_Arka_Talukder_Dissertation_Final.docx`](../submission/B01821011_Arka_Talukder_Dissertation_Final.docx)  
 Use `01_Dissertation/` below as a **mirror** for a zip or offline bundle; the path above is the **single** canonical filename for the hand-finished report.
 
-**Coordinator / programme “start here”** (all stakeholders): see **[`../project_portfolio/README.md`](../project_portfolio/README.md)**.
+**Coordinator / programme “start here”** (all stakeholders): see **[`../docs/project_portfolio/README.md`](../docs/project_portfolio/README.md)**.
 
 **Important:** This folder was copied at a point in time. The **canonical** project (latest dissertation, `scripts/run_sensitivity_and_seeds.py`, etc.) is the **repository root** (`attempt 2`). Before a meeting, refresh `01_Dissertation/` and `04_Scripts/` from the root if you have edited the thesis or moved scripts.
 
-**Screen-sharing / viva:** At the repo root, read **`viva_supervisor_materials/README.md`** for what to open in the IDE versus what to keep collapsed (including editor-only folders).
+**Screen-sharing / viva:** Read **[`../docs/viva_supervisor_materials/README.md`](../docs/viva_supervisor_materials/README.md)** for what to open in the IDE versus what to keep collapsed (including editor-only folders).
 
 ---
 

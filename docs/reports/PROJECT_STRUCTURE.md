@@ -14,12 +14,14 @@ This file describes every top-level folder and key file so the full dissertation
 | `assets/` | Figure 1 pipeline image for dissertation |
 | `notebooks/` | Exploration and demos (optional for submission) |
 | `tests/` | API tests |
-| `docs/` | Index in `docs/README.md`: **reports/** (checklists, compliance, structure), **planning/** (roadmap, outlines), **viva/**, **reference/** (handbook optional, dissertation samples) |
+| `docs/` | All non-code **documentation** — index in `docs/README.md` |
+| `docs/project_portfolio/` | **“Start here”** for programme coordinator, supervisor, and GitHub visitors — see **`project_portfolio/README.md`** in that folder |
+| `docs/viva_supervisor_materials/` | **Viva / screen share** — what to open vs. hide — see **`viva_supervisor_materials/README.md`** |
+| `docs/video/` | **5–6 min demo** — script, preflight, recording pack (`README.md`, etc.) |
+| `docs/reports/`, `docs/viva/`, `docs/planning/`, `docs/reference/` | Checklists, viva notes, roadmaps, school templates and samples (see `docs/README.md`) |
 | `submission/` | Final **B018** Word (and optional PDF), generated Word, and **school forms** — see **`submission/README.md`** |
-| `project_portfolio/` | **Start here** for GitHub, programme coordinator, and supervisor — see **`project_portfolio/README.md`** |
-| `supervisor_package/` | Curated **one-folder bundle** for supervisor review (mirrors dissertation, results, scripts snapshot) — see **`supervisor_package/README.md`** |
-| `viva_supervisor_materials/` | **Supervisor / viva briefing:** what to show on screen vs keep closed — see **`viva_supervisor_materials/README.md`** |
-| `artifacts/` | Optional packaged exports (e.g. **`artifacts/main_report_figures/`**) — not required to rerun `scripts/run_all.py` |
+| `supervisor_package/` | Optional **one-folder bundle** for supervisor review (mirrors dissertation, results, code snapshot) — see **`supervisor_package/README.md`** |
+| `artifacts/` | Optional packaged exports (e.g. **`main_report_figures/`**) — not required to rerun `scripts/run_all.py` |
 | `archive/` | Interim report, process/attendance docs, one-time scripts — **kept for records and appendices** — see **[`archive/README.md`](../../archive/README.md)** for the authoritative index |
 
 ## Dissertation and Submission

@@ -1,16 +1,14 @@
 # Explainable Dynamic GNN for IoT Intrusion Detection (Federated + SIEM-Ready)
 
-**MSc Cyber Security dissertation codebase** — University of the West of Scotland (UWS).
+**MSc Cyber Security** — University of the West of Scotland (UWS). **Project focus:** a **runnable** pipeline on **CPU** — CICIoT2023 flow rows → *k*NN **graphs** → **GAT+GRU** → optional **Flower FedAvg** → **Captum** + **FastAPI** ECS-style **JSON** for SOC-style triage.
 
-### Start here (GitHub, coordinator, supervisor)
-
-**Step-by-step:** read **[`project_portfolio/README.md`](project_portfolio/README.md)** — where the **final dissertation** lives (`submission/B01821011_Arka_Talukder_Dissertation_Final.docx`), how to **reproduce** experiments, **school forms**, and what **supervisor / viva** readers should open.
-
-**Personal walkthrough (you + supervisor prep):** read **[`DISSERTATION_PROJECT_GUIDE.md`](DISSERTATION_PROJECT_GUIDE.md)** — full project story, chapter map, Q&A grid, and limitations in plain language.
-
-**Supervisor / viva (what to show on screen):** read **[`viva_supervisor_materials/README.md`](viva_supervisor_materials/README.md)** — which folders matter for examination, what to keep closed (including editor-only paths), and a suggested walkthrough order.
-
-End-to-end prototype: **CICIoT2023** flow data → **kNN temporal graphs** → **GAT + GRU** → optional **Flower FedAvg** → **Captum** explanations → **ECS-style JSON alerts** via **FastAPI** (CPU-oriented).
+| Reader | Open first |
+|--------|------------|
+| **Engineer / replicator** | [Quick start](#quick-start) · [`SETUP_AND_RUN.md`](SETUP_AND_RUN.md) · `config/experiment.yaml` |
+| **Coordinator / hand-in** | [`docs/project_portfolio/README.md`](docs/project_portfolio/README.md) · [`submission/`](submission/) |
+| **Supervisor / viva (screen share)** | [`docs/viva_supervisor_materials/README.md`](docs/viva_supervisor_materials/README.md) |
+| **Long story + Q&A** | [`DISSERTATION_PROJECT_GUIDE.md`](DISSERTATION_PROJECT_GUIDE.md) |
+| **5–6 min demo video (script + preflight)** | [`docs/video/README.md`](docs/video/README.md) |
 
 ---
 
@@ -137,16 +135,18 @@ scripts/
   sync_dissertation_and_docx.py # MD/Word sync + copy into supervisor_package when present
   render_appendix1_code_figures.py
 submission/                     # Final B018 Word/PDF + school forms — see submission/README.md
-project_portfolio/              # “Start here” for GitHub, coordinator, supervisor (step-by-step)
-supervisor_package/             # Curated one-folder bundle for supervisor review (mirror of key outputs)
-viva_supervisor_materials/      # What to show vs hide in meetings/viva (checklist — see README inside)
-artifacts/                      # Extra packaged figures / exports (e.g. main_report_figures/)
-results/                        # metrics/, figures/, checkpoints/, alerts/ (local only unless committed)
-Arka_Talukder_Dissertation_Final_DRAFT.md   # Thesis source (Markdown; image paths stay repo-relative)
-Dissertation_Arka_Talukder_Humanized.md  # Optional humanized drafting track
-thesis_artifacts/01_Humanized_Updated.docx  # Regenerated from Humanized .md via sync_humanized_md_and_docx.py
-docs/                           # Checklists, compliance notes, supervisor brief, planning
-archive/                        # Records + Appendix A docs — see [archive/README.md](archive/README.md)
+docs/
+  project_portfolio/            # Stakeholder “start here” (coordinator, programme, visitors)
+  viva_supervisor_materials/  # Viva: what to show / hide on screen
+  video/                        # Demo video script, preflight, recording
+  reports/ viva/ planning/      # Checklists, compliance, viva notes
+supervisor_package/             # Optional zip-style bundle (dissertation + results + code mirror)
+artifacts/                      # Optional packaged figure exports
+results/                        # metrics/, figures/, checkpoints/, alerts/
+Arka_Talukder_Dissertation_Final_DRAFT.md   # Thesis source (Markdown)
+Dissertation_Arka_Talukder_Humanized.md  # Optional alternate drafting track
+thesis_artifacts/               # Humanized / export outputs (if used)
+archive/                        # Interim, process/attendance, one-off — see archive/README.md
 ```
 
 Large binaries, `venv/`, and raw/processed data stay **out of git** per [`.gitignore`](.gitignore).
@@ -157,7 +157,7 @@ Large binaries, `venv/`, and raw/processed data stay **out of git** per [`.gitig
 
 | Document | Purpose |
 |----------|---------|
-| [`project_portfolio/README.md`](project_portfolio/README.md) | **Stakeholder start page:** final report path, reproduce steps, forms, supervisor map |
+| [`docs/project_portfolio/README.md`](docs/project_portfolio/README.md) | **Stakeholder start page** (coordinator, programme, final Word path, forms) |
 | [`SETUP_AND_RUN.md`](SETUP_AND_RUN.md) | Step-by-step CLI, FL, API, literature figures |
 | [`docs/README.md`](docs/README.md) | Index of `docs/reports/`, `planning/`, `reference/` |
 | [`docs/reports/SUPERVISOR_FINAL_FEEDBACK.md`](docs/reports/SUPERVISOR_FINAL_FEEDBACK.md) | Final meeting checklist + evidence pointers |
@@ -165,7 +165,8 @@ Large binaries, `venv/`, and raw/processed data stay **out of git** per [`.gitig
 | [`docs/reports/FINAL_REPORT_GENERATION.md`](docs/reports/FINAL_REPORT_GENERATION.md) | Dissertation / Word workflow |
 | [`archive/README.md`](archive/README.md) | **Archive index:** interim report, process/attendance (Appendix A), one-time scripts; ties to Chapter 13 + `dissertation_to_docx.py` |
 | [`DISSERTATION_PROJECT_GUIDE.md`](DISSERTATION_PROJECT_GUIDE.md) | **Full narrative + Q&A prep** (read this for viva / supervisor meetings) |
-| [`viva_supervisor_materials/README.md`](viva_supervisor_materials/README.md) | **Supervisor / viva screen share:** what to open, what to collapse, IDE exclude snippet |
+| [`docs/viva_supervisor_materials/README.md`](docs/viva_supervisor_materials/README.md) | **Supervisor / viva** — screen share: what to open, what to collapse |
+| [`docs/video/README.md`](docs/video/README.md) | 5–6 min demo: script, preflight, recording |
 
 ---
 
