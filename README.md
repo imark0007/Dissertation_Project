@@ -121,6 +121,8 @@ Values from [`results/metrics/results_table.csv`](results/metrics/results_table.
 
 ## Repository layout
 
+**Full map for GitHub, supervisor zip, and optional folders (read this before rearranging ideas or pruning the remote):** **[`docs/GITHUB_AND_SUPERVISOR_LAYOUT.md`](docs/GITHUB_AND_SUPERVISOR_LAYOUT.md)**.
+
 ```
 config/experiment.yaml          # Single source of truth for paths, graph params, FL, model hparams
 src/
@@ -167,6 +169,7 @@ Large binaries, `venv/`, and raw/processed data stay **out of git** per [`.gitig
 | [`AUTHORSHIP.md`](AUTHORSHIP.md) | **Student identity, scope, and academic attribution** (for examiners) |
 | [`NOTICE.md`](NOTICE.md) | **Reuse, rights, and third-party use** (for visitors reusing or citing the repo) |
 | [`LICENSE`](LICENSE) | **Copyright — all rights reserved** (original repo content; third-party remains under their own licences) |
+| [`docs/GITHUB_AND_SUPERVISOR_LAYOUT.md`](docs/GITHUB_AND_SUPERVISOR_LAYOUT.md) | **What belongs on GitHub vs supervisor bundle** (folders, duplicates, lean clone) |
 | [`docs/project_portfolio/README.md`](docs/project_portfolio/README.md) | **Stakeholder start page** (coordinator, programme, final Word path, forms) |
 | [`SETUP_AND_RUN.md`](SETUP_AND_RUN.md) | Step-by-step CLI, FL, API, literature figures |
 | [`docs/README.md`](docs/README.md) | Index of `docs/reports/`, `planning/`, `reference/` |
