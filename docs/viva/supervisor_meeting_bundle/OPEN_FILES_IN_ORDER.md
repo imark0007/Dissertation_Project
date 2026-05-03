@@ -1,6 +1,6 @@
 # Files to open in order (supervisor / viva screen share)
 
-Keep the **repo root** as your workspace, **or** open the **pre-copied bundle** at **`docs/viva/supervisor_meeting_bundle/`** (same relative paths inside that folder; see its **`README.md`**).
+Keep the **repo root** as your workspace. Open one tab at a time **top to bottom**. Say one sentence per file: **what it does** and **why you wrote it that way** (thesis link).
 
 ---
 

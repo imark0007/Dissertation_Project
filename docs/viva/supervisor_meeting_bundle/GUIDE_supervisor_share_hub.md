@@ -11,7 +11,6 @@ This folder is a **meeting guide** only: **no duplicate code**. You still use th
 
 | You need… | Open this file |
 |-----------|----------------|
-| **All walkthrough files in one folder** (copy for supervisor / zip) | **[`../supervisor_meeting_bundle/README.md`](../supervisor_meeting_bundle/README.md)** |
 | Map **viva words** to **files** (code run, design, testing, thesis, accuracy) | **[`00_VIVA_TOPICS_MAP.md`](00_VIVA_TOPICS_MAP.md)** |
 | **Screen-share order** (what to open tab by tab) | **[`01_FILES_TO_OPEN_IN_ORDER.md`](01_FILES_TO_OPEN_IN_ORDER.md)** |
 | **Commands** in sequence | **[`02_COMMANDS_RUN_ORDER.md`](02_COMMANDS_RUN_ORDER.md)** |
