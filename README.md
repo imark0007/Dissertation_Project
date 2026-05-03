@@ -179,6 +179,7 @@ Large binaries, `venv/`, and raw/processed data stay **out of git** per [`.gitig
 | [`archive/README.md`](archive/README.md) | **Archive index:** interim report, process/attendance (Appendix A), one-time scripts; ties to Chapter 13 + `dissertation_to_docx.py` |
 | [`DISSERTATION_PROJECT_GUIDE.md`](DISSERTATION_PROJECT_GUIDE.md) | **Full narrative + Q&A prep** (read this for viva / supervisor meetings) |
 | [`docs/viva_supervisor_materials/README.md`](docs/viva_supervisor_materials/README.md) | **Supervisor / viva** — screen share: what to open, what to collapse |
+| [`docs/viva/supervisor_share/README.md`](docs/viva/supervisor_share/README.md) | **Supervisor code walk:** file open order, commands, implementation steps (viva prep) |
 | [`docs/video/README.md`](docs/video/README.md) | 5–6 min demo pack (GUIDE, SCRIPT, BLOCKS, CHECKLIST) |
 
 ---

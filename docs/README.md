@@ -15,7 +15,7 @@ Project prose, checklists, and planning live under **`docs/`**. The dissertation
 | **`video/`** | **5–6 min demo** — `README.md` plus `GUIDE.md`, `SCRIPT.md`, `BLOCKS.md`, `CHECKLIST.md` only. |
 | **`reports/`** | Submission checklists, handbook / structure, `SUPERVISOR_FINAL_FEEDBACK.md`, final-report procedures. |
 | **`planning/`** | Roadmaps, publication notes, optional outlines. |
-| **`viva/`** | Viva master brief, printable cheatsheet, **all-phase coach** (`VIVA_COACH_ALL_PHASES.md`). |
+| **`viva/`** | Viva master brief, printable cheatsheet, **all-phase coach** (`VIVA_COACH_ALL_PHASES.md`), **`supervisor_share/`** (step-by-step code walk for supervisor). |
 | **`reference/`** | `school_templates/`, dissertation samples, handbook copies (if present). |
 
 Start from the repository **[`../README.md`](../README.md)** and **[`../SETUP_AND_RUN.md`](../SETUP_AND_RUN.md)**. Folder inventory: [`reports/PROJECT_STRUCTURE.md`](reports/PROJECT_STRUCTURE.md). **Archive** (interim, process, one-off): [`../archive/README.md`](../archive/README.md).

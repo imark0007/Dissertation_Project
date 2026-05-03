@@ -54,7 +54,8 @@ Read **[`../../submission/README.md`](../../submission/README.md)** for how subm
 | **Curated one-folder package (dissertation + metrics + code snapshot)** | [`../../supervisor_package/`](../../supervisor_package/) — see its [`README`](../../supervisor_package/README.md) |
 | **Meeting / feedback evidence map** | [`../reports/SUPERVISOR_FINAL_FEEDBACK.md`](../reports/SUPERVISOR_FINAL_FEEDBACK.md) |
 | **Narrative + Q&amp;A (long-form)** | [`../../DISSERTATION_PROJECT_GUIDE.md`](../../DISSERTATION_PROJECT_GUIDE.md) |
-| **Viva brief, demo script, recording notes** | [`../viva/`](../viva/) |
+| **Step-by-step: which code files to open and in what order** | [`../viva/supervisor_share/README.md`](../viva/supervisor_share/README.md) |
+| **Viva brief, demo script, recording notes** | [`../viva/`](../viva/) (see **`supervisor_share/`** inside for walkthrough) |
 
 **Suggested order in a final meeting:** final Word (link above) → `docs/reports/SUPERVISOR_FINAL_FEEDBACK.md` → `config/experiment.yaml` (repo root) → `results/metrics/` + one figure from `results/figures/` → `src/siem/api.py` if runtime is discussed.
 
@@ -73,7 +74,7 @@ docs/project_portfolio/     # Stakeholder “start here” (this file) + feedbac
 docs/viva_supervisor_materials/  # Screen-share etiquette and walkthrough
 docs/video/                 # 5–6 min demo video script and checklists
 docs/reports/               # Checklists, compliance, SUBMISSION, SUPERVISOR feedback
-docs/viva/                  # Viva brief, printable cheatsheet
+docs/viva/                  # Viva brief, cheatsheet, supervisor_share walkthrough pack
 supervisor_package/         # One-folder mirror for supervisor (optional zip)
 archive/                    # Interim, process/attendance sources, one-off scripts
 ```
