@@ -7,10 +7,11 @@
 
 ---
 
-## Start here
+## Start here (day of session)
 
-1. Read **`OPEN_FILES_IN_ORDER.md`** (same content as `docs/viva/supervisor_share/01_FILES_TO_OPEN_IN_ORDER.md`).  
-2. Open files **top to bottom**; paths are **relative to this folder**.
+1. Read **`VIVA_SESSION_RULES.md`** (15-minute format, camera, recording, **no** slides, what to say first).  
+2. Then follow **`OPEN_FILES_IN_ORDER.md`** during screen share.  
+3. Paths are **relative to this folder**.
 
 ---
 

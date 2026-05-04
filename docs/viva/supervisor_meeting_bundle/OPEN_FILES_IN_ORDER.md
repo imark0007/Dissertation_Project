@@ -1,12 +1,14 @@
 # Files to open in order (supervisor / viva screen share)
 
-Keep the **repo root** as your workspace. Open one tab at a time **top to bottom**. Say one sentence per file: **what it does** and **why you wrote it that way** (thesis link).
+**Before screen share:** read **`VIVA_SESSION_RULES.md`** (15 minutes, **no** PowerPoint, camera on, recording, first **5** minutes = problem + solution at high level only).
+
+For **this bundle**, keep this folder as the workspace. Paths below are **relative to this folder**. During screen share you show **existing** code and outputs; you do **not** need to run every script **live**. Open one tab at a time **top to bottom**. One **short** line per file: **what it does** and **why** (thesis link).
 
 ---
 
 ## A. Orientation (2 minutes)
 
-1. **`README.md`** (repo root) — “This is the public map: pipeline, quick start, where thesis lives.”  
+1. **`PROJECT_README.md`** (this bundle) **or** root **`README.md`** — “Public map: pipeline, quick start, where thesis lives.”  
 2. **`config/experiment.yaml`** — “Single place for **46** features, **window_size**, **knn_k**, **FL** clients, **RF** depth, **GNN** hidden sizes. I change this, not random constants in code.”  
 
 ---
