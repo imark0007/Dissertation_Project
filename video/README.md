@@ -1,6 +1,6 @@
 # 5–6 min demo video
 
-**Aligned with final report:** `submission/B01821011_Arka_Talukder_Dissertation_Final.docx` (same text as `Arka_Talukder_Dissertation_Final_DRAFT.md`).
+**Align spoken content with** `results/metrics/results_table.csv` and the pipeline in `src/`. Final dissertation Word/PDF may exist **only on your laptop** (see [`submission/README.md`](../submission/README.md) and [`docs/GITHUB_PUBLIC_PORTFOLIO.md`](../docs/GITHUB_PUBLIC_PORTFOLIO.md)).
 
 **Start here:** [`../docs/video/README.md`](../docs/video/README.md)
 

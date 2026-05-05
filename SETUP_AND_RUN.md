@@ -101,7 +101,7 @@ Writes `results/metrics/sensitivity_table.csv`, `results/metrics/multi_seed_summ
 python scripts/dissertation_to_docx.py
 ```
 
-Reads `Arka_Talukder_Dissertation_Final_DRAFT.md`, produces `submission/Arka_Talukder_Dissertation_Final_DRAFT.docx`. See **`docs/reports/FINAL_REPORT_GENERATION.md`** for full procedure.
+Reads `Arka_Talukder_Dissertation_Final_DRAFT.md` (your **local** thesis source at repo root), produces **`submission/Arka_Talukder_Dissertation_Final_DRAFT.docx`**. For hand-in layout and what is **not** on public GitHub, see **`submission/README.md`** and **`docs/GITHUB_PUBLIC_PORTFOLIO.md`**.
 
 ### 9. Federated Learning
 

@@ -10,9 +10,9 @@ This file is the **single map** for: (1) what belongs on **public GitHub**, (2) 
 
 | Audience | Goal | Open first |
 |----------|------|------------|
-| **GitHub visitor / peer replicator** | Understand the project, rerun the pipeline | `README.md` → `SETUP_AND_RUN.md` → `config/experiment.yaml` → `scripts/run_all.py` |
-| **Supervisor / examiner (screen share)** | Verify thesis ↔ evidence ↔ code | `docs/project_portfolio/README.md` → final Word in `submission/` → `results/metrics/` → `DISSERTATION_PROJECT_GUIDE.md` → `docs/viva_supervisor_materials/README.md` |
-| **You (maintenance)** | Refresh hand-in bundle | `supervisor_package/README.md` (refresh checklist) + `scripts/sync_dissertation_and_docx.py` |
+| **GitHub visitor / peer replicator** | Understand the project, rerun the pipeline | [`README.md`](../README.md) → [`SETUP_AND_RUN.md`](../SETUP_AND_RUN.md) → [`GITHUB_PUBLIC_PORTFOLIO.md`](GITHUB_PUBLIC_PORTFOLIO.md) → `config/experiment.yaml` → `scripts/run_all.py` |
+| **Supervisor / examiner (screen share)** | Verify thesis ↔ evidence ↔ code | Use **full local workspace**: `docs/project_portfolio/README.md` (public map) → final Word in **`submission/`** (local) → `results/metrics/` → viva packs under **`docs/viva/`** (local). |
+| **You (maintenance)** | Refresh hand-in bundle | **`supervisor_package/README.md`** (**local** mirror) + `scripts/sync_dissertation_and_docx.py` |
 
 ---
 
@@ -25,15 +25,15 @@ This file is the **single map** for: (1) what belongs on **public GitHub**, (2) 
 | **`config/`** | `experiment.yaml` (single source of truth) | **Yes — core** | Yes | |
 | **`tests/`** | Pytest / API checks | **Yes** | Optional | |
 | **`requirements.txt`**, **`SETUP_AND_RUN.md`** | Install and run | **Yes — core** | Yes | |
-| **`results/`** | `metrics/`, `figures/`, `checkpoints/`, `alerts/` | **Yes** (thesis cites them) | **Yes** | Checkpoints (`.pt`) can be large; some teams use Git LFS or omit and say “regenerate”. This repo may track them for assessment. |
-| **`submission/`** | Final dissertation Word/PDF, school forms | **Yes** (if you want assessors to find finals) | **Yes** | Coordinator paths in `submission/README.md`. |
-| **`docs/`** | Reports, viva, portfolio, reference, planning | **Yes** | **Yes** | `docs/reference/` may contain school templates; handbook DOCX may be gitignored per `.gitignore`. |
-| **`supervisor_package/`** | Zip-style **mirror**: dissertation copy, `02_Results`, code copy, reproducibility copy | **Optional duplicate** | **Convenient** for “one folder” email; **refresh** before sending (see its `README.md`) | Not required if supervisor uses the **full repo** with root `results/` and `submission/`. |
-| **`archive/`** | Process/attendance (Appendix A sources), interim report, one-off scripts | **Yes** (audit trail / thesis embedding) | **Yes** for spec compliance | Canonical Appendix A docs: `archive/process_attendance/`. |
-| **`artifacts/`** | Packaged figure bundles / extra scripts | **Optional** | Optional | Thesis pipeline is **`scripts/`** at root; artifacts are side exports. |
+| **`results/`** | `metrics/`, `figures/`, `checkpoints/`, `alerts/` | **Yes** (metrics, figures, alerts) | **Yes** | **Public remote:** `checkpoints/*.pt` omitted (regenerate). See [`GITHUB_PUBLIC_PORTFOLIO.md`](GITHUB_PUBLIC_PORTFOLIO.md). |
+| **`submission/`** | Final dissertation Word/PDF, school forms | **`README.md` only (typical public)** | **Yes** (local finals) | Binaries stay **local** on public GitHub; see `submission/README.md`. |
+| **`docs/`** | Portfolio, video, layout maps | **Subset** (see [`GITHUB_PUBLIC_PORTFOLIO.md`](GITHUB_PUBLIC_PORTFOLIO.md)) | **Full tree locally** | `docs/viva/`, `docs/reports/`, etc. are **local** on public policy. |
+| **`supervisor_package/`** | Zip-style **mirror**: dissertation copy, `02_Results`, code copy, reproducibility copy | **Local only** (this repo policy) | **Convenient** for “one folder” email | See [`GITHUB_PUBLIC_PORTFOLIO.md`](GITHUB_PUBLIC_PORTFOLIO.md). |
+| **`archive/`** | Process/attendance (Appendix A sources), interim report, one-off scripts | **Local only** (this repo policy) | **Yes** for spec compliance | Appendix A paths still valid on **your laptop**. |
+| **`artifacts/`** | Packaged figure bundles / extra scripts | **Local only** (this repo policy) | Optional | |
 | **`assets/`** | Static images (e.g. literature diagrams for docs) | **Optional** | Optional | |
 | **`notebooks/`** | Exploration (e.g. CIC explore) | **Optional** | Optional | Not the main reproducible path. |
-| **`thesis_artifacts/`** | Draft exports / humanized tracks | **Optional** | Optional | Main thesis source: **`Arka_Talukder_Dissertation_Final_DRAFT.md`** at root. |
+| **`thesis_artifacts/`** | Draft exports / humanized tracks | **Local only** (this repo policy) | Optional | Thesis Markdown at repo root is **local** on public policy. |
 | **`video/`** | Root stub; real pack is **`docs/video/`** | **Optional** | Optional | Start at `docs/video/README.md`. |
 | **`data/`** | Raw/processed CICIoT2023 | **Never commit** (gitignored) | N/A | Download per `README.md`; supervisor does not need your local GB of CSV. |
 | **`.cursor/`**, **`.vscode/`**, **`venv/`** | Editor / local env | **No** (gitignored) | No | |
@@ -49,9 +49,9 @@ To defend the dissertation without relying on `supervisor_package/`:
 3. **Figures matching those numbers:** `results/figures/` (and `results/figures/appendix1/` if Appendix 1 is discussed).
 4. **Example alerts:** `results/alerts/example_alerts.json`.
 5. **How to rerun:** `SETUP_AND_RUN.md`, `config/experiment.yaml`, `scripts/run_all.py`.
-6. **Screen-share etiquette:** `docs/viva_supervisor_materials/README.md`.
+6. **Screen-share etiquette:** `docs/viva_supervisor_materials/README.md` (keep **`docs/viva/`** on **local** disk for this repo’s public policy).
 
-**Optional but strong:** `DISSERTATION_PROJECT_GUIDE.md`, `docs/viva/VIVA_COACH_ALL_PHASES.md`, `docs/reports/SUPERVISOR_FINAL_FEEDBACK.md`.
+**Optional but strong (local workspace):** root `DISSERTATION_PROJECT_GUIDE.md`, `docs/viva/VIVA_COACH_ALL_PHASES.md`, `docs/reports/SUPERVISOR_FINAL_FEEDBACK.md`.
 
 ---
 
@@ -97,4 +97,12 @@ Depends on licence and programme rules. Common choices:
 
 ---
 
-*Aligned with root `README.md`, `archive/README.md`, and `supervisor_package/README.md`. No code paths were moved in creating this document.*
+*Aligned with root `README.md`. Paths like `archive/README.md` and `supervisor_package/README.md` refer to your **local** full workspace; they are **not** on the public remote by this repo’s policy (see [`GITHUB_PUBLIC_PORTFOLIO.md`](GITHUB_PUBLIC_PORTFOLIO.md)).*
+
+---
+
+## 8. Public GitHub (“job portfolio”) vs this full map
+
+For a **lean public remote** (employers, peers), follow **[`GITHUB_PUBLIC_PORTFOLIO.md`](GITHUB_PUBLIC_PORTFOLIO.md)**: the **canonical implementation** remains **`src/`**, **`scripts/`**, **`config/`**, **`results/metrics/`**, and **`results/figures/`**; **mirrors** (`supervisor_package/`), **viva** trees, **submission PDFs**, **checkpoints**, and **long thesis Markdown** are intended to stay **local only** on the author’s machine (see `.gitignore`).
+
+Sections 1–7 above still describe the **full workspace** when every folder exists on disk.

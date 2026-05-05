@@ -45,3 +45,31 @@ docs/**/MSc Project Handbook*.docx   # University copyrighted material
 # Local scratch from handbook text extraction (do not commit)
 _handbook_extract.txt
 _guidance_extracts/
+
+# --- Public GitHub hygiene: full academic bundle stays on laptop only ---
+# Duplicates, viva packs, internal review, templates (see docs/GITHUB_PUBLIC_PORTFOLIO.md)
+supervisor_package/
+archive/
+docs/reference/
+docs/viva/
+docs/viva_supervisor_materials/
+docs/planning/
+docs/reports/
+docs/project_portfolio/feedback/
+
+# Final dissertation binaries and school forms (README.md in submission/ may stay tracked)
+/submission/*.docx
+/submission/*.pdf
+/submission/forms/
+
+# Long thesis sources at repo root (local); README describes the work without publishing full text
+/Arka_Talukder_Dissertation_Final_DRAFT.md
+/Dissertation_Arka_Talukder_Humanized.md
+/DISSERTATION_PROJECT_GUIDE.md
+
+thesis_artifacts/
+artifacts/
+results/generated_forms/
+
+# Model checkpoints (large; regenerate)
+results/checkpoints/

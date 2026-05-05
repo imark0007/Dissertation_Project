@@ -3,8 +3,8 @@
 **Title:** *Explainable Dynamic Graph Neural Network SIEM for Software-Defined IoT using Edge AI and Federated Learning*  
 **Student:** Arka Talukder (B01821011) — **MSc Cyber Security**, **University of the West of Scotland**  
 **Supervisor:** Dr Raja Ujjan  
-**Final dissertation (submission):** [`B01821011_Arka_Talukder_Dissertation_Final.docx`](../../submission/B01821011_Arka_Talukder_Dissertation_Final.docx) — same text as root [`Arka_Talukder_Dissertation_Final_DRAFT.md`](../../Arka_Talukder_Dissertation_Final_DRAFT.md).  
-*This script follows the **abstract** and main evaluation story of that report; on-screen numbers should match **Chapter 8** tables and your frozen [`results/metrics/`](../../results/metrics/) files.*
+**Examined dissertation (local workspace):** cross-check **`submission/`** Word and root thesis Markdown if present — see [`submission/README.md`](../../submission/README.md). Public clone: anchor on frozen [`results/metrics/`](../../results/metrics/).  
+*This script follows the **abstract** and main evaluation story of that report; on-screen numbers should match **Chapter 8** tables and your frozen `results/metrics/` files.*
 
 **Read at a calm pace; pause on transitions. Total target: ~5:20–5:50.**
 

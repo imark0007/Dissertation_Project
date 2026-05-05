@@ -1,5 +1,7 @@
 # Submission artefacts
 
+> **Public GitHub:** `.docx`, `.pdf`, and `forms/` are **not pushed** on the public remote (they remain on your laptop). See [`docs/GITHUB_PUBLIC_PORTFOLIO.md`](../docs/GITHUB_PUBLIC_PORTFOLIO.md) and root [`.gitignore`](../.gitignore).
+
 This folder holds **what you hand in** (or export for Turnitin) and **school paperwork copies**, separate from the runnable codebase under `src/` and `scripts/`.
 
 ## Canonical final report (examined line)
@@ -19,7 +21,7 @@ This folder holds **what you hand in** (or export for Turnitin) and **school pap
 |------|------|
 | `Arka_Talukder_Dissertation_Final_Submission_Humanized_version.docx` | **Humanized** Word export (if you use the humanized drafting track) |
 | `thesis_artifacts/01_Humanized_Updated.docx` | **Primary** humanized Word output (regenerated with `sync_humanized_md_and_docx.py`), if used |
-| *(optional build)* | `thesis_artifacts/02_Draft_Prose_Merged.docx` only if you run merged-draft tooling — see `docs/reports/DRAFT_OLD_MERGE_POLICY.md` |
+| *(optional build)* | `thesis_artifacts/02_Draft_Prose_Merged.docx` only if you run merged-draft tooling (merge policy notes stay **local** if you keep `docs/reports/`) |
 | **`forms/`** | Moodle / school templates: front sheet, library form, final-report guideline, signed **project specification** |
 
 ## Sync workflow
@@ -45,6 +47,6 @@ This folder holds **what you hand in** (or export for Turnitin) and **school pap
 
 ## Supervisor / viva
 
-For **what to show on screen** (and what to keep closed) during a meeting, see **[`../docs/viva_supervisor_materials/README.md`](../docs/viva_supervisor_materials/README.md)**.
+Screen-share notes and viva packs live under **`docs/viva/`** and **`docs/viva_supervisor_materials/`** on your **full workspace** (local only on the public-remote layout — see [`docs/GITHUB_PUBLIC_PORTFOLIO.md`](../docs/GITHUB_PUBLIC_PORTFOLIO.md)).
 
 To **audit** the final Word (read-only), run: `python scripts/audit_b018_submission_docx.py` (see script for the expected filename).

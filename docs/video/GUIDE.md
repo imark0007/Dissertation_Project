@@ -2,7 +2,7 @@
 
 **Audience:** supervisor / anyone who needs **end-to-end behaviour**, not a full thesis read.
 
-**Aligns with final report:** *Explainable Dynamic Graph Neural Network SIEM for Software-Defined IoT using Edge AI and Federated Learning* — **Arka Talukder**, **B01821011**, **MSc Cyber Security**, **University of the West of Scotland**, **Supervisor: Dr Raja Ujjan**. Written artefact: [`submission/B01821011_Arka_Talukder_Dissertation_Final.docx`](../../submission/B01821011_Arka_Talukder_Dissertation_Final.docx) (same narrative as root [`Arka_Talukder_Dissertation_Final_DRAFT.md`](../../Arka_Talukder_Dissertation_Final_DRAFT.md)). Do not contradict the **abstract** (fixed subset; limitations apply).
+**Aligns with your examined report (on your laptop):** *Explainable Dynamic Graph Neural Network SIEM for Software-Defined IoT using Edge AI and Federated Learning* — **Arka Talukder**, **B01821011**, **MSc Cyber Security**, **University of the West of Scotland**, **Supervisor: Dr Raja Ujjan**. On **public GitHub**, speak to **`results/metrics/`** and **`src/`**; if you have it locally, cross-check **submission** Word and root thesis Markdown ([`submission/README.md`](../../submission/README.md)). Do not contradict the **abstract** (fixed subset; limitations apply).
 
 ### Abstract ↔ video (from your final report)
 

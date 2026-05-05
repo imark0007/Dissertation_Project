@@ -793,7 +793,7 @@ def main(out_path: Path, md_path: Path | None = None) -> None:
     print("  3. Abstract: add drop cap on first letter if required by the School sample")
     print("  4. List of Abbreviations: colour the abbreviation column in Word if required")
     print("  5. Body text is 11pt / 1.5 spacing from Normal style; verify in Word; submit per module")
-    print("  6. Final Harvard list: Mendeley / Zotero / EndNote; see docs/reports/FINAL_WORD_FORMAT_MENDELEY_PAGE_BUDGET.md")
+    print("  6. Final Harvard list: Mendeley / Zotero / EndNote; follow UWS library guidance / programme handbook.")
 
 
 def _parse_args() -> argparse.Namespace:

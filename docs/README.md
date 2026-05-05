@@ -1,21 +1,18 @@
-# Documentation index
+# Documentation index (**public** `docs/` tree)
 
-**Authorship and integrity (examiners):** **[`../AUTHORSHIP.md`](../AUTHORSHIP.md)** at the repository root. **Copyright:** **[`../LICENSE`](../LICENSE)**. **Reuse / context for visitors:** **[`../NOTICE.md`](../NOTICE.md)**.
+**Authorship:** **[`../AUTHORSHIP.md`](../AUTHORSHIP.md)**. **Copyright:** [`../LICENSE`](../LICENSE). **Reuse:** [`../NOTICE.md`](../NOTICE.md).
 
-Stakeholder **“start here”** (final report, coordinator, supervisor, reproduce steps): **[`project_portfolio/README.md`](project_portfolio/README.md)** (this tree).
+**Job-facing vs full academic workspace:** **[`GITHUB_PUBLIC_PORTFOLIO.md`](GITHUB_PUBLIC_PORTFOLIO.md)** — what stays on **GitHub** versus what you keep **only on your laptop** (`docs/viva/`, `docs/reports/`, thesis PDFs, `supervisor_package/`, etc.; see root [`.gitignore`](../.gitignore)).
 
-**GitHub vs supervisor folders (what to commit, what to zip, no code moves):** **[`GITHUB_AND_SUPERVISOR_LAYOUT.md`](GITHUB_AND_SUPERVISOR_LAYOUT.md)**.
+**Stakeholder “start here”:** [`project_portfolio/README.md`](project_portfolio/README.md).
 
-Project prose, checklists, and planning live under **`docs/`**. The dissertation **source** is **`Arka_Talukder_Dissertation_Final_DRAFT.md`** at the **repository root**; final **Word / PDF** and **forms** are under **`../submission/`** (especially **`B01821011_Arka_Talukder_Dissertation_Final.docx`**). For a **single long-form explainer** (timeline, chapter map, Q&A), use **`../DISSERTATION_PROJECT_GUIDE.md`**.
+| Item | Contents |
+|------|----------|
+| **`GITHUB_PUBLIC_PORTFOLIO.md`** | Single map for employers and public clone hygiene. |
+| **`GITHUB_AND_SUPERVISOR_LAYOUT.md`** | Full-folder roles when the **entire** workspace exists locally. |
+| **`project_portfolio/`** | How to read this repository on the **public** remote. |
+| **`video/`** | 5–6 min demo — `README.md`, `GUIDE.md`, `SCRIPT.md`, `BLOCKS.md`, `CHECKLIST.md`. |
 
-| Folder | Contents |
-|--------|----------|
-| **`project_portfolio/`** | Step-by-step for GitHub, programme coordinator, supervisor; optional `feedback/` (action sheets). |
-| **`viva_supervisor_materials/`** | What to open vs. collapse in screen-share / viva. |
-| **`video/`** | **5–6 min demo** — `README.md` plus `GUIDE.md`, `SCRIPT.md`, `BLOCKS.md`, `CHECKLIST.md` only. |
-| **`reports/`** | Submission checklists, handbook / structure, `SUPERVISOR_FINAL_FEEDBACK.md`, final-report procedures. |
-| **`planning/`** | Roadmaps, publication notes, optional outlines. |
-| **`viva/`** | **[`README.md`](viva/README.md)** — index. **`VIVA_SCREEN_SHARE_CHECKLIST.md`**, rules, coach, **`supervisor_share/`**, **`supervisor_meeting_bundle/`**. |
-| **`reference/`** | `school_templates/`, dissertation samples, handbook copies (if present). |
+**Thesis / viva / school templates / internal checklists** live under paths described in **`GITHUB_PUBLIC_PORTFOLIO.md`**; they are **not** published on the public GitHub branch by design.
 
-Start from the repository **[`../README.md`](../README.md)** and **[`../SETUP_AND_RUN.md`](../SETUP_AND_RUN.md)**. Folder inventory: [`reports/PROJECT_STRUCTURE.md`](reports/PROJECT_STRUCTURE.md). **Archive** (interim, process, one-off): [`../archive/README.md`](../archive/README.md).
+Repository entrypoints: **[`../README.md`](../README.md)**, **[`../SETUP_AND_RUN.md`](../SETUP_AND_RUN.md)**.

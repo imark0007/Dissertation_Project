@@ -1,13 +1,13 @@
 # 5–6 minute supervisor demo video
 
-**What this is:** a **short screen recording** plan for *how the project works* and *what it outputs*, aligned with your **final submission Word** and the **same text** in repository Markdown (no changes to the `.docx` from this folder).
+**What this is:** a **short screen recording** plan for *how the project works* and *what it outputs*, aligned with **`results/`** and the pipeline in **`src/`**.
 
-| Final report (examined) | Text source of truth (repo) |
-|--------------------------|------------------------------|
-| [`submission/B01821011_Arka_Talukder_Dissertation_Final.docx`](../../submission/B01821011_Arka_Talukder_Dissertation_Final.docx) | [`Arka_Talukder_Dissertation_Final_DRAFT.md`](../../Arka_Talukder_Dissertation_Final_DRAFT.md) (root) |
-| Optional read-only PDF: [`B01821011_Final_Report.pdf`](../../submission/B01821011_Final_Report.pdf) | *same content as Word* |
+| Written report | Where |
+|----------------|--------|
+| **Public GitHub** | Full dissertation Word/PDF is **not** in the remote — use this pack + **`results/metrics/`** on camera. |
+| **Your laptop** | If you maintain them locally: `submission/B01821011_Arka_Talukder_Dissertation_Final.docx` and root `Arka_Talukder_Dissertation_Final_DRAFT.md` (see [`submission/README.md`](../../submission/README.md)). |
 
-**What to match on camera:** the **title**, **abstract** (research question, contribution, outcomes, limitations), and **chapter evidence map** in **GUIDE.md** — so what you **say** tracks **Dr Raja Ujjan**-supervised, **UWS** **MSc Cyber Security** report **B01821011**, and the **implemented** pipeline in `src/`, `config/`, `results/`.
+**What to match on camera:** the **title**, **abstract** (question, contribution, outcomes, limitations), and **chapter evidence** in **GUIDE.md** — consistent with **B01821011**, **UWS MSc Cyber Security**, supervisor **Dr Raja Ujjan**, and the code under `src/`.
 
 ## Use these four files
 
@@ -18,10 +18,6 @@
 | [**BLOCKS.md**](BLOCKS.md) | What to **show** on screen per block |
 | [**CHECKLIST.md**](CHECKLIST.md) | **Day of:** files to open, API, record/export tips |
 
-**Optional PDF:** [`submission/B01821011_Final_Report.pdf`](../../submission/B01821011_Final_Report.pdf)
+**Viva / long Q&A materials** (`docs/viva/`): **local full workspace only** on the public-remote policy — see [`../GITHUB_PUBLIC_PORTFOLIO.md`](../GITHUB_PUBLIC_PORTFOLIO.md).
 
-**Elsewhere:** [`viva/PROJECT_VIVA_MASTER_BRIEF.md`](../viva/PROJECT_VIVA_MASTER_BRIEF.md) (Q&A), [`viva_supervisor_materials/README.md`](../viva_supervisor_materials/README.md) (screen share).
-
-**Suggested filename:** `B01821011_Talukder_IoT_GNN_SIEM_Demo_6min.mp4`
-
-**Top-level [`video/README.md`](../../video/README.md)** in the repo only points here.
+**Top-level [`video/README.md`](../../video/README.md)** only points here.

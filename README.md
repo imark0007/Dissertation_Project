@@ -8,11 +8,9 @@ This is **Arka Talukder’s (B01821011)** final-year **individual** project: des
 
 | Reader | Open first |
 |--------|------------|
-| **Engineer / replicator** | [Quick start](#quick-start) · [`SETUP_AND_RUN.md`](SETUP_AND_RUN.md) · `config/experiment.yaml` |
-| **Coordinator / hand-in** | [`docs/project_portfolio/README.md`](docs/project_portfolio/README.md) · [`submission/`](submission/) |
-| **Supervisor / viva (screen share)** | [`docs/viva_supervisor_materials/README.md`](docs/viva_supervisor_materials/README.md) |
-| **Long story + Q&A** | [`DISSERTATION_PROJECT_GUIDE.md`](DISSERTATION_PROJECT_GUIDE.md) |
-| **Viva (15 min, screen files)** | [`docs/viva/VIVA_SCREEN_SHARE_CHECKLIST.md`](docs/viva/VIVA_SCREEN_SHARE_CHECKLIST.md) · [`docs/viva/README.md`](docs/viva/README.md) |
+| **Engineer / employer (public GitHub)** | [Quick start](#quick-start) · [`SETUP_AND_RUN.md`](SETUP_AND_RUN.md) · **[`docs/GITHUB_PUBLIC_PORTFOLIO.md`](docs/GITHUB_PUBLIC_PORTFOLIO.md)** |
+| **Stakeholder overview** | [`docs/project_portfolio/README.md`](docs/project_portfolio/README.md) · [`submission/README.md`](submission/README.md) |
+| **Full academic tree (thesis PDF, viva, forms, internal checklists)** | **On your laptop only** — not on the public remote; see **[`docs/GITHUB_PUBLIC_PORTFOLIO.md`](docs/GITHUB_PUBLIC_PORTFOLIO.md)** and [`.gitignore`](.gitignore) |
 
 ---
 
@@ -26,7 +24,7 @@ This is **Arka Talukder’s (B01821011)** final-year **individual** project: des
 | **Federated learning** | **FedAvg** with **Flower**, 3 clients, non-IID split (`src/federated/`) |
 | **Explainability** | **Integrated Gradients** + GAT attention → ranked features / nodes for alerts (`src/explain/`) |
 | **SOC output** | **FastAPI** `POST /score` → prediction + ECS-like alert JSON (`src/siem/`) |
-| **Thesis** | Source: [`Arka_Talukder_Dissertation_Final_DRAFT.md`](Arka_Talukder_Dissertation_Final_DRAFT.md) → Word in [`submission/`](submission/) (final: **`B01821011_Arka_Talukder_Dissertation_Final.docx`**) via [`scripts/dissertation_to_docx.py`](scripts/dissertation_to_docx.py) / [`scripts/sync_dissertation_and_docx.py`](scripts/sync_dissertation_and_docx.py) |
+| **Written report** | Full dissertation text is maintained **locally** (Markdown → Word under `submission/`). This public repo highlights **code + metrics + figures**. See [`submission/README.md`](submission/README.md) and [`docs/GITHUB_PUBLIC_PORTFOLIO.md`](docs/GITHUB_PUBLIC_PORTFOLIO.md). |
 
 ---
 
@@ -121,46 +119,34 @@ Values from [`results/metrics/results_table.csv`](results/metrics/results_table.
 
 ## Repository layout
 
-**Full map for GitHub, supervisor zip, and optional folders (read this before rearranging ideas or pruning the remote):** **[`docs/GITHUB_AND_SUPERVISOR_LAYOUT.md`](docs/GITHUB_AND_SUPERVISOR_LAYOUT.md)**.
+**What is on the public GitHub vs what stays on your laptop:** **[`docs/GITHUB_PUBLIC_PORTFOLIO.md`](docs/GITHUB_PUBLIC_PORTFOLIO.md)**.
+
+**Full-workspace map (when every folder exists locally):** **[`docs/GITHUB_AND_SUPERVISOR_LAYOUT.md`](docs/GITHUB_AND_SUPERVISOR_LAYOUT.md)**.
 
 ```
 config/experiment.yaml          # Single source of truth for paths, graph params, FL, model hparams
-src/
-  data/                         # preprocess, graph_builder, dataset
-  models/                       # dynamic_gnn, baselines, trainer
-  federated/                    # Flower client/server, Dirichlet split
-  explain/                      # Integrated Gradients + ExplanationBundle
-  siem/                         # FastAPI + ECS-style alert formatter
-  evaluation/                   # Metrics + plotting helpers
-scripts/
-  run_all.py                    # Master pipeline
-  generate_alerts_and_plots.py  # FL curve, model comparison, alerts
-  run_ablation.py               # GAT-only ablation
-  run_sensitivity_and_seeds.py  # Grid + seeds
-  dissertation_to_docx.py       # MD → submission/Arka_Talukder_Dissertation_Final_DRAFT.docx
-  sync_dissertation_and_docx.py # MD/Word sync + copy into supervisor_package when present
-  render_appendix1_code_figures.py
-submission/                     # Final B018 Word/PDF + school forms — see submission/README.md
+src/                            # preprocess, models, FL, explain, FastAPI, metrics helpers
+scripts/                        # run_all, ablation, sensitivity, dissertation export helpers, figures
+tests/                          # e.g. API tests
+notebooks/                      # Exploration notebooks
+results/
+  metrics/                      # JSON/CSV for tables in README / thesis
+  figures/                      # Plots (checkpoints/*.pt are local only — regenerate with run_all)
+  alerts/                       # Example SOC-style JSON outputs
+submission/README.md            # How hand-in files relate to local thesis sources (binaries not on public remote)
 docs/
-  README.md                     # Index of docs/
-  viva/                         # VIVA_SCREEN_SHARE_CHECKLIST.md, coach, supervisor_share/, meeting_bundle/
-  project_portfolio/            # Stakeholder “start here” (coordinator, programme, visitors)
-  viva_supervisor_materials/  # Viva: what to show / hide on screen
-  video/                        # 5–6 min demo pack (see also `video/` at repo root → here)
-  reports/ planning/           # Checklists, compliance, planning notes
-supervisor_package/             # Optional zip-style bundle (dissertation + results + code mirror)
-artifacts/                      # Optional packaged figure exports
-results/                        # metrics/, figures/, checkpoints/, alerts/
-Arka_Talukder_Dissertation_Final_DRAFT.md   # Thesis source (Markdown)
-Dissertation_Arka_Talukder_Humanized.md  # Optional alternate drafting track
-thesis_artifacts/               # Humanized / export outputs (if used)
-archive/                        # Interim, process/attendance, one-off — see archive/README.md
-video/                          # Stub → `docs/video/` (start at `docs/video/README.md`)
+  README.md                     # Documentation index
+  GITHUB_PUBLIC_PORTFOLIO.md    # Job-facing vs local-academic split
+  GITHUB_AND_SUPERVISOR_LAYOUT.md
+  project_portfolio/            # “Start here” for public-tree readers
+  video/                        # Short demo narrative (GUIDE, SCRIPT, …)
+video/README.md                 # Points to docs/video/
+assets/                         # Diagrams referenced from docs or thesis exports
 ```
 
-Large binaries, `venv/`, and raw/processed data stay **out of git** per [`.gitignore`](.gitignore).
+Large binaries, `venv/`, raw/processed **data**, **model checkpoints**, **thesis PDFs**, **viva packs**, and **duplicate hand-in mirrors** stay **out of the public remote** per [`.gitignore`](.gitignore).
 
-**Canonical code vs mirror:** The **authoritative implementation** is under **`src/`** and **`scripts/`** at the repository root. **`supervisor_package/`** is an optional **hand-in style bundle** (copies of dissertation, results, and code for one-folder review). If both appear, **develop and cite from root `src/`**, not the package copy, unless you are following a supervisor-specific path.
+**Canonical code:** **`src/`** and **`scripts/`** at the repository root. Any **`supervisor_package/`** copy on disk is for local assessment packaging only.
 
 ---
 
@@ -171,19 +157,12 @@ Large binaries, `venv/`, and raw/processed data stay **out of git** per [`.gitig
 | [`AUTHORSHIP.md`](AUTHORSHIP.md) | **Student identity, scope, and academic attribution** (for examiners) |
 | [`NOTICE.md`](NOTICE.md) | **Reuse, rights, and third-party use** (for visitors reusing or citing the repo) |
 | [`LICENSE`](LICENSE) | **Copyright — all rights reserved** (original repo content; third-party remains under their own licences) |
-| [`docs/GITHUB_AND_SUPERVISOR_LAYOUT.md`](docs/GITHUB_AND_SUPERVISOR_LAYOUT.md) | **What belongs on GitHub vs supervisor bundle** (folders, duplicates, lean clone) |
-| [`docs/project_portfolio/README.md`](docs/project_portfolio/README.md) | **Stakeholder start page** (coordinator, programme, final Word path, forms) |
+| [`docs/GITHUB_PUBLIC_PORTFOLIO.md`](docs/GITHUB_PUBLIC_PORTFOLIO.md) | **Public GitHub vs laptop** — what employers see; what stays local |
+| [`docs/GITHUB_AND_SUPERVISOR_LAYOUT.md`](docs/GITHUB_AND_SUPERVISOR_LAYOUT.md) | Full workspace roles (when `supervisor_package/`, `archive/`, thesis sources exist **locally**) |
+| [`docs/project_portfolio/README.md`](docs/project_portfolio/README.md) | **Start here** for coordinators and visitors reading this tree |
 | [`SETUP_AND_RUN.md`](SETUP_AND_RUN.md) | Step-by-step CLI, FL, API, literature figures |
-| [`docs/README.md`](docs/README.md) | Index of `docs/reports/`, `planning/`, `reference/` |
-| [`docs/reports/SUPERVISOR_FINAL_FEEDBACK.md`](docs/reports/SUPERVISOR_FINAL_FEEDBACK.md) | Final meeting checklist + evidence pointers |
-| [`docs/reports/SUBMISSION_CHECKLIST.md`](docs/reports/SUBMISSION_CHECKLIST.md) | Programme submission items |
-| [`docs/reports/FINAL_REPORT_GENERATION.md`](docs/reports/FINAL_REPORT_GENERATION.md) | Dissertation / Word workflow |
-| [`archive/README.md`](archive/README.md) | **Archive index:** interim report, process/attendance (Appendix A), one-time scripts; ties to Chapter 13 + `dissertation_to_docx.py` |
-| [`DISSERTATION_PROJECT_GUIDE.md`](DISSERTATION_PROJECT_GUIDE.md) | **Full narrative + Q&A prep** (read this for viva / supervisor meetings) |
-| [`docs/viva/README.md`](docs/viva/README.md) | **Viva section index:** screen checklist, rules, coach, bundle |
-| [`docs/viva/VIVA_SCREEN_SHARE_CHECKLIST.md`](docs/viva/VIVA_SCREEN_SHARE_CHECKLIST.md) | **15-minute viva:** which **files/folders** to show on screen (**minimum** set) |
-| [`docs/viva_supervisor_materials/README.md`](docs/viva_supervisor_materials/README.md) | **Supervisor / viva** — screen share: what to open, what to collapse |
-| [`docs/viva/supervisor_share/README.md`](docs/viva/supervisor_share/README.md) | **Supervisor code walk:** file open order, commands, implementation steps (viva prep) |
+| [`docs/README.md`](docs/README.md) | Index of **`docs/`** on the **public** remote |
+| [`submission/README.md`](submission/README.md) | Hand-in layout (`submission/*.docx` and forms are **local only** on the author’s machine) |
 | [`docs/video/README.md`](docs/video/README.md) | 5–6 min demo pack (GUIDE, SCRIPT, BLOCKS, CHECKLIST) |
 
 ---

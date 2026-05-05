@@ -2,11 +2,11 @@
 
 Paths from **repository root** unless noted. This file is in `docs/video/`.
 
-**aligned with final report:** What you show ([`results/metrics/results_table.csv`](../../results/metrics/results_table.csv), figures) should match **[`submission/B01821011_Arka_Talukder_Dissertation_Final.docx`](../../submission/B01821011_Arka_Talukder_Dissertation_Final.docx)** / [`Arka_Talukder_Dissertation_Final_DRAFT.md`](../../Arka_Talukder_Dissertation_Final_DRAFT.md). If you re-ran experiments after submitting, either refresh `results/` or say on camera that numbers are from the **logged** run cited in the thesis.
+**Align with your examined report:** What you show ([`results/metrics/results_table.csv`](../../results/metrics/results_table.csv), figures) should match the **submitted dissertation** on your **local** workspace (Word/Markdown under `submission/` and repo root — see [`submission/README.md`](../../submission/README.md)) if you still have those files. If you re-ran experiments after submitting, either refresh `results/` or say on camera that numbers are from the **logged** run cited in the thesis.
 
 ## Before you hit record
 
-- [ ] Close AI chat / agent side panels — [`viva_supervisor_materials/README.md`](../viva_supervisor_materials/README.md)
+- [ ] Close AI chat / agent side panels; collapse personal notes
 - [ ] Collapse folders you will not open; editor/browser zoom **125–150%**
 
 ### Have ready (Alt-Tab)
@@ -21,7 +21,7 @@ Paths from **repository root** unless noted. This file is in `docs/video/`.
 | 6 | [`results/alerts/example_alerts.json`](../../results/alerts/example_alerts.json) |
 | 7 | [`config/experiment.yaml`](../../config/experiment.yaml) |
 | 8 | [`SETUP_AND_RUN.md`](../../SETUP_AND_RUN.md) |
-| 9 | [`submission/B01821011_Arka_Talukder_Dissertation_Final.docx`](../../submission/B01821011_Arka_Talukder_Dissertation_Final.docx) |
+| 9 | Local final Word (if present): `submission/B01821011_Arka_Talukder_Dissertation_Final.docx` |
 
 **Optional 5 s:** [`src/models/dynamic_gnn.py`](../../src/models/dynamic_gnn.py) (class name only)
 

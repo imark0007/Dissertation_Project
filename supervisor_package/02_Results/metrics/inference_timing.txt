@@ -1,3 +1,0 @@
-RF	55.252
-MLP	0.278
-DynamicGNN	30.352
