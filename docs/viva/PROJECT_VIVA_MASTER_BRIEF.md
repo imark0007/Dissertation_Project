@@ -8,7 +8,9 @@ Use this file as a **revision sheet**: read sections aloud, trace claims to **fi
 
 **Printable 1–2 page squeeze:** `docs/viva/PROJECT_VIVA_CHEATSHEET_PRINT.md` (take to viva; keep the master brief for depth).
 
-**Supervisor meeting (code open order + commands):** [`docs/viva/supervisor_share/README.md`](supervisor_share/README.md) — start with **`01_FILES_TO_OPEN_IN_ORDER.md`**.
+**15-minute viva — which files to show on screen:** [`docs/viva/VIVA_SCREEN_SHARE_CHECKLIST.md`](VIVA_SCREEN_SHARE_CHECKLIST.md) (**minimum** set + **if asked** map).
+
+**Supervisor meeting: code walk order + zip options:** [`docs/viva/supervisor_share/README.md`](supervisor_share/README.md) — use the **checklist** above first for time.
 
 ---
 

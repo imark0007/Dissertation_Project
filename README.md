@@ -12,7 +12,7 @@ This is **Arka Talukder’s (B01821011)** final-year **individual** project: des
 | **Coordinator / hand-in** | [`docs/project_portfolio/README.md`](docs/project_portfolio/README.md) · [`submission/`](submission/) |
 | **Supervisor / viva (screen share)** | [`docs/viva_supervisor_materials/README.md`](docs/viva_supervisor_materials/README.md) |
 | **Long story + Q&A** | [`DISSERTATION_PROJECT_GUIDE.md`](DISSERTATION_PROJECT_GUIDE.md) |
-| **5–6 min demo video** | [`docs/video/README.md`](docs/video/README.md) (`GUIDE`, `SCRIPT`, `BLOCKS`, `CHECKLIST`) |
+| **Viva (15 min, screen files)** | [`docs/viva/VIVA_SCREEN_SHARE_CHECKLIST.md`](docs/viva/VIVA_SCREEN_SHARE_CHECKLIST.md) · [`docs/viva/README.md`](docs/viva/README.md) |
 
 ---
 
@@ -142,10 +142,12 @@ scripts/
   render_appendix1_code_figures.py
 submission/                     # Final B018 Word/PDF + school forms — see submission/README.md
 docs/
+  README.md                     # Index of docs/
+  viva/                         # VIVA_SCREEN_SHARE_CHECKLIST.md, coach, supervisor_share/, meeting_bundle/
   project_portfolio/            # Stakeholder “start here” (coordinator, programme, visitors)
   viva_supervisor_materials/  # Viva: what to show / hide on screen
   video/                        # 5–6 min demo pack (see also `video/` at repo root → here)
-  reports/ viva/ planning/      # Checklists, compliance, viva notes
+  reports/ planning/           # Checklists, compliance, planning notes
 supervisor_package/             # Optional zip-style bundle (dissertation + results + code mirror)
 artifacts/                      # Optional packaged figure exports
 results/                        # metrics/, figures/, checkpoints/, alerts/
@@ -178,6 +180,8 @@ Large binaries, `venv/`, and raw/processed data stay **out of git** per [`.gitig
 | [`docs/reports/FINAL_REPORT_GENERATION.md`](docs/reports/FINAL_REPORT_GENERATION.md) | Dissertation / Word workflow |
 | [`archive/README.md`](archive/README.md) | **Archive index:** interim report, process/attendance (Appendix A), one-time scripts; ties to Chapter 13 + `dissertation_to_docx.py` |
 | [`DISSERTATION_PROJECT_GUIDE.md`](DISSERTATION_PROJECT_GUIDE.md) | **Full narrative + Q&A prep** (read this for viva / supervisor meetings) |
+| [`docs/viva/README.md`](docs/viva/README.md) | **Viva section index:** screen checklist, rules, coach, bundle |
+| [`docs/viva/VIVA_SCREEN_SHARE_CHECKLIST.md`](docs/viva/VIVA_SCREEN_SHARE_CHECKLIST.md) | **15-minute viva:** which **files/folders** to show on screen (**minimum** set) |
 | [`docs/viva_supervisor_materials/README.md`](docs/viva_supervisor_materials/README.md) | **Supervisor / viva** — screen share: what to open, what to collapse |
 | [`docs/viva/supervisor_share/README.md`](docs/viva/supervisor_share/README.md) | **Supervisor code walk:** file open order, commands, implementation steps (viva prep) |
 | [`docs/video/README.md`](docs/video/README.md) | 5–6 min demo pack (GUIDE, SCRIPT, BLOCKS, CHECKLIST) |

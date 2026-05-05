@@ -9,11 +9,21 @@
 
 ## Start here (day of session)
 
-1. Read **`VIVA_SESSION_RULES.md`** (15-minute format, camera, recording, **no** slides, what to say first).  
-2. Then follow **`OPEN_FILES_IN_ORDER.md`** during screen share.  
-3. Paths are **relative to this folder**.
+1. Read **`VIVA_SESSION_RULES.md`** (15-minute format, camera, recording, **no** slides, first 5 minutes spoken only).  
+2. Read **`VIVA_SCREEN_SHARE_CHECKLIST.md`** (**exact** files and folders to show on screen; **minimum** set for time).  
+3. Use **`OPEN_FILES_IN_ORDER.md`** only if you need the **full** deep walk (more than 15 minutes allow).  
+4. Paths below are **relative to this folder**.
 
 ---
+
+## Quick links
+
+| Goal | File |
+|------|------|
+| **What to show on screen first** | **`VIVA_SCREEN_SHARE_CHECKLIST.md`** |
+| University rules text | **`VIVA_SESSION_RULES.md`** |
+| Full file order (optional) | **`OPEN_FILES_IN_ORDER.md`** |
+| Full **docs/viva** index (outside this zip) | **`../README.md`** in main repo’s **`docs/viva/`** |
 
 ## Path map (original repo → this bundle)
 

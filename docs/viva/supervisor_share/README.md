@@ -11,6 +11,7 @@ This folder is a **meeting guide** only: **no duplicate code**. You still use th
 
 | You need… | Open this file |
 |-----------|----------------|
+| **What to show on screen (15 min, minimum files)** | **[`../VIVA_SCREEN_SHARE_CHECKLIST.md`](../VIVA_SCREEN_SHARE_CHECKLIST.md)** |
 | **15-minute session rules** (camera, recording, no slides, first 5 minutes) | **[`VIVA_SESSION_RULES.md`](VIVA_SESSION_RULES.md)** |
 | **All walkthrough files in one folder** (copy for supervisor / zip) | **[`../supervisor_meeting_bundle/README.md`](../supervisor_meeting_bundle/README.md)** |
 | Map **viva words** to **files** (code run, design, testing, thesis, accuracy) | **[`00_VIVA_TOPICS_MAP.md`](00_VIVA_TOPICS_MAP.md)** |

@@ -1,8 +1,8 @@
 # Viva / defence session rules (15 minutes)
 
-Read this **before** you open **`01_FILES_TO_OPEN_IN_ORDER.md`**. These are the **official** session rules for your meeting.
+Read this **before** **`../VIVA_SCREEN_SHARE_CHECKLIST.md`**. For the **full** file list after that, see **`01_FILES_TO_OPEN_IN_ORDER.md`**.
 
-The **same** file lives under **`../supervisor_meeting_bundle/VIVA_SESSION_RULES.md`** if you use the one-folder bundle.
+The **same** rules file lives under **`../supervisor_meeting_bundle/VIVA_SESSION_RULES.md`** if you use the one-folder bundle.
 
 ---
 
@@ -33,7 +33,7 @@ You have about **5 minutes** for this block only.
 - **Share your screen** and **show** your work.
 - You are **not** expected to **run** every script **one by one** during the slot.
 - **Present and explain** using **existing code** and **existing outputs** (for example **`results/metrics/`**, figures, **`example_alerts.json`**).
-- Use **`01_FILES_TO_OPEN_IN_ORDER.md`** as your **tab order** in the **main repo**, or **`OPEN_FILES_IN_ORDER.md`** inside **`supervisor_meeting_bundle/`**.
+- Use **`../VIVA_SCREEN_SHARE_CHECKLIST.md`** for the **exact** **minimum** files on screen in **15** minutes. Use **`01_FILES_TO_OPEN_IN_ORDER.md`** only for a **longer** walk.
 
 **Tip:** Pre-open a few tabs (`config/experiment.yaml`, one model file, `results_table.csv`, one figure) so you do not waste time searching.
 
